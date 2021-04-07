@@ -9,6 +9,7 @@ import json
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
     
     """User Table"""
@@ -47,17 +48,19 @@ __tablename__ ='users'
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    """Stocks Table"""
+    
 
 class Stock(db.Model):
+    """Stocks Table"""
     #todo: check API to see what data I am able to get back
 
     __tablename__ = 'stocks'
 
     stock_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     symbol = db.Column(db.String, nullable = False)
+    name = db.Column(db.String, nullable = False)
     company_overview = db.Column(db.String, nullable = False)
-    industry_type = db.Column(db.String, nullable = False)
+    sector = db.Column(db.String, nullable = False)
     asset_type = db.Column(db.String, nullable = False)
     ipo_date = db.Column(db.datetime, nullable = False)
     current_price = db.Column(db.Integer, nullable = False)
@@ -71,68 +74,82 @@ class Stock(db.Model):
         data = {
             'stock_id': self.id,
             'symbol': self.symbol,
-            'company_overview': self.company_overview
-            'industry_type': self.industry_type
-            'asset_type': = self.asset_type
-            'ipo_date': self.ipo_date
-            'current_price': self.current_price
+            'name': self.name,
+            'company_overview': self.company_overview,
+            'sector': self.sector,
+            'asset_type': = self.asset_type,
+            'ipo_date': self.ipo_date,
+            'current_price': self.current_price,
             'ipo_price': SELF.ipo_price
         }
         return data
 
 
 class Subscription(db.Model):
-    """different subscription options for users"""
+    """Different subscription offerings for users"""
 
     __tablename__ = 'subscriptions'
 
     subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     description = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
-    created_time = db.Column(db.datetime)
-    status = db.Column(db.String(10), default='ACTIVE')
     subscription_value = db.Column(db.Integer) 
-    user = db.relationship('User', backref = 'subscription')
 
     def __repr__(self):
-        return f'<Subscription {self.subscription_id} for {self.user}>'
+        return f'<Subscription {self.subscription_id}>'
 
     def to_dict(self):
         data = {
             'subscription_id': self.subscription_id,
             'description': self.description,
-            'user_id': self.user_id
-            'created_time': self.created_time
-            'status': self.status,
-            'capacity': self.capacity,
             'subscription_value': self.subscription_value,
         }
         return data
 
 
-class Add_To_Subscription(db.Model):
-    """User adding a stock to a subcription box"""
+class User_To_Subscription(db.Model):
+    """User subscipting to a box"""
 
-    __tablename__ = 'bridge_table'
+    __tablename__ = 'user_to_subscription'
 
-    event_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
+    subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
-    stock_id = db.Column(db.Integer, db.ForeignKey('stocks.stock_id')) 
-    created_time = db.Column(db.datetime)
-    stock_price = db.Column(db.Integer, nullable = False) 
-    user = db.relationship('User', backref = 'Add_To_Subscription')
-    stock = db.relationship('Stock', backref = 'Add_To_Subscription')
+    added_time = db.Column(db.datetime)
+    user = db.relationship('User', backref = 'User_To_Subscription')
 
     def __repr__(self):
-        return f'<Added to subscription {self.event_id} of {self.stock_id} by {self.user}>'
+        return f'<Added to subscription {self.subscription_id} by {self.user}>'
 
     def to_dict(self):
         data = {
-            'event_id': self.event_id,
+            'subscription_id': self.event_id,
             'user_id': self.user_id
-            'created_time': self.created_time
+            'added_time': self.created_time
+        }
+        return data
+
+class Stock_To_Subscription(db.Model):
+    """Add stock to a subcription box"""
+
+    __tablename__ = 'stock_to_subscription'
+
+    subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
+    stock_id = db.Column(db.Integer, db.ForeignKey('stocks.stock_id'))
+    added_time = db.Column(db.datetime)
+    stock_price = db.Column(db.Integer, db.Foreignkey('stocks.current_price'), nullable = False) 
+    user = db.relationship('User', backref = 'stock_To_Subscription')
+    stock = db.relationship('Stock', backref = 'stock_To_Subscription')
+
+    def __repr__(self):
+        return f'<stock_to_subscription {self.subscription_id} of {self.stock_id}>'
+
+    def to_dict(self):
+        data = {
+            'subscription_id': self.event_id,
+            'user_id': self.user_id,
             'stock_id': self.stock_id,
-            'stock_price': self.stock_price,
+            'added_time': self.created_time,
+            'stock_price': self.stock_price
         }
         return data
 
@@ -169,6 +186,7 @@ def connect_to_db(flask_app, db_uri='postgresql:///', echo=False):
     db.app = flask_app
     db.init_app(flask_app)
 
+    print("connected to db!!!")
 
 if __name__ == '__main__':
     from server import app
