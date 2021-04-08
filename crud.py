@@ -1,6 +1,6 @@
 
-from server import db, connect_to_db
-from model import db, User, Stock, Subscription, User_To_Subscription, Stock_To_Subscription, Favorites, connect_to_db
+from server import connect_to_db
+from model import User, Stock, Subscription, Stock_in_Subscription, Favorites, connect_to_db, db
 import datetime
 import requests
 import csv
@@ -44,7 +44,7 @@ def create_subscription(subscription_id, description, subscription_value):
 
 #Create and return a new Stock_in_Subscription:
 def create_stock_in_subscription(subscription_id, user_id, stock_id, added_time,
-                        stock_price)
+                        stock_price):
 
     stock_in_subscription = Stock_in_Subscription(subscription_id = subscription_id, user_id = user_id, stock_id = stock_id,
                 added_time = added_time, stock_price = stock_price
@@ -118,10 +118,10 @@ def get_stock_by_id(stock_id):
     """Return a stock by primary key."""
     return Stock.query.get(stock_id)
 
-def get_fans_by_stock_id(stock_id):
-    """Return all fans of a stock."""
-    stock = get_stock_by_id(stock_id)
-    return stock.fans
+# def get_fans_by_stock_id(stock_id):
+#     """Return all fans of a stock."""
+#     stock = get_stock_by_id(stock_id)
+#     return stock.fans
 
 def get_subscriptions_by_id(subsciption_id):
     """Return a subscription by primary key."""

@@ -9,15 +9,8 @@ import json
 
 db = SQLAlchemy()
 
-favorites = db.Table('favorites', 
-        db.Column('user_id', db.Integer, db.ForeignKey('users.user_id')), 
-        db.Column('stock_id', db.String, db.ForeignKey('stocks.stock_id'))
-
-
 class User(db.Model):
-    
-    """User Table"""
-
+#user table
     __tablename__ ='users'
 
     user_id = db.Column(db.Integer, autoincrement=True, 
@@ -30,8 +23,8 @@ class User(db.Model):
     image_url = db.Column(db.String, default='')
     about = db.Column(db.Text)
 
-    favorites = db.relationship('Stock', secondary=favorites,
-                    backref='fans')
+    # favorites = db.relationship('Stock', secondary=favorites,
+    #                 backref='fans')
 
     def __repr__(self):
         return f'<User {self.fname} {self.lname}>'
@@ -55,7 +48,6 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    
 
 class Stock(db.Model):
     """Stocks Table"""
@@ -125,8 +117,8 @@ class Stock_in_Subscription(db.Model):
     subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
     stock_id = db.Column(db.Integer, db.ForeignKey('stocks.stock_id'))
-    added_time = db.Column(db.datetime)
-    stock_price = db.Column(db.Integer, db.Foreignkey('stocks.current_price'), nullable = False) 
+    added_time = db.Column(db.DateTime)
+    stock_price = db.Column(db.Integer, db.ForeignKey('stocks.current_price'), nullable = False) 
     user = db.relationship('User', backref = 'stock_in_subscription')
     stock = db.relationship('Stock', backref = 'stock_in_subscription')
 
@@ -168,7 +160,7 @@ class Favorites(db.Model):
         }
         return data
 
-def connect_to_db(flask_app, db_uri='postgresql:///', echo=False):
+def connect_to_db(flask_app, db_uri='postgresql:///stocks', echo=False):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     flask_app.config['SQLALCHEMY_ECHO'] = echo
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
