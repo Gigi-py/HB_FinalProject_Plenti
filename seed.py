@@ -7,12 +7,10 @@ from random import choice, randint, sample
 from datetime import datetime
 import crud
 from model import connect_to_db, db
-from faker import Faker
-from model import connect_to_db, db
 from server import app
 
 os.system('dropdb stocks')
-os.sytem('creatdb stocks')
+os.system('creatdb stocks')
 
 connect_to_db(app, echo=False)
 db.create_all()

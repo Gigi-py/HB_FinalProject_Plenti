@@ -5,6 +5,7 @@ import datetime
 import requests
 import csv
 
+# USER INFO ==================================
 #Create and return a new user:
 def create_user(user_id, fname, lname, username, image_url, about):
     """Return list of user objects"""
@@ -17,7 +18,48 @@ def create_user(user_id, fname, lname, username, image_url, about):
     db.session.commit()
     return user
 
+
+#check password for user:
+def check_password(email, password):
+    """ Check password and email for logging in"""
+
+    user= get_user_by_email(email)
+   
+    if not user:
+        return False
+    if user.password == password:
+        return True
+    else:
+        return False
+
+# STOCK INFO ================================
 #Create and return a new stock:
+
+API_KEY = "J18XE5872X9Y79OQ"
+
+def get_all_stocks():
+    """Get stock name info from AA API to store in db """
+    url = 'https://www.alphavantage.co/query?function=LISTING_STATUS&apikey='+ API_KEY
+    res = requests.get(url)
+    params = dict(key=API_KEY, text='stocks', lang='en-es')
+    res = requests.get(url, params=params)
+    decoded = res.content.decode('utf-8')
+
+    csv_read = csv.reader(decoded.splitlines(), delimiter=',')
+    all_stocks = list(csv_read)
+    return all_stocks
+
+def save_stocks(all_stocks):
+    """save all stocks (names, symbol, etc.. ) in the database from AA API  """
+
+    for stock in all_stocks:
+        stock = Stock(symbol = stock[0], stock_name=stock[1], asset_type=stock[3], ipo_date=stock[4])
+       
+        db.session.add(stockInfo)
+        db.session.commit()
+
+    return "Finished"
+
 def create_stock(stock_id, symbol, name, 
                 description, sector, 
                 asset_type, ipo_date, 
@@ -32,7 +74,8 @@ def create_stock(stock_id, symbol, name,
     db.session.commit()
     return stock
 
-#Create and return a new Subscription:
+#SUBSCRIPTION INFO =============
+# Create and return a new Subscription:
 def create_subscription(subscription_id, description, subscription_value):
 
     subscription = Subscription(subscription_id = subscription_id, description = description, 
@@ -54,14 +97,16 @@ def create_stock_in_subscription(subscription_id, user_id, stock_id, added_time,
     db.session.commit()
     return stock_in_subscription
 
-#Create and return a new Favorite stock:
+#FAVORITE INFO=========================
+# #Create and return a new Favorite stock:
 def create_favorites(favorite_id, user_id, status, stock_id):
     favorites = Favorites (favorite_id = favorite_id, user_id = user_id, status = status, stock_id = stock_id)
     db.session.add(favorites)
     db.session.commit()
     return favorites
 
-
+#OTHER FEATURES ==============================
+# USERS
 def get_user_by_id(user_id):
     """Return a user by primary key."""
     return User.query.get(user_id)
@@ -91,6 +136,42 @@ def update_user(username, fname, lname, email, password, image_url, about):
 
     db.session.commit()
 
+#STOCKS
+
+def get_stock():
+    """Return a stock by primary key."""
+    return Stock.query.all()
+
+def get_stock_by_id(stock_id):
+    """Return a stock by primary key."""
+    return Stock.query.get(stock_id)
+
+# def get_fans_by_stock_id(stock_id):
+#     """Return all fans of a stock."""
+#     stock = get_stock_by_id(stock_id)
+#     return stock.fans
+
+#SUBSCRIPTION
+def get_subscriptions_by_id(subsciption_id):
+    """Return a subscription by primary key."""
+    return Subscription.query.get(subscription_id)
+
+# def get_stock_in_subscription(subsciption_id):
+#     """Return a subscription by primary key."""
+#     return Subscription.query.get(subscription_id)
+
+
+#FAVORITES
+
+def create_user_stock_relationship(user, stock):
+    """Make stock object a favorite of user object."""
+    user.favorites.append(stock)
+    db.session.commit()
+
+def delete_user_stock_relationship(user, stock):
+    user.favorites.remove(stock)
+    db.session.commit()
+
 def get_favorites_by_user_id(user_id):
     """Return all favorite stocks of user."""
     user = get_user_by_id(user_id)
@@ -104,42 +185,3 @@ def get_stock_by_user_stock_id(user_id, stock_id):
         return stock
     else:
         return None
-
-def create_user_stock_relationship(user, stock):
-    """Make stock object a favorite of user object."""
-    user.favorites.append(stock)
-    db.session.commit()
-
-def delete_user_stock_relationship(user, stock):
-    user.favorites.remove(stock)
-    db.session.commit()
-
-def get_stock_by_id(stock_id):
-    """Return a stock by primary key."""
-    return Stock.query.get(stock_id)
-
-# def get_fans_by_stock_id(stock_id):
-#     """Return all fans of a stock."""
-#     stock = get_stock_by_id(stock_id)
-#     return stock.fans
-
-def get_subscriptions_by_id(subsciption_id):
-    """Return a subscription by primary key."""
-    return Subscription.query.get(subscription_id)
-
-# def get_stock_in_subscription(subsciption_id):
-#     """Return a subscription by primary key."""
-#     return Subscription.query.get(subscription_id)
-
-
-def check_password(email, password):
-    """ Check password and email for logging in"""
-
-    user= get_user_by_email(email)
-   
-    if not user:
-        return False
-    if user.password == password:
-        return True
-    else:
-        return False
