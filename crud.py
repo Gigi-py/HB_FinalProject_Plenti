@@ -1,44 +1,136 @@
+
 from server import db, connect_to_db
-import model
+from model import db, User, Stock, Subscription, User_To_Subscription, Stock_To_Subscription, Favorites, connect_to_db
 import datetime
 import requests
 import csv
 
-#Create user information:
+#Create and return a new user:
 def create_user(user_id, fname, lname, username, image_url, about):
     """Return list of user objects"""
-    user = User(user_id = user_id, fname = fname, lname = lname, username = username, img = image_url, about = about)
+    user = User(username = username, fname = fname, lname = lname,  email = email, img = image_url, about = about)
+     # Set the password_hash with password
+
+    user.set_password(password)
+    
     db.session.add(user)
     db.session.commit()
     return user
 
-def get_user_by_fname(user_id):
-    return User.query.filter(User.id == user_id).first()
+#Create and return a new stock:
+def create_stock(stock_id, symbol, name, 
+                description, sector, 
+                asset_type, ipo_date, 
+                current_price, ipo_price):
+
+    stock = Stock(stock_id = stock_id, symbol = symbol, name = name, 
+                description = description, sector = sector, 
+                asset_type = asset_type, ipo_date = ipo_date, 
+                current_price = current_price, ipo_price = ipo_price)
+
+    db.session.add(stock)
+    db.session.commit()
+    return stock
+
+#Create and return a new Subscription:
+def create_subscription(subscription_id, description, subscription_value):
+
+    subscription = Subscription(subscription_id = subscription_id, description = description, 
+                subscription_value = subscription_value, user_id = user_id)
+
+    db.session.add(subscription)
+    db.session.commit()
+    return subscription
+
+#Create and return a new Stock_in_Subscription:
+def create_stock_in_subscription(subscription_id, user_id, stock_id, added_time,
+                        stock_price)
+
+    stock_in_subscription = Stock_in_Subscription(subscription_id = subscription_id, user_id = user_id, stock_id = stock_id,
+                added_time = added_time, stock_price = stock_price
+    )
+
+    db.session.add(stock_in_subscription)
+    db.session.commit()
+    return stock_in_subscription
+
+#Create and return a new Favorite stock:
+def create_favorites(favorite_id, user_id, status, stock_id):
+    favorites = Favorites (favorite_id = favorite_id, user_id = user_id, status = status, stock_id = stock_id)
+    db.session.add(favorites)
+    db.session.commit()
+    return favorites
+
 
 def get_user_by_id(user_id):
-    """Return a user by primary with user email"""
-    user_id_identification = User.query.get(user_id)
+    """Return a user by primary key."""
+    return User.query.get(user_id)
 
-    return user_id_identification
+def get_user_by_username(username):
+    """Return a user by username."""
+    return User.query.filter_by(username=username).first()
 
 def get_user_by_email(email):
     """Return a user by email."""
+    return User.query.filter_by(email=email).first()
 
-    return User.query.filter(User.email == email).first()
+def update_user(username, fname, lname, email, password, image_url, about):
+    
+    if fname:
+        user.fname = fname
+    if lname:
+        user.lname = lname
+    if email:
+        user.email = email
+    if password:
+        user.set_password(password)
+    if image_url:
+        user.image_url = image_url
+    if about:
+        user.about = about
 
-
-def create_user(email, password, first_name, last_name):
-    """create a new user"""
-
-    user = User(email=email,
-                password=password,
-                first_name=first_name, 
-                last_name=last_name)
-
-    db.session.add(user)
     db.session.commit()
 
-    return user
+def get_favorites_by_user_id(user_id):
+    """Return all favorite stocks of user."""
+    user = get_user_by_id(user_id)
+    return user.favorites
+
+def get_stock_by_user_stock_id(user_id, stock_id):
+    """Return a stock if favorited by that user. Return None if not favorited."""
+    user = get_user_by_id(user_id)
+    stock = get_stock_by_id(stock_id)
+    if stock in user.favorites:
+        return stock
+    else:
+        return None
+
+def create_user_stock_relationship(user, stock):
+    """Make stock object a favorite of user object."""
+    user.favorites.append(stock)
+    db.session.commit()
+
+def delete_user_stock_relationship(user, stock):
+    user.favorites.remove(stock)
+    db.session.commit()
+
+def get_stock_by_id(stock_id):
+    """Return a stock by primary key."""
+    return Stock.query.get(stock_id)
+
+def get_fans_by_stock_id(stock_id):
+    """Return all fans of a stock."""
+    stock = get_stock_by_id(stock_id)
+    return stock.fans
+
+def get_subscriptions_by_id(subsciption_id):
+    """Return a subscription by primary key."""
+    return Subscription.query.get(subscription_id)
+
+# def get_stock_in_subscription(subsciption_id):
+#     """Return a subscription by primary key."""
+#     return Subscription.query.get(subscription_id)
+
 
 def check_password(email, password):
     """ Check password and email for logging in"""
@@ -51,43 +143,3 @@ def check_password(email, password):
         return True
     else:
         return False
-
-# stock info ================================================================
-
-# ============================favorite info ===============================================
-def create_favorites(user_id, stock_id):
-    """create and returns user favorites from stocks list """
-
-    userBaskets = UserBasket(
-                    user_id = user_id,
-                    stock_id = stock_id)
-
-    
-    db.session.add(userBaskets)
-    db.session.commit()
-
-    return userBaskets
-
-def delete_stock_user(user_id, stock_id):
-    """delete from database when user unfavorites stock"""
-    fav_obj = db.session.query(UserBasket).filter(UserBasket.user_id == user_id,UserBasket.stock_id == stock_id).first()
-    # print(fav_obj)
-
-    db.session.query(UserBasket).filter(UserBasket.user_id == user_id,UserBasket.stock_id == stock_id).first()
-    db.session.delete(fav_obj)
-    db.session.commit()
-    
-
-def user_favorites(user_id):
-    """returns all user favorites"""
-    favs = UserBasket.query.filter(user_id=user_id).all()
-
-
-    db.session.add(favs)
-    db.session.commit()
-    return favs
-def get_user_fav(user_id,stock_id):
-
-    userfav= UserBasket.query.filter_by(user_id=user_id, stock_id=stock_id).one()
-
-    return userfav

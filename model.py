@@ -9,6 +9,10 @@ import json
 
 db = SQLAlchemy()
 
+favorites = db.Table('favorites', 
+        db.Column('user_id', db.Integer, db.ForeignKey('users.user_id')), 
+        db.Column('stock_id', db.String, db.ForeignKey('stocks.stock_id'))
+
 
 class User(db.Model):
     
@@ -25,6 +29,9 @@ class User(db.Model):
     password_hash = db.Column(db.String)
     image_url = db.Column(db.String, default='')
     about = db.Column(db.Text)
+
+    favorites = db.relationship('Stock', secondary=favorites,
+                    backref='fans')
 
     def __repr__(self):
         return f'<User {self.fname} {self.lname}>'
@@ -93,6 +100,8 @@ class Subscription(db.Model):
     subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     description = db.Column(db.Text)
     subscription_value = db.Column(db.Integer) 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    user = db.relationship('User', backref = 'Subscription')
 
     def __repr__(self):
         return f'<Subscription {self.subscription_id}>'
@@ -102,47 +111,27 @@ class Subscription(db.Model):
             'subscription_id': self.subscription_id,
             'description': self.description,
             'subscription_value': self.subscription_value,
+            'user_id': self.user_id
         }
         return data
 
 
-class User_To_Subscription(db.Model):
-    """User subscipting to a box"""
-
-    __tablename__ = 'user_to_subscription'
-
-    subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
-    added_time = db.Column(db.DateTime)
-    user = db.relationship('User', backref = 'User_To_Subscription')
-
-    def __repr__(self):
-        return f'<Added to subscription {self.subscription_id} by {self.user}>'
-
-    def to_dict(self):
-        data = {
-            'subscription_id': self.event_id,
-            'user_id': self.user_id,
-            'added_time': self.added_time
-        }
-        return data
-
-class Stock_To_Subscription(db.Model):
+class Stock_in_Subscription(db.Model):
     """Add stock to a subcription box"""
     """which stock is in the subcription box"""
 
-    __tablename__ = 'stock_to_subscription'
+    __tablename__ = 'stock_in_subscription'
 
     subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
     stock_id = db.Column(db.Integer, db.ForeignKey('stocks.stock_id'))
     added_time = db.Column(db.datetime)
     stock_price = db.Column(db.Integer, db.Foreignkey('stocks.current_price'), nullable = False) 
-    user = db.relationship('User', backref = 'stock_To_Subscription')
-    stock = db.relationship('Stock', backref = 'stock_To_Subscription')
+    user = db.relationship('User', backref = 'stock_in_subscription')
+    stock = db.relationship('Stock', backref = 'stock_in_subscription')
 
     def __repr__(self):
-        return f'<stock_to_subscription {self.subscription_id} of {self.stock_id}>'
+        return f'<stock_in_subscription {self.subscription_id} of {self.stock_id}>'
 
     def to_dict(self):
         data = {
@@ -159,7 +148,7 @@ class Favorites(db.Model):
 
     __tablename__ = 'favorites'
 
-    event_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
+    favorite_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
     status = db.Column(db.String(10), default='LIKED')
     stock_id = db.Column(db.Integer, db.ForeignKey('stocks.stock_id')) 
@@ -172,7 +161,7 @@ class Favorites(db.Model):
 
     def to_dict(self):
         data = {
-            'event_id': self.event_id,
+            'favorite_id': self.favorite_id,
             'user_id': self.user_id,
             'status': self.status,
             'stock_id': self.stock_id
