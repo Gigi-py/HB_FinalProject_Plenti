@@ -14,9 +14,9 @@ class User(db.Model):
     
     """User Table"""
 
-__tablename__ ='users'
+    __tablename__ ='users'
 
-    id = db.Column(db.Integer, autoincrement=True, 
+    user_id = db.Column(db.Integer, autoincrement=True, 
                     primary_key=True)
     username = db.Column(db.String) #unique=True
     fname = db.Column(db.String)
@@ -31,7 +31,7 @@ __tablename__ ='users'
 
     def to_dict(self, include_email=False):
         data = {
-            'id': self.id,
+            'user_id': self.user_id,
             'username': self.username,
             'fname': self.fname,
             'lname': self.lname,
@@ -59,10 +59,10 @@ class Stock(db.Model):
     stock_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     symbol = db.Column(db.String, nullable = False)
     name = db.Column(db.String, nullable = False)
-    company_overview = db.Column(db.String, nullable = False)
+    description = db.Column(db.String, nullable = False)
     sector = db.Column(db.String, nullable = False)
     asset_type = db.Column(db.String, nullable = False)
-    ipo_date = db.Column(db.datetime, nullable = False)
+    ipo_date = db.Column(db.DateTime, nullable = False)
     current_price = db.Column(db.Integer, nullable = False)
     ipo_price = db.Column(db.Integer, nullable = False)
     # ipo_date = db.Column(db.String, nullable = False)
@@ -77,7 +77,7 @@ class Stock(db.Model):
             'name': self.name,
             'company_overview': self.company_overview,
             'sector': self.sector,
-            'asset_type': = self.asset_type,
+            'asset_type': self.asset_type,
             'ipo_date': self.ipo_date,
             'current_price': self.current_price,
             'ipo_price': SELF.ipo_price
@@ -113,7 +113,7 @@ class User_To_Subscription(db.Model):
 
     subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
-    added_time = db.Column(db.datetime)
+    added_time = db.Column(db.DateTime)
     user = db.relationship('User', backref = 'User_To_Subscription')
 
     def __repr__(self):
@@ -122,13 +122,14 @@ class User_To_Subscription(db.Model):
     def to_dict(self):
         data = {
             'subscription_id': self.event_id,
-            'user_id': self.user_id
-            'added_time': self.created_time
+            'user_id': self.user_id,
+            'added_time': self.added_time
         }
         return data
 
 class Stock_To_Subscription(db.Model):
     """Add stock to a subcription box"""
+    """which stock is in the subcription box"""
 
     __tablename__ = 'stock_to_subscription'
 
@@ -172,7 +173,7 @@ class Favorites(db.Model):
     def to_dict(self):
         data = {
             'event_id': self.event_id,
-            'user_id': self.user_id
+            'user_id': self.user_id,
             'status': self.status,
             'stock_id': self.stock_id
         }

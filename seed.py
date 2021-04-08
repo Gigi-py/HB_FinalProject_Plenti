@@ -38,3 +38,32 @@ for stock in stock_data:
 
 db_stock = crud.create_stock(stock_id, symbol, name, company_overview, sector, asset_type, ipo_date, current_price, ipo_price)
 stocks_in_db.append(db_stock)
+
+#Create the 10 users
+with open('data/users.json') as f:
+    user_data = json.loads(f.read())
+
+users_in_db = []
+
+for user in user_data:
+    fname, lname, username, image_url, about = (
+        u['fname'],
+        u['lname'],
+        u['username'],
+        u['image_url'],
+        u['about']
+    )
+    email = f'{username}@username.com'
+    password = 'test'
+    db_user = crud.create_user(username,fname,lname,email,password,image_url,about)
+    users_in_db.append(db_user)
+
+    if u['username'] == 'gigi':
+        db_user.favorites.extend(stocks_in_db)
+    else:
+        # Favorite 5 stocks
+        favorite_list = sample(stocks_in_db, 5)
+        for r in r_list:
+            db_user.favorites.append(r)
+
+db.session.commit()

@@ -1,13 +1,16 @@
 from server import db, connect_to_db
-from model import User, Stock, UserBasket
+import model
+import datetime
 import requests
 import csv
 
-# user info================================================================
-def get_user():
+#Create user information:
+def create_user(user_id, fname, lname, username, image_url, about):
     """Return list of user objects"""
-
-    return User.query.all()
+    user = User(user_id = user_id, fname = fname, lname = lname, username = username, img = image_url, about = about)
+    db.session.add(user)
+    db.session.commit()
+    return user
 
 def get_user_by_fname(user_id):
     return User.query.filter(User.id == user_id).first()
