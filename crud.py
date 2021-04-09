@@ -9,7 +9,7 @@ import csv
 #Create and return a new user:
 def create_user(user_id, fname, lname, username, image_url, about):
     """Return list of user objects"""
-    user = User(username = username, fname = fname, lname = lname,  email = email, img = image_url, about = about)
+    user = User(username = username, fname = fname, lname = lname,  img = image_url, about = about)
      # Set the password_hash with password
 
     user.set_password(password)
@@ -51,9 +51,10 @@ def get_all_stocks():
 
 def save_stocks(all_stocks):
     """save all stocks (names, symbol, etc.. ) in the database from AA API  """
-
+    sample_stocks = []
     for stock in all_stocks:
-        stock = Stock(symbol = stock[0], stock_name=stock[1], asset_type=stock[3], ipo_date=stock[4])
+        if stock[0] in sample_stocks:
+            stock = Stock(symbol = stock[0], stock_name=stock[1], asset_type=stock[3], ipo_date=stock[4])
        
         db.session.add(stockInfo)
         db.session.commit()

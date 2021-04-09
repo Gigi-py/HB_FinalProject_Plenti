@@ -118,7 +118,7 @@ class Stock_in_Subscription(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
     stock_id = db.Column(db.Integer, db.ForeignKey('stocks.stock_id'))
     added_time = db.Column(db.DateTime)
-    stock_price = db.Column(db.Integer, db.ForeignKey('stocks.current_price'), nullable = False) 
+    stock_price = db.Column(db.Integer) 
     user = db.relationship('User', backref = 'stock_in_subscription')
     stock = db.relationship('Stock', backref = 'stock_in_subscription')
 

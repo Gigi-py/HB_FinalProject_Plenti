@@ -1,4 +1,4 @@
-{
+[{
     "Symbol": "IBM",
     "AssetType": "Common Stock",
     "Name": "International Business Machines Corporation",
@@ -59,4 +59,4 @@
     "ExDividendDate": "2021-02-09",
     "LastSplitFactor": "2:1",
     "LastSplitDate": "1999-05-27"
-}
+}]
