@@ -18,6 +18,11 @@ db.create_all()
 # load stock data from JSON file
 # There are 20 stocks
 
+top_stocks = ['paypal', 'hilton', 'pinterest', 'twilio', 'wayfair', 
+            'microsoft', 'ups', 'bankofamerica', 'adobe', 'spotify', 
+            'Disney', 'Facebook', 'Sonos', 'Zoom', 'Etsy', 'Tesla', 
+            'Container store', 'LBrands', 'Ford', 'Walgreens']
+
 with open('data/stocks.json') as f:
     stock_data = json.loads(f.read())
 
