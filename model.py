@@ -35,6 +35,7 @@ class User(db.Model):
             'lname': self.lname,
             'image_url': self.image_url,
             'city': self.city,
+            'dob': self.dob
             'about': self.about
         }
         if include_email:

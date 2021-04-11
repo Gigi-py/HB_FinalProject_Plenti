@@ -1,6 +1,4 @@
 
-# import relevant libraries and functions
-
 import os
 import json
 from random import choice, randint, sample
@@ -17,49 +15,67 @@ db.create_all()
 
 # load stock data from JSON file
 # There are 20 stocks
-
 top_stocks = ['paypal', 'hilton', 'pinterest', 'twilio', 'wayfair', 
             'microsoft', 'ups', 'bankofamerica', 'adobe', 'spotify', 
-            'Disney', 'Facebook', 'Sonos', 'Zoom', 'Etsy', 'Tesla', 
-            'Container store', 'LBrands', 'Ford', 'Walgreens']
+            'disney', 'facebook', 'sonos', 'zoom', 'etsy', 'tesla', 
+            'container store', 'lBrands', 'ford', 'walgreens']
 
 with open('data/stocks.json') as f:
     stock_data = json.loads(f.read())
 
-#check model.py to make sure it's consistent
+#create stocks, and store them in a list
 stocks_in_db = []
 for stock in stock_data:
-    symbol, name, description, industry, asset_type = (
+    symbol, company_name, description, industry, asset_type, ipo_date, 
+    current_price, ipo_price = (
     stock['Symbol'],
     stock['Name'],
     stock['Description'],
     stock['Industry'],
     stock['AssetType'],
+    stock['IPO_Date'],
+    stock['Price'],
+    stock['IPO_Price']
     )
 
-db_stock = crud.create_stock(symbol, name, description, industry, asset_type)
+db_stock = crud.create_stock(stock_id, symbol, company_name, 
+                description, industry, 
+                asset_type, ipo_date, 
+                current_price, ipo_price)
 stocks_in_db.append(db_stock)
 
-#Create the 10 test users
+# Create 5 test users (MVP)
 with open('data/users.json') as f:
     user_data = json.loads(f.read())
 
 users_in_db = []
 
 for user in user_data:
-    print(user)
-    print(type(user))
-    fname, lname, username, image_url, about = (
+
+    username, fname, lname, image_url, city, dob, about = (
+        user['username'],
         user['fname'],
         user['lname'],
-        user['username'],
         user['image_url'],
+        user['city'],
+        user['dob'],
         user['about']
     )
+
+ 'user_id': self.user_id,
+            'username': self.username,
+            'fname': self.fname,
+            'lname': self.lname,
+            'image_url': self.image_url,
+            'city': self.city,
+            'dob': self.dob
+            'about': self.about
+
+
     email = f'{username}@gmail.com'
     password = 'test'
 
-    db_user = crud.create_user(username,fname,lname,password,image_url,about)
+    db_user = crud.create_user(username,fname,lname,image_url,city,dob,about)
     users_in_db.append(db_user)
 
     if user['username'] == 'gigi':
