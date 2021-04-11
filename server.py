@@ -11,7 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from jinja2 import StrictUndefined
 
 
-ALPHAVANTAGE_KEY = os.environ['ALPHAVANTAGE_KEY']
+#ALPHAVANTAGE_KEY = os.environ['ALPHAVANTAGE_KEY']
 
 # cloudinary.config(
 #   cloud_name = os.environ['CLOUDINARY_CLOUD_NAME'],  
@@ -28,7 +28,7 @@ def start_heree():
     return 'Hi! This is the homepage'
 
 @app.route('/hello')
-def say_hello:
+def say_hello():
     """say hello to user"""
 
     return renter_template("hello.html")

@@ -15,7 +15,7 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer, autoincrement=True, 
                     primary_key=True)
-    username = db.Column(db.String) #unique=True
+    username = db.Column(db.String) 
     fname = db.Column(db.String)
     lname = db.Column(db.String)
     email = db.Column(db.String, unique=True)
@@ -56,14 +56,14 @@ class Stock(db.Model):
     __tablename__ = 'stocks'
 
     stock_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    symbol = db.Column(db.String, nullable = False)
-    name = db.Column(db.String, nullable = False)
-    description = db.Column(db.String, nullable = False)
-    sector = db.Column(db.String, nullable = False)
-    asset_type = db.Column(db.String, nullable = False)
-    ipo_date = db.Column(db.DateTime, nullable = False)
-    current_price = db.Column(db.Integer, nullable = False)
-    ipo_price = db.Column(db.Integer, nullable = False)
+    symbol = db.Column(db.String)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    industry = db.Column(db.String)
+    asset_type = db.Column(db.String)
+    ipo_date = db.Column(db.DateTime)
+    current_price = db.Column(db.Integer)
+    ipo_price = db.Column(db.Integer)
     # ipo_date = db.Column(db.String, nullable = False)
 
     def __repr__(self):
@@ -75,7 +75,7 @@ class Stock(db.Model):
             'symbol': self.symbol,
             'name': self.name,
             'company_overview': self.company_overview,
-            'sector': self.sector,
+            'industry': self.sector,
             'asset_type': self.asset_type,
             'ipo_date': self.ipo_date,
             'current_price': self.current_price,
