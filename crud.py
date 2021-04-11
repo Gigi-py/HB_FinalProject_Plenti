@@ -36,6 +36,7 @@ def check_password(email, password):
 #Create and return a new stock:
 
 API_KEY = "J18XE5872X9Y79OQ"
+POLY_API_KEY = 'ehldCsvN37bNwxkDthi_G__QfTdDF3rT'
 
 def get_all_stocks():
     """Get stock name info from AA API to store in db """
