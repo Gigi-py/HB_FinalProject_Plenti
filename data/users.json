@@ -1,7 +1,44 @@
-[{
+[
+    
+    {
     "username": "gabriella",
     "fname": "Gabriella",
     "lname": "Savage",
-    "image_url": "",
-    "about": "Hi, I am Gabriella."
-}]
+    "image_url": "/static/img/GSav.png",
+    "about": "Hi, I am Gabriella and I love learning about stocks."
+    },
+
+    {
+    "username": "jennifer",
+    "fname": "Jennifer",
+    "lname": "Lopex",
+    "image_url": "/static/img/JLo.png",
+    "about": "Hi, I am Jennifer and I need no introduction."
+    },
+
+    {
+        "username": "prince",
+        "fname": "Prince",
+        "lname": "Harry",
+        "image_url": "/static/img/harry.jpeg",
+        "about": "Hi, my name is Harry and I love Silicon Valley."
+    },
+
+    {
+        "username": "ariana",
+        "fname": "Ariana",
+        "lname": "Grande",
+        "image_url": "/static/img/Ariana.jpeg",
+        "about": "Hi, I am Ariana and I love investing because these dresses won't pay for themselves."
+    },
+
+    {
+        "username": "elon",
+        "fname": "Elon",
+        "lname": "Musk",
+        "image_url": "/static/img/elon-musk.jpeg",
+        "about": "Hi, I am Elon and I hope you invest in Tesla."
+    }
+
+]
+
