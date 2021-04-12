@@ -36,11 +36,11 @@ for stock in stock_data:
         float(stock['Price']),
         )
 
-db_stock = crud.create_stock(symbol, company_name, 
+    db_stock = crud.create_stock(symbol, company_name, 
                 description, industry, 
                 asset_type, ipo_date, 
                 current_price)
-stocks_in_db.append(db_stock)
+    stocks_in_db.append(db_stock)
 
 # Create 5 test users (MVP)
 with open('data/users.json') as f:
