@@ -118,7 +118,7 @@ class Stock_in_Subscription(db.Model):
 
     __tablename__ = 'stock_in_subscription'
 
-    subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
+    stock_in_subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
     stock_id = db.Column(db.Integer, db.ForeignKey('stocks.stock_id'))
     added_time = db.Column(db.DateTime)
@@ -131,10 +131,10 @@ class Stock_in_Subscription(db.Model):
 
     def to_dict(self):
         data = {
-            'subscription_id': self.event_id,
+            'stock_in_subscription_id': self.stock_in_subscription_id,
             'user_id': self.user_id,
             'stock_id': self.stock_id,
-            'added_time': self.created_time,
+            'added_time': self.added_time,
             'stock_price': self.stock_price
         }
         return data

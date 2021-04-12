@@ -62,28 +62,10 @@ for user in user_data:
         user['about']
     )
 
- 'user_id': self.user_id,
-            'username': self.username,
-            'fname': self.fname,
-            'lname': self.lname,
-            'image_url': self.image_url,
-            'city': self.city,
-            'dob': self.dob
-            'about': self.about
-
-
     email = f'{username}@gmail.com'
     password = 'test'
 
     db_user = crud.create_user(username,fname,lname,image_url,city,dob,about)
     users_in_db.append(db_user)
-
-    if user['username'] == 'gigi':
-        db_user.favorites.extend(stocks_in_db)
-    else:
-        # Favorite 5 stocks
-        favorite_list = sample(stocks_in_db, 5)
-        for stock in favorite_list:
-            db_user.favorites.append(stock)
 
 db.session.commit()
