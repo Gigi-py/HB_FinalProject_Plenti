@@ -5,7 +5,8 @@
     "fname": "Gabriella",
     "lname": "Savage",
     "image_url": "/static/img/GSav.png",
-    "about": "Hi, I am Gabriella and I love learning about stocks."
+    "about": "Hi, I am Gabriella and I love learning about stocks.",
+    "city": "San Francisco"
     },
 
     {
@@ -13,7 +14,8 @@
     "fname": "Jennifer",
     "lname": "Lopex",
     "image_url": "/static/img/JLo.png",
-    "about": "Hi, I am Jennifer and I need no introduction."
+    "about": "Hi, I am Jennifer and I need no introduction.",
+    "city": "Los Angelas"
     },
 
     {
@@ -21,7 +23,8 @@
         "fname": "Prince",
         "lname": "Harry",
         "image_url": "/static/img/harry.jpeg",
-        "about": "Hi, my name is Harry and I love Silicon Valley."
+        "about": "Hi, my name is Harry and I love Silicon Valley.",
+        "city": "London"
     },
 
     {
@@ -29,7 +32,8 @@
         "fname": "Ariana",
         "lname": "Grande",
         "image_url": "/static/img/Ariana.jpeg",
-        "about": "Hi, I am Ariana and I love investing because these dresses won't pay for themselves."
+        "about": "Hi, I am Ariana and I love investing because these dresses won't pay for themselves.",
+        "city": "New York"
     },
 
     {
@@ -37,7 +41,8 @@
         "fname": "Elon",
         "lname": "Musk",
         "image_url": "/static/img/elon-musk.jpeg",
-        "about": "Hi, I am Elon and I hope you invest in Tesla."
+        "about": "Hi, I am Elon and I hope you invest in Tesla.",
+        "city": "Mars"
     }
 
 ]

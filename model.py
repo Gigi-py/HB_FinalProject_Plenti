@@ -21,7 +21,6 @@ class User(db.Model):
     password_hash = db.Column(db.String)
     image_url = db.Column(db.String, default='/static/img/JLo.jpeg')
     city = db.Column(db.String)
-    dob = db.Column(db.Date)
     about = db.Column(db.Text)
 
     def __repr__(self):
@@ -35,7 +34,6 @@ class User(db.Model):
             'lname': self.lname,
             'image_url': self.image_url,
             'city': self.city,
-            'dob': self.dob
             'about': self.about
         }
         if include_email:
@@ -61,16 +59,14 @@ class Stock(db.Model):
     industry = db.Column(db.String)
     asset_type = db.Column(db.String)
     ipo_date = db.Column(db.DateTime)
-    current_price = db.Column(db.Integer)
-    ipo_price = db.Column(db.Integer)
-    # ipo_date = db.Column(db.String, nullable = False)
+    current_price = db.Column(db.Float)
 
     def __repr__(self):
         return f'<Stock {self.stock_id} {self.symbol}>'
 
     def to_dict(self):
         data = {
-            'stock_id': self.id,
+            'stock_id': self.stock_id,
             'symbol': self.symbol,
             'company_name': self.company_name,
             'description': self.description,
@@ -78,7 +74,6 @@ class Stock(db.Model):
             'asset_type': self.asset_type,
             'ipo_date': self.ipo_date,
             'current_price': self.current_price,
-            'ipo_price': SELF.ipo_price
         }
         return data
 

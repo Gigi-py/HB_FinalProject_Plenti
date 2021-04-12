@@ -7,9 +7,9 @@ import csv
 
 # USER INFO ==================================
 #Create and return a new user:
-def create_user(username, fname, lname, image_url, city, dob, about):
+def create_user(username, fname, lname, image_url, city, about, password):
     """Return list of user objects"""
-    user = User(username = username, fname = fname, lname = lname,  img = image_url, city = city, dob = dob, about = about)
+    user = User(username = username, fname = fname, lname = lname,  image_url = image_url, city = city, about = about)
      # Set the password_hash with password
     user.set_password(password)
     
@@ -36,16 +36,15 @@ ALPHAVANTAGE_API_KEY = "J18XE5872X9Y79OQ"
 POLY_API_KEY = 'ehldCsvN37bNwxkDthi_G__QfTdDF3rT'
 
 #Create and add a new stock to the database:
-def create_stock(stock_id, symbol, company_name, 
+def create_stock(symbol, company_name, 
                 description, industry, 
                 asset_type, ipo_date, 
-                current_price, ipo_price):
+                current_price):
 
-    stock = Stock(stock_id = stock_id, symbol = symbol, name = name, 
+    stock = Stock(symbol = symbol, company_name = company_name, 
                 description = description, industry = industry, 
                 asset_type = asset_type, ipo_date = ipo_date, 
-                current_price = current_price, ipo_price = ipo_price)
-
+                current_price = current_price)
     db.session.add(stock)
     db.session.commit()
     return stock

@@ -18,7 +18,7 @@ db.create_all()
 top_stocks = ['paypal', 'hilton', 'pinterest', 'twilio', 'wayfair', 
             'microsoft', 'ups', 'bankofamerica', 'adobe', 'spotify', 
             'disney', 'facebook', 'sonos', 'zoom', 'etsy', 'tesla', 
-            'container store', 'lBrands', 'ford', 'walgreens']
+            'container store', 'lululemon', 'ford', 'walgreens']
 
 with open('data/stocks.json') as f:
     stock_data = json.loads(f.read())
@@ -26,22 +26,20 @@ with open('data/stocks.json') as f:
 #create stocks, and store them in a list
 stocks_in_db = []
 for stock in stock_data:
-    symbol, company_name, description, industry, asset_type, ipo_date, 
-    current_price, ipo_price = (
-    stock['Symbol'],
-    stock['Name'],
-    stock['Description'],
-    stock['Industry'],
-    stock['AssetType'],
-    stock['IPO_Date'],
-    stock['Price'],
-    stock['IPO_Price']
-    )
+    symbol, company_name, description, industry, asset_type, ipo_date, current_price = (
+        stock['Symbol'],
+        stock['Name'],
+        stock['Description'],
+        stock['Industry'],
+        stock['AssetType'],
+        stock['IPO_Date'],
+        float(stock['Price']),
+        )
 
-db_stock = crud.create_stock(stock_id, symbol, company_name, 
+db_stock = crud.create_stock(symbol, company_name, 
                 description, industry, 
                 asset_type, ipo_date, 
-                current_price, ipo_price)
+                current_price)
 stocks_in_db.append(db_stock)
 
 # Create 5 test users (MVP)
@@ -52,20 +50,19 @@ users_in_db = []
 
 for user in user_data:
 
-    username, fname, lname, image_url, city, dob, about = (
+    username, fname, lname, image_url, city, about = (
         user['username'],
         user['fname'],
         user['lname'],
         user['image_url'],
         user['city'],
-        user['dob'],
         user['about']
     )
 
     email = f'{username}@gmail.com'
     password = 'test'
 
-    db_user = crud.create_user(username,fname,lname,image_url,city,dob,about)
+    db_user = crud.create_user(username,fname,lname,image_url,city,about,password)
     users_in_db.append(db_user)
 
 db.session.commit()
