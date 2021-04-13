@@ -60,6 +60,7 @@ class Stock(db.Model):
     asset_type = db.Column(db.String)
     ipo_date = db.Column(db.DateTime)
     current_price = db.Column(db.Integer)
+    
 
     def __repr__(self):
         return f'<Stock {self.stock_id} {self.symbol}>'
