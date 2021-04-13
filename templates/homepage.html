@@ -1,14 +1,70 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>
-      Plenti
-    </title>
-    WELCOME!
-  </head>
-  <body>
-    Investing made simple
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Plenti{% endblock %}
+{% block head %}Welcome to Plenti{% endblock %}
+{% block body %}
+    <p>Creating abundance one stock at a time</p>
+    
+    <p>{{quote}}!</p>
+
+    <form action="/signin" method="post">
+      <div>
+        <img src="static/img/Jlo.jpeg" alt="profile_pic" class="profile_pic">
+      </div>
+    
+      <div>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+    
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+    
+        <button type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+    
+      <div class="container">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+    </form>
+
+    <img src="/static/img/NewYork.jpeg" alt="New York skyline">
+
+    <form action = "/signup", method="POST">
+      <div>
+        <h1>Don't have an account? Register here</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+    
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+  
+        <label for="fname"><b>First Name</b></label>
+        <input type="text" placeholder="Enter First Name" name="fname" required>
+  
+        <label for="lname"><b>Last Name</b></label>
+        <input type="text" placeholder="Enter Last Name" name="lname" required>
+  
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+  
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+    
+        <label>
+          <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+        </label>
+    
+        <p>By creating an account you agree to our Terms & Privacy</p>
+    
+        <div>
+          <button type="button" class="cancelbtn">Cancel</button>
+          <button type="submit" class="signupbtn">Sign Up</button>
+        </div>
+      </div>
+    </form>
+
+{% endblock %}

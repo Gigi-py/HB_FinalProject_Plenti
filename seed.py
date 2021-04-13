@@ -66,3 +66,4 @@ for user in user_data:
     users_in_db.append(db_user)
 
 db.session.commit()
+

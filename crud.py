@@ -4,32 +4,17 @@ from model import User, Stock, Subscription, Stock_in_Subscription, connect_to_d
 import datetime
 import requests
 import csv
+import json
 
 # USER INFO ==================================
 #Create and return a new user:
 def create_user(username, fname, lname, image_url, city, about, password):
     """Return list of user objects"""
-    user = User(username = username, fname = fname, lname = lname,  image_url = image_url, city = city, about = about)
-     # Set the password_hash with password
-    user.set_password(password)
+    user = User(username = username, fname = fname, lname = lname,  image_url = image_url, city = city, about = about, password = password)
     
     db.session.add(user)
     db.session.commit()
     return user
-
-
-#check password for user:
-def check_password(email, password):
-    """ Check password and email for logging in"""
-
-    user = get_user_by_email(email)
-   
-    if not user:
-        return False
-    if user.password == password:
-        return True
-    else:
-        return False
 
 # STOCK INFO ================================
 ALPHAVANTAGE_API_KEY = "J18XE5872X9Y79OQ"
@@ -74,3 +59,29 @@ def create_stock_in_subscription(stock_in_subscription_id, user_id, stock_id, ad
     return stock_in_subscription
 
 #OTHER FEATURES ==============================
+def get_quote():
+    with open('data/quotes.json') as q:
+        quotes = json.loads(q.read())
+    return quotes
+
+def get_users():
+    """Return all users."""
+
+    return User.query.all()
+
+
+def get_user_by_id(user_id):
+    """Return a user by primary key."""
+
+    return User.query.get(user_id)
+
+def get_user_by_username(username):
+    """Return a user by username."""
+    return User.query.filter(User.username == username).first()
+
+
+
+def get_user_by_email(email):
+    """Return a user by email."""
+
+    return User.query.filter(User.email == email).first()
