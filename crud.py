@@ -20,6 +20,12 @@ def create_user(username, fname, lname, image_url, city, about, password):
 ALPHAVANTAGE_API_KEY = "J18XE5872X9Y79OQ"
 POLY_API_KEY = 'ehldCsvN37bNwxkDthi_G__QfTdDF3rT'
 
+top_stocks = ['paypal', 'hilton', 'pinterest', 'twilio', 'wayfair', 
+            'microsoft', 'ups', 'bankofamerica', 'adobe', 'spotify', 
+            'disney', 'facebook', 'sonos', 'zoom', 'etsy', 'tesla', 
+            'container store', 'lululemon', 'ford', 'walgreens']
+
+
 #Create and add a new stock to the database:
 def create_stock(symbol, company_name, 
                 description, industry, 

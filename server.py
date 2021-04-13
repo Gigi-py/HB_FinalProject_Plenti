@@ -28,7 +28,7 @@ def login():
 
     if password == 'test' and username == 'JLo':
         session['logged_in'] = True
-        return redirect('dashboard.html')
+        return redirect('/allstocks')
     # else:
     #     flash('wrong password!')
     #     return redirect('homepage.html')
@@ -67,7 +67,13 @@ def register_user():
     
     session['user_id'] = user.user_id 
     
-    return redirect('dashboard.html')
+    return redirect('/allstocks')
+
+@app.route('/allstocks')
+def view_all_stocks():
+    """view a list of all stocks to invest."""
+    return render_template("/allstocks.html")
+
 
 
 if __name__ == '__main__':
