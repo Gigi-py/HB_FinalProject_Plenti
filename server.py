@@ -74,7 +74,15 @@ def view_all_stocks():
     """view a list of all stocks to invest."""
     return render_template("/allstocks.html")
 
+@app.route('/subscriptions')
+def view_all_subscriptions():
+    """view a list of all subscriptions to choose from."""
+    return render_template("/subscriptions.html") 
 
+@app.route('/checkout')
+def checkout():
+    """checkout subscription payments"""
+    return render_template("/checkout.html")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
