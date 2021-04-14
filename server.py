@@ -13,7 +13,6 @@ import stripe
 
 stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 
-
 app = Flask(__name__)
 app.secret_key = 'dev'
 connect_to_db(app)
@@ -24,18 +23,30 @@ def homepage():
     quote_of_the_day = choice(crud.get_quote())
     return render_template('homepage.html', quote = quote_of_the_day)
 
-@app.route('/signin', methods=['POST'])
+@app.route('/api/users/login', methods=['POST'])
 def login():
-    """login for existing user"""
-    username = request.form.get('username')
-    password = request.form.get('password')
+    username = request.json['username'].lower()
+    password = request.json['password']
 
-    if password == 'test' and username == 'JLo':
-        session['logged_in'] = True
-        return redirect('/allstocks')
-    # else:
-    #     flash('wrong password!')
-    #     return redirect('homepage.html')
+    user = crud.get_user_by_username(username)
+    if not user:
+        return jsonify({
+            'status': 'error',
+            'message': 'User does not exist.'
+        })
+    else:
+        if user.check_password(password):
+            session['user_id'] = user.id
+            return jsonify({
+                'status': 'success',
+                'message': 'Successfully logged in.',
+                'user': user.to_dict('include_email')
+            })
+        else:
+            return jsonify({
+                'status': 'error',
+                'message': 'Invalid password.'
+            })
 
 
 @app.route('/signup', methods=['POST'])
