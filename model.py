@@ -3,67 +3,67 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy_imageattach.entity import Image, image_attachment
 import json
 
 db = SQLAlchemy()
 
-#USER========================================
+#USER================================================
 class User(db.Model):
 #user table
-    __tablename__ ='users'
+    __tablename__ ='user'
 
-    user_id = db.Column(db.Integer, autoincrement=True, 
+    id = db.Column(db.Integer, autoincrement=True, 
                     primary_key=True)
     username = db.Column(db.String, unique=True) 
     fname = db.Column(db.String)
     lname = db.Column(db.String)
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
-    image_url = db.Column(db.String, default='/static/img/JLo.jpeg')
-    city = db.Column(db.String)
-    about = db.Column(db.Text)
+    avatar = image_attachement('UserPicture')
+    address = db.Column(db.String)
 
     def __repr__(self):
         return f'<User {self.fname} {self.lname}>'
 
     def to_dict(self, include_email=True):
         data = {
-            'user_id': self.user_id,
+            'user_id': self.id,
             'username': self.username,
             'fname': self.fname,
             'lname': self.lname,
-            'image_url': self.image_url,
-            'city': self.city,
-            'about': self.about
+            'email': self.email,
+            'avatar': self.avatar,
+            'address': self.address,
         }
-        if include_email:
-            data['email'] = self.email
+    
         return data
 
-    # def set_password(self, password):
-    #     self.password_hash = generate_password_hash(password)
-    
-    # def check_password(self, password):
-    #     return check_password_hash(self.password_hash, password)
+class UserPicture(self, Image):
+    """User picture model."""
+
+    user_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
+    user = relationship('User')
+    __tablename__ = 'user_picture'
 
 #STOCKS ===================================
 class Stock(db.Model):
     """Stocks Table"""
 
-    __tablename__ = 'stocks'
+    __tablename__ = 'stock'
 
-    stock_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     symbol = db.Column(db.String)
     company_name = db.Column(db.String)
     description = db.Column(db.String)
     industry = db.Column(db.String)
     asset_type = db.Column(db.String)
-    ipo_date = db.Column(db.DateTime)
-    current_price = db.Column(db.Integer)
+    currency = db.Column(db.String)
+    company_url = db.Column(db.String)
+    stockprice = relationship("stockprice", backref=backref("stock", uselist=False)) #one to one relationship
     
-
     def __repr__(self):
-        return f'<Stock {self.stock_id} {self.symbol}>'
+        return f'<Stock {self.id} {self.symbol}>'
 
     def to_dict(self):
         data = {
@@ -73,36 +73,78 @@ class Stock(db.Model):
             'description': self.description,
             'industry': self.industry,
             'asset_type': self.asset_type,
-            'ipo_date': self.ipo_date,
+            'currency': self.currency,
             'current_price': self.current_price,
+            'company_url': self.company_url
         }
         return data
 
-#SUBSCRIPTION ===================================
-class Subscription(db.Model):
-    """Different subscription offerings for users"""
 
-    __tablename__ = 'subscriptions'
-
-    subscription_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
-    created_date = db.Column(db.DateTime)
-    updated_date = db.Column(db.DateTime)
-    description = db.Column(db.Text)
-    monthly_investment = db.Column(db.Integer) 
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    user = db.relationship('User', backref = 'Subscription')
+class StockPrice():
+    __tablename__ = 'stockprice'
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    stock_id = db.Column(db.Integer, db.ForeignKey(stock.id))
+    date = db.Colummn(db.DateTime)
+    open = db.Column(db.Float)
+    high = sdb.Column(db.Float)
+    low = db.Column(db.Float)
+    close = db.Column(db.Float)
+    volumn = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'<Subscription {self.subscription_id}>'
+        return f'<Stock Price for {self.symbol} on {self.date}>'
 
     def to_dict(self):
         data = {
-            'subscription_id': self.subscription_id,
-            'created_date': self.created_date,
-            'updated_date': self.updated_date,
-            'description': self.description,
-            'monthly_investment': self.monthly_vaue,
+            'symbol': self.symbol,
+            'date': self.date,
+            'open': self.open,
+            'high': self.high,
+            'low': self.low,
+            'close': self.close,
+            'volumn': self.volumn,
+        }
+
+        return data
+
+#SUBSCRIPTION ===================================
+class Plan(db.Model):
+    """Different monthly plans"""
+
+    __tablename__ = 'plan'
+
+    id = db.Column(db.Integer, autoincrement= True, primary_key=True)
+    name = db.Column(db.String)
+    stocks_per_month = db.Column(db.Integer)
+    investment_per_month = db.Column(db.Integer) 
+
+    def __repr__(self):
+        return f'<Plan {self.name}>'
+
+    def to_dict(self):
+        data = {
+            'plan_name': self.name,
+            'stocks_per_month': self.stocks_per_month,
+            'investment_per_month': self.investment_per_month,
+            'user_id': self.user_id
+        }
+        return data
+
+class Subscription(db.Model):
+    id = db.Column(db.Integer, autoincrement= True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    plan_id = db.Column(db.Integer, db.ForeignKey('plan.id'))
+    Subscription_start_timestamp = db.Column(db.DateTime)
+    Subscription_end_timestamp = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return f'<Plan {self.name}>'
+
+    def to_dict(self):
+        data = {
+            'plan_name': self.name,
+            'stocks_per_month': self.stocks_per_month,
+            'investment_per_month': self.investment_per_month,
             'user_id': self.user_id
         }
         return data

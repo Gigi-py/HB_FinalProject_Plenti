@@ -2,6 +2,7 @@
 
 
 from flask import (Flask, render_template, request, flash, session, jsonify, redirect)
+from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, User, Stock, Subscription, Stock_in_Subscription
 from random import sample, choice
 import crud
@@ -120,3 +121,4 @@ def show_blogs():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
+     DebugToolbarExtension(app)
