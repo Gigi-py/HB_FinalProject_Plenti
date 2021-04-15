@@ -5,25 +5,100 @@ import datetime
 import requests
 import csv
 import json
+import os
 
 # USER INFO ==================================
 #Create and return a new user:
 def create_user(username, fname, lname, image_url, city, about, password):
     """Return list of user objects"""
-    user = User(username = username, fname = fname, lname = lname,  image_url = image_url, city = city, about = about, password = password)
+    user = User(username = username, fname = fname, lname = lname,  
+                image_url = image_url, city = city, about = about, password = password)
     
     db.session.add(user)
     db.session.commit()
+
     return user
 
-# STOCK INFO ================================
-ALPHAVANTAGE_API_KEY = "J18XE5872X9Y79OQ"
-POLY_API_KEY = 'ehldCsvN37bNwxkDthi_G__QfTdDF3rT'
+def check_password(email, password):
+    """ Check password and email for logging in"""
 
-top_stocks = ['paypal', 'hilton', 'pinterest', 'twilio', 'wayfair', 
-            'microsoft', 'ups', 'bankofamerica', 'adobe', 'spotify', 
-            'disney', 'facebook', 'sonos', 'zoom', 'etsy', 'tesla', 
-            'container store', 'lululemon', 'ford', 'walgreens']
+    user = get_user_by_email(email)
+   
+    if not user:
+        return False
+    if user.password == password:
+        return True
+    else:
+        return False
+
+# STOCK INFO ================================
+API_KEY = "J18XE5872X9Y79OQ"
+POLY_API_KEY = 'ehldCsvN37bNwxkDthi_G__QfTdDF3rT'
+API_URL = "https://www.alphavantage.co/query"
+
+stock_symbols = ['PYPL','HLT', 'PINS', 'TWLO', 'W', 'MSFT', 'UPS', 'BAC', 'ADBE', 'SPOT', 'DIS', 'FB', 'SONO',
+        'ZM', 'ETSY', 'TSLA', 'TCS', 'LULU', 'F', 'WBA']
+
+def get_fundamentals():
+    fundamental_data = []
+    for symbol in stock_symbols:
+        data = { "function": "OVERVIEW",
+            "symbol": symbol,
+            "outputsize" : "full",
+            "datatype": "json", 
+            "apikey": API_KEY} 
+
+        response = requests.get(API_URL, data) 
+        response_json = response.json() 
+        fundamental_data.append(serialize_api_obj(response_json))
+    return fundamental_data
+
+def serialize_api_obj(api_obj):
+    allowed_keys = [
+      "Symbol",
+      "AssetType",
+      "Name",
+      "Description", "Industry",
+      "Price",
+      "IPO_Date"  
+    ]
+
+    return {k: v for k, v in api_obj.items() if k in allowed_keys}
+
+def get_price():
+    price_data = []
+    for symbol in stock_symbols:
+        data = { "function": "GLOBAL_QUOTE",
+                "symbol": symbol,
+                "outputsize" : "full",
+                "datatype": "json",
+                "apikey": API_KEY
+                }
+
+        response = requests.get(API_URL, data) 
+        response_json = response.json() 
+        price_data.append(response_json)
+
+    return price_data
+
+
+    # stocks_in_db = []
+    # for stock in stock_data:
+    #     symbol, company_name, description, industry, asset_type, current_price = (
+    #         stock['Symbol'],
+    #         stock['Name'],
+    #         stock['Description'],
+    #         stock['Industry'],
+    #         stock['AssetType'],
+    #         float(stock['Price']),
+    #         )
+
+    #     db_stock = crud.create_stock(symbol, company_name, 
+    #                 description, industry, 
+    #                 asset_type, ipo_date, 
+    #                 current_price)
+    #     stocks_in_db.append(db_stock)
+    # return all_stocks
 
 
 #Create and add a new stock to the database:

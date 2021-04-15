@@ -1,43 +1,83 @@
 {% extends 'base.html' %}
 
-{% block title %} PICK YOUR FAVORITE STOCKS {% endblock %}    
+{% block title %} subscriptions {% endblock %}    
  
-
 {% block body %}
 
-<div>
-    <h1>Pick your subscriptions</h1>
-    <p>Decide how much you want to invest each month</p>
-  </div>
+<!--Navbar container-->
+<div class="container py-3">
+    <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <span class="fs-4">Plenti</span>
+      </a>
   
-  <div>
-    <div>
-      <h2>Beginner</h2>
-      <p>$20/month</p>
-      <p>Invest 2 Uber rides worth of money each month into a portfolio of your favorite brands.
-      </p>
-      <p>Access our library of investing and personal finance content for free.</p>
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">My Dashboard</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Stocks</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Learning</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Events</a>
+        <a class="py-2 text-dark text-decoration-none" href="#">Contact Us</a>
+      </nav>
+    </header>
+  
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">Subscriptions</h1>
+      <p class="fs-5 text-muted">Choose how much you want to invest each month, and we will take care of the rest</p>
     </div>
-  
-    <div>
-      <h2>Premium</h2>
-      <p>$50/month</p>
-      <p>Build solid investment muscle with consistent efforts that grows with time.</p>
-      <p>
-          Access additional stock options.
-      </p>
-    </div>
-  
-    <div>
-      <h2>Pro</h2>
-      <p>$100/month</p>
-      <p>Girlboss status and we are all for it.</p>
-      <p>
-          Access our live support to help answer any questions.
-      </p>
-    </div>
-  </div>
-  
+
+<!--Subscription Options-->
+    <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Beginner</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$20<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Choose 5 stocks</li>
+                  <li>Access content library</li>
+                  <li>Email support</li>
+                </ul>
+                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up</button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Pro</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$50<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>All of Beginner coverage</li>
+                  <li>Swap stock during the month</li>
+                  <li>Priority email support</li>
+                </ul>
+                <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+              <div class="card-header py-3 text-white bg-primary border-primary">
+                <h4 class="my-0 fw-normal">Premium</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$100<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>All of Pro coverage</li>
+                  <li>Exclusive events</li>
+                  <li>Phone and email support</li>
+                </ul>
+                <button type="button" class="w-100 btn btn-lg btn-primary">Get Started</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    
   <input type="button" onclick="location.href='/checkout';" value="Check Out" />
 
   {% endblock %} 

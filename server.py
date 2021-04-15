@@ -1,4 +1,5 @@
-"""server file for Plenti app"""
+"""FOCUS ON MY VISION OF WHAT I WANT TO BUILD AND GAIN THE SKILLS TO ACHIEVE IT."""
+
 
 from flask import (Flask, render_template, request, flash, session, jsonify, redirect)
 from model import connect_to_db, User, Stock, Subscription, Stock_in_Subscription
@@ -20,33 +21,17 @@ connect_to_db(app)
 @app.route('/') 
 def homepage():
     """Welcome page"""
-    quote_of_the_day = choice(crud.get_quote())
-    return render_template('homepage.html', quote = quote_of_the_day)
+    return render_template('homepage.html')
 
-@app.route('/api/users/login', methods=['POST'])
+@app.route('/signin', methods=['POST'])
 def login():
-    username = request.json['username'].lower()
-    password = request.json['password']
+    """login for existing user"""
+    username = request.form.get('username')
+    password = request.form.get('password')
 
-    user = crud.get_user_by_username(username)
-    if not user:
-        return jsonify({
-            'status': 'error',
-            'message': 'User does not exist.'
-        })
-    else:
-        if user.check_password(password):
-            session['user_id'] = user.id
-            return jsonify({
-                'status': 'success',
-                'message': 'Successfully logged in.',
-                'user': user.to_dict('include_email')
-            })
-        else:
-            return jsonify({
-                'status': 'error',
-                'message': 'Invalid password.'
-            })
+    if password == 'test' and username == 'JLo':
+        session['logged_in'] = True
+        return redirect('/allstocks')
 
 
 @app.route('/signup', methods=['POST'])
@@ -62,35 +47,34 @@ def register_user():
     image_url = None
     city = None
 
-    # Check if user with that username already exists
-    user = crud.get_user_by_username(username)
-    if user:
-        return jsonify({
-                'status': 'error',
-                'message': 'Username already exists. Please pick a different one.'
-        })
-
     user = crud.get_user_by_email(email)
-    if user:
-        return jsonify({
-                'status': 'error',
-                'message': 'Account with that email already exists.'
-        })
+    if not user:
+        user = crud.create_user(username, fname, lname, image_url, city, about, password)
+        flash('Account created! Please log in.')
+    else:
+        flash('An account has already been used with this email, please login.')
 
-    user = crud.create_user(username, fname, lname, image_url, city, about, password)
-    flash('Account created! Please log in.')
+    return render_template('homepage.html',person=first_name )
+
+    # Check if user with that username already exists
+    
     
     session['user_id'] = user.user_id 
     
     return redirect('/allstocks')
 
-@app.route('/allstocks')
+@app.route('/searchstocks')
 def view_all_stocks():
     """view a list of all stocks to invest."""
-    return render_template("/allstocks.html")
+    return render_template("/search_stocks.html")
+
+@app.route('/dashboard')
+def view_dashboard():
+    """view a list of all stocks to invest."""
+    return render_template("/user_dashboard.html")
 
 @app.route('/subscriptions')
-def view_all_subscriptions():
+def view_subscriptions():
     """view a list of all subscriptions to choose from."""
     return render_template("/subscriptions.html") 
 
@@ -127,6 +111,11 @@ def create_checkout_session():
         return jsonify({'id': checkout_session.id})
     except Exception as e:
         return jsonify(error=str(e)), 403
+
+@app.route('/blog')
+def show_blogs():
+    
+    return render_template("blog.html")
 
 
 if __name__ == '__main__':

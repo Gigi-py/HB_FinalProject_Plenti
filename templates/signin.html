@@ -5,28 +5,32 @@
 {% block body %}
 
 <h2><img src="static/img/Plenti_logo.png"> Welcome Back</img></h2>
-<form action="/dashboard.html" method="post">
-    <div>
-      <img src="static/img/JLo.jpeg" alt="profile_pic" class="profile_pic">
-    </div>
   
-    <div>
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required>
+      <!-- Creating Sign-in Form -->  
+      <form action="/signin" method="post">
+        <div>
+          <img src="static/img/Jlo.jpeg" class="img-thumbnail" alt="profile_pic">
   
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-  
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-  
-    <div class="container">
-      <button type="button" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
+        </div>
+      
+        <div>
+          <label for="username"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="username" required>
+      
+          <label for="password"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password" required>
+      
+          <button type="submit">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+      
+        <div class="container">
+          <button type="button" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+      </form>
+
 
 {% endblock %}
