@@ -1,9 +1,9 @@
 """FOCUS ON MY VISION OF WHAT I WANT TO BUILD AND GAIN THE SKILLS TO ACHIEVE IT."""
 
 
-from flask import (Flask, render_template, request, flash, session, jsonify, redirect)
+from flask import (Flask, render_template, url_for, request, flash, session, jsonify, redirect)
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, User, Stock, Subscription, Stock_in_Subscription
+from model import connect_to_db, User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment
 from random import sample, choice
 import crud
 import json
@@ -121,4 +121,4 @@ def show_blogs():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
-     DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
