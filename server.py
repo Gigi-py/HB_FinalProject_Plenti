@@ -20,19 +20,42 @@ app.secret_key = 'dev'
 connect_to_db(app)
 
 @app.route('/') 
-def homepage():
+def index():
     """Welcome page"""
     return render_template('homepage.html')
 
-@app.route('/signin', methods=['POST'])
-def login():
-    """login for existing user"""
+@app.route('/signin')
+def show_form():
+    return render_template('signin.html')
+
+@app.route('/greetuser')
+def greetuser():
+    """test route"""
+
     username = request.form.get('username')
+    email = request.form.get('email')
     password = request.form.get('password')
 
-    if password == 'test' and username == 'JLo':
-        session['logged_in'] = True
-        return redirect('/allstocks')
+    return f"""
+        <!doctype html>
+        <html>
+        <head>
+        <title>A Compliment</title>
+        </head>
+        <body>
+        Hi {username} welcome back!
+        </body>
+        </html>
+    """
+    # if password == 'test' and username == 'JLo':
+    #     session['logged_in'] = True
+    #     return redirect('/allstocks')
+
+@app.route('/user/<username>')
+def show_user_profile(username):
+    """Show the user profile for that user"""
+    
+    return f'Profile page for user: {username}'
 
 
 @app.route('/signup', methods=['POST'])

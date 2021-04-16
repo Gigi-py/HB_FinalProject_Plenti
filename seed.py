@@ -41,7 +41,7 @@ for stock in fundamental_data:
     print(stocks_in_db)
 
 for price in price_data:
-    open, high, low, close, volumn, date = (
+    openprice, high, low, closeprice, volumn, date = (
         price['02. open'],
         price['03. high'],
         stock['04. low'],
