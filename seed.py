@@ -40,44 +40,5 @@ for stock in fundamental_data:
     stocks_in_db.append(db_stock)
     print(stocks_in_db)
 
-for price in price_data:
-    openprice, high, low, closeprice, volumn, date = (
-        price['02. open'],
-        price['03. high'],
-        stock['04. low'],
-        stock['05. price'],
-        stock['06. volume'],
-        stock['07. latest trading day']
-        )
 
-    db_stockprice = crud.create_stockprice(open, high, low, price, volume, date)
-
-    stockprices_in_db.append(db_stockprice)
-    print(stockprices_in_db)
-
-
-# Create 5 test users (MVP)
-# with open('data/users.json') as f:
-#     user_data = json.loads(f.read())
-
-# users_in_db = []
-
-# for user in user_data:
-
-#     username, fname, lname, image_url, city, about = (
-#         user['username'],
-#         user['fname'],
-#         user['lname'],
-#         user['image_url'],
-#         user['city'],
-#         user['about']
-#     )
-
-#     email = f'{username}@gmail.com'
-#     password = 'test'
-
-#     db_user = crud.create_user(username,fname,lname,image_url,city,about,password)
-#     users_in_db.append(db_user)
-
-# db.session.commit()
 

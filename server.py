@@ -53,10 +53,9 @@ def greetuser():
 
 @app.route('/user/<username>')
 def show_user_profile(username):
-    """Show the user profile for that user"""
+    """Show the user dashboard page for that user"""
     
     return f'Profile page for user: {username}'
-
 
 @app.route('/signup', methods=['POST'])
 def register_user():
@@ -87,20 +86,25 @@ def register_user():
     
     return redirect('/allstocks')
 
-@app.route('/searchstocks')
+@app.route('/allstocks')
 def view_all_stocks():
     """view a list of all stocks to invest."""
-    return render_template("/search_stocks.html")
+    return render_template("/allstocks.html")
+
+@app.route('/stock/<symbol>')
+def view_all_stocks():
+    """view a list of all stocks to invest."""
+    return f'Profile page for stock: {symbol}'
 
 @app.route('/dashboard')
 def view_dashboard():
     """view a list of all stocks to invest."""
     return render_template("/user_dashboard.html")
 
-@app.route('/subscriptions')
+@app.route('/plans')
 def view_subscriptions():
     """view a list of all subscriptions to choose from."""
-    return render_template("/subscriptions.html") 
+    return render_template("/plans.html") 
 
 @app.route('/checkout')
 def checkout():
@@ -137,7 +141,12 @@ def create_checkout_session():
         return jsonify(error=str(e)), 403
 
 @app.route('/blog')
-def show_blogs():
+def all_blogs(id):
+    """show all blogs"""
+    return render_template("blog.html")
+
+@app.route('/blog/<int:id>')
+def show_blog(id):
     
     return render_template("blog.html")
 

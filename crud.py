@@ -1,6 +1,6 @@
 
 from server import connect_to_db
-from model import User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment
+from model import User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
 import datetime
 import requests
 import csv
@@ -9,10 +9,10 @@ import os
 
 # USER INFO ==================================
 #Create and return a new user:
-def create_user(username, fname, lname, image_url, city, about, password):
+def create_user(username, fname, lname, email, password, avatar, address):
     """Return list of user objects"""
     user = User(username = username, fname = fname, lname = lname,  
-                image_url = image_url, city = city, about = about, password = password)
+                email = email, password = password, avatar = avatar, address = address)
     
     db.session.add(user)
     db.session.commit()
