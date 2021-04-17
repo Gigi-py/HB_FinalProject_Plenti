@@ -6,12 +6,8 @@ import crud, api
 from model import connect_to_db, db
 from server import app
 
-os.system('dropdb stocks')
-os.system('createdb stocks')
 
 connect_to_db(app, echo=False)
-db.create_all()
-
 
 stockprices_in_db = []
 
@@ -28,6 +24,8 @@ for price in price_data:
         int(price['06. volume']),
         price['07. latest trading day']
         )
+    
+    #stockprice = Stockprice(stock_id=stock_id, openprice = openprice, high = high, low = low, closeprice = closeprice, volume = volume, date = date)
 
     db_stockprice = crud.create_stockprice(openprice, high, low, closeprice, volume, date)
 

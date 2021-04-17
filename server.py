@@ -28,9 +28,12 @@ def index():
 def show_form():
     return render_template('signin.html')
 
-@app.route('/greetuser')
+@app.route('/greetuser', method = ['GET', 'POST'])
 def greetuser():
     """test route"""
+    if request.method == 'POST':
+      session['username'] = request.form['username']
+      return redirect(url_for('index'))
 
     username = request.form.get('username')
     email = request.form.get('email')
@@ -50,6 +53,12 @@ def greetuser():
     # if password == 'test' and username == 'JLo':
     #     session['logged_in'] = True
     #     return redirect('/allstocks')
+
+@app.route('/logout')
+def logout():
+   # remove the username from the session if it is there
+   session.pop('username', None)
+   return redirect(url_for('index'))
 
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -91,10 +100,10 @@ def view_all_stocks():
     """view a list of all stocks to invest."""
     return render_template("/allstocks.html")
 
-@app.route('/stock/<symbol>')
-def view_all_stocks():
-    """view a list of all stocks to invest."""
-    return f'Profile page for stock: {symbol}'
+# @app.route('/stock/<symbol>')
+# def view_all_stocks():
+#     """view a list of all stocks to invest."""
+#     return f'Profile page for stock: {symbol}'
 
 @app.route('/dashboard')
 def view_dashboard():
@@ -126,7 +135,7 @@ def create_checkout_session():
                         'unit_amount': 2000,
                         'product_data': {
                             'name': 'Bronze Membership',
-                            'images': ['https://i.imgur.com/EHyR2nP.png'],
+                            'images': ['static/img/Plenti_logo.png'],
                         },
                     },
                     'quantity': 1,
@@ -141,14 +150,14 @@ def create_checkout_session():
         return jsonify(error=str(e)), 403
 
 @app.route('/blog')
-def all_blogs(id):
+def all_blogs():
     """show all blogs"""
     return render_template("blog.html")
 
-@app.route('/blog/<int:id>')
-def show_blog(id):
+# @app.route('/blog/<int:id>')
+# def show_blog(id):
     
-    return render_template("blog.html")
+#     return render_template("blog.html")
 
 
 if __name__ == '__main__':

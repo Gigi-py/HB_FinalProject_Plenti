@@ -48,10 +48,9 @@ def create_stock(symbol, name,
     return stock
 
 #PRICE INFO++++++++++++++++++
-def create_stockprice(openprice, high, low, closeprice, volume, date):
+def create_stockprice(stock_id, openprice, high, low, closeprice, volume, date):
     
-    stockprice = Stockprice(openprice = openprice, high = high, low = low, 
-    closeprice = closeprice, volume = volume, date = date)
+    stockprice = Stockprice(stock_id=stock_id, openprice = openprice, high = high, low = low, closeprice = closeprice, volume = volume, date = date)
 
     db.session.add(stockprice)
     db.session.commit()
