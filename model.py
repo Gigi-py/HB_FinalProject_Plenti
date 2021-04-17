@@ -2,7 +2,6 @@
 
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 import json
@@ -10,7 +9,7 @@ import json
 db = SQLAlchemy()
 
 #USER================================================
-class User(UserMixin, db.Model):
+class User(db.Model):
 #user table
     __tablename__ ='user'
 
