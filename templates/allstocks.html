@@ -6,29 +6,13 @@
 {% block body %}
 
 <p>
-    Choose top 5 brands that you love
-</p>
-
-<img src="https://logo.clearbit.com/paypal.com"></img>
-<img src="https://logo.clearbit.com/hilton.com"></img>
-<img src="https://logo.clearbit.com/pinterest.com"></img>
-<img src="https://logo.clearbit.com/twilio.com"></img>
-<img src="https://logo.clearbit.com/microsoft.com"></img>
-<img src="https://logo.clearbit.com/ups.com"></img>
-<img src="https://logo.clearbit.com/bankofamerica.com"></img>
-<img src="https://logo.clearbit.com/adobe.com"></img>
-<img src="https://logo.clearbit.com/disney.com"></img>
-<img src="https://logo.clearbit.com/wayfair.com"></img>
-<img src="https://logo.clearbit.com/spotify.com"></img>
-<img src="https://logo.clearbit.com/facebook.com"></img>
-<img src="https://logo.clearbit.com/sonos.com"></img>
-<img src="https://logo.clearbit.com/zoom.com"></img>
-<img src="https://logo.clearbit.com/etsy.com"></img>
-<img src="https://logo.clearbit.com/tesla.com"></img>
-<img src="https://logo.clearbit.com/thecontainerstore.com"></img>
-<img src="https://logo.clearbit.com/lululemon.com"></img>
-<img src="https://logo.clearbit.com/ford.com"></img>
-<img src="https://logo.clearbit.com/walgreens.com"></img>
+    Hi {{username}}! Choose 5 companies that you love
+    </p>
+      <ul>
+        {% for stock in all_stocks: %}
+        <li>{{stock.name}}</li>
+        {% endfor %}
+      </ul>
 
 <a href="/subscriptions">Next - CHOOSE SUBSCRIPTIONS &raquo;</a>
 

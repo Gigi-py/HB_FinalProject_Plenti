@@ -1,6 +1,6 @@
 
 from server import connect_to_db
-from server import bcrypt
+from server import Bcrypt
 from model import User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
 import datetime
 import requests
@@ -105,9 +105,54 @@ def get_user_by_username(username):
     """Return a user by username."""
     return User.query.filter(User.username == username).first()
 
-
-
 def get_user_by_email(email):
     """Return a user by email."""
 
     return User.query.filter(User.email == email).first()
+
+#STOCK==============================
+
+def get_all_stocks():
+    all_stocks = Stock.query.all()
+    return all_stocks
+
+def get_stock_names():
+    """Return all stock names."""
+    company_names = []
+    all_stocks = Stock.query.all()
+    for stock in all_stocks:
+        company_name = stock.name
+        company_names.append(company_name)
+    return company_names
+
+def get_stock_urls():
+    """Return all stock urls."""
+    urls = []
+    all_stocks = Stock.query.all()
+    for stock in all_stocks:
+        url = stock.url
+        company_names.append(url)
+    return urls
+
+def add_stock_urls():
+    urls = [paypal.com,
+    hilton.com,
+    pinterest.com,
+    twilio.com,
+    microsoft.com,
+    ups.com,
+    bankofamerica.com,
+    adobe.com,
+    disney.com,
+    wayfair.com,
+    spotify.com,
+    facebook.com,
+    sonos.com,
+    zoom.com,
+    etsy.com,
+    tesla.com,
+    thecontainerstore.com,
+    lululemon.com,
+    ford.com,
+    walgreens.com]
+

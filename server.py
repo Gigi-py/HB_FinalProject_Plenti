@@ -39,7 +39,6 @@ def signup():
         return redirect(url_for('view_dashboard'))
     return render_template('signup.html', form=form)
 
-
 @app.route('/login', methods = ["GET", "POST"])
 def login():
     form = UserForm(request.form)
@@ -49,7 +48,7 @@ def login():
             authenticated_user = bcrypt.check_password_hash(found_user.password, form.data['password'])
             if authenticated_user:
                 session['username'] = form.data['username']
-
+                flash("Successfully logged in!")
                 return redirect("/dashboard",
                             username=username)
     else:
@@ -73,17 +72,18 @@ def show_user_profile(username):
     
     return f'Profile page for user: {username}'
 
-
 @app.route('/allstocks')
 def view_all_stocks():
     """view a list of all stocks to invest."""
-    return render_template("/allstocks.html")
+    username = session.get('username')
+    all_stocks = crud.get_all_stocks()
+    
+    return render_template("/allstocks.html", all_stocks=all_stocks)
 
 # @app.route('/stock/<symbol>')
 # def view_all_stocks():
 #     """view a list of all stocks to invest."""
 #     return f'Profile page for stock: {symbol}'
-
 
 
 @app.route('/plans')
