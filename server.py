@@ -1,6 +1,6 @@
 """FOCUS ON MY VISION OF WHAT I WANT TO BUILD AND GAIN THE SKILLS TO ACHIEVE IT."""
 
-from flask import Flask, render_template, url_for, request, flash, session, jsonify, redirect
+from flask import Flask, render_template, make_response, url_for, request, flash, session, jsonify, redirect
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from forms import UserForm, SignupForm
@@ -27,9 +27,6 @@ def show_homepage():
     """Homepage"""
     return render_template('index.html')
 
-"""
-API Routes.
-"""
 @app.route('/signup', methods =["GET", "POST"])
 def signup():
     form = SignupForm(request.form)
@@ -38,7 +35,8 @@ def signup():
             new_user = crud.create_user(form.data['username'], form.data['fname'], form.data['lname'], form.data['email'], form.data['password'])
         except IntegrityError as e:
             return render_template('signup.html', form=form)
-        return redirect(url_for('view_all_stocks'))
+            session['username'] = form.data['username']
+        return redirect(url_for('view_dashboard'))
     return render_template('signup.html', form=form)
 
 
@@ -50,29 +48,24 @@ def login():
         if found_user:
             authenticated_user = bcrypt.check_password_hash(found_user.password, form.data['password'])
             if authenticated_user:
-                flash('You were successfully logged in')
-                return redirect(url_for('view_all_stocks'))
+                session['username'] = form.data['username']
+
+                return redirect("/dashboard",
+                            username=username)
     else:
         return render_template('login.html', form=form)
 
-    
-#     session['user_id'] = user.user_id 
-    
-#     return redirect('/allstocks')
+@app.route('/dashboard')
+def view_dashboard():
 
-# @app.route('/dashboard')
-# def dashboard():
-#      """view a list of all stocks to invest."""
-#     if('user' in session and session['user'] == user['email']):
-#         return '<h1>Welcome to the dashboard</h1>'
-
-#     return render_template("You are not logged in.")
+    if session.get('username') == User.username:
+        return render_template("dashboard.html",
+                            username=username)
 
 @app.route('/logout')
 def logout():
     session.pop('user')
     return redirect('/login')
-
 
 @app.route('/user/<username>')
 def show_user_profile(username):
