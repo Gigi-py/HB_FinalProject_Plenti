@@ -1,5 +1,5 @@
 
-from server import connect_to_db
+from server import connect_to_db, bcrypt
 from model import User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
 import datetime
 import requests
@@ -9,10 +9,12 @@ import os
 
 # USER INFO ==================================
 #Create and return a new user:
-def create_user(username, fname, lname, email, password, avatar, address):
+def create_user(username, fname, lname, email, password):
     """Return list of user objects"""
+    
+    hashed_password = bcrypt.generate_password_hash(password).decode('UTF-8')
     user = User(username = username, fname = fname, lname = lname,  
-                email = email, password = password, avatar = avatar, address = address)
+                email = email, password = hashed_password)
     
     db.session.add(user)
     db.session.commit()

@@ -4,29 +4,45 @@
 
 {% block body %}
 
-<h2><img src="static/img/Plenti_logo.png">Welcome Back</img></h2>
-  
-  <main class="form-signin">
-    <form action='/api/users/login'>
-      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-      <div class="form-floating">
-          <input type="email" class="form-control" id="email" placeholder="name@example.com">
-          <label for="floatingInput">Email address</label>
-      </div>
-      <div class="form-floating">
-          <input type="password" class="form-control" id="password" placeholder="Password">
-          <label for="floatingPassword">Password</label>
-      </div>
+<body class="text-center">
+  <main class="form-signin">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <img class="mb-4" src="static/img/Plenti_logo.png" alt="" width="72" height="57">
+
+<!--Bootstrap from CSS-->
+
+<form method="POST" action="{{url_for('login')}}">
+  {{ form.csrf_token }}
+  <div class="form-floating">
+  <p class="form-control">{{ form.username(placeholder="username") }}
+    <span>
+      {% if form.username.errors %}
+        {% for error in form.username.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  </div>
+  <div class="form-floating">
+    <p class="form-control">{{ form.password(placeholder="password") }}
+    <span>
+      {% if form.password.errors %}
+        {% for error in form.password.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+</div>
+
+  <button type="submit" class="w-100 btn btn-lg btn-primary">Log In!</button>
   
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; @Made at Hackbright with love</p>
-    </form>
-  </main> 
+</form>
+
+<p class="mt-5 mb-3 text-muted">&copy; @Built at Hackbright with love</p>
+</main>
+</body>
 
 {% endblock %}

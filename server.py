@@ -1,22 +1,26 @@
 """FOCUS ON MY VISION OF WHAT I WANT TO BUILD AND GAIN THE SKILLS TO ACHIEVE IT."""
 
-
 from flask import Flask, render_template, url_for, request, flash, session, jsonify, redirect
-from model import connect_to_db, User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+from forms import UserForm, SignupForm
+from model import connect_to_db, db, User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment
 from random import sample, choice
 import crud
 import json
 import os
 import math
-from flask_sqlalchemy import SQLAlchemy
 from jinja2 import StrictUndefined
 import stripe
+from sqlalchemy.exc import IntegrityError
 
 stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 
+#INITIALIZING APP
 app = Flask(__name__)
 app.secret_key = 'dev'
 connect_to_db(app)
+bcrypt = Bcrypt(app)
 
 @app.route('/') 
 def show_homepage():
@@ -26,59 +30,49 @@ def show_homepage():
 """
 API Routes.
 """
-@app.route('/login')
-def show_login_form():
-    """login form"""
-    return render_template('login.html')
+@app.route('/signup', methods =["GET", "POST"])
+def signup():
+    form = SignupForm(request.form)
+    if request.method == "POST" and form.validate():
+        try:
+            new_user = crud.create_user(form.data['username'], form.data['fname'], form.data['lname'], form.data['email'], form.data['password'])
+        except IntegrityError as e:
+            return render_template('signup.html', form=form)
+        return redirect(url_for('view_all_stocks'))
+    return render_template('signup.html', form=form)
 
 
+@app.route('/login', methods = ["GET", "POST"])
+def login():
+    form = UserForm(request.form)
+    if request.method == "POST" and form.validate():
+        found_user = User.query.filter_by(username = form.data['username']).first()
+        if found_user:
+            authenticated_user = bcrypt.check_password_hash(found_user.password, form.data['password'])
+            if authenticated_user:
+                flash('You were successfully logged in')
+                return redirect(url_for('view_all_stocks'))
+    else:
+        return render_template('login.html', form=form)
 
-@app.route('/api/users/login', methods=['GET', 'POST'])
-def login_user():
-    email = request.form.get('email')
-    password = request.form.get('password')
+    
+#     session['user_id'] = user.user_id 
+    
+#     return redirect('/allstocks')
 
-    user = crud.get_user_by_email(email)
+# @app.route('/dashboard')
+# def dashboard():
+#      """view a list of all stocks to invest."""
+#     if('user' in session and session['user'] == user['email']):
+#         return '<h1>Welcome to the dashboard</h1>'
 
-
-@app.route('/dashboard')
-def dashboard():
-    """view a list of all stocks to invest."""
-    if('user' in session and session['user'] == user['email']):
-        return '<h1>Welcome to the dashboard</h1>'
-
-    return render_template("You are not logged in.")
+#     return render_template("You are not logged in.")
 
 @app.route('/logout')
 def logout():
     session.pop('user')
     return redirect('/login')
 
-
-@app.route('/signup', methods=['GET','POST'])
-def register_user():
-    """Create a new user account."""
-
-    username = request.form.get('username')
-    fname = request.form.get('fname')
-    lname = request.form.get('lname')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    avatar = None
-    address = None
-
-    user = crud.get_user_by_email(email)
-    if not user:
-        user = crud.create_user(username, fname, lname, image_url, city, about, password)
-        flash('Account created! Please log in.')
-    else:
-        flash('An account has already been used with this email, please login.')
-
-    return render_template('homepage.html',person=first_name )
-    
-    session['user_id'] = user.user_id 
-    
-    return redirect('/allstocks')
 
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -143,10 +137,10 @@ def all_blogs():
     """show all blogs"""
     return render_template("blog.html")
 
-# @app.route('/blog/<int:id>')
-# def show_blog(id):
+@app.route('/blog/<int:id>')
+def show_blog(id):
     
-#     return render_template("blog.html")
+    return render_template("blog.html")
 
 
 if __name__ == '__main__':

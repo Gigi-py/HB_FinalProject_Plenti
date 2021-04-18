@@ -40,8 +40,7 @@ for stock in fundamental_data:
     stocks_in_db.append(db_stock)
     print(stocks_in_db)
 
-
-#USER SEEDING==============
+#SEED USER==================
 with open('data/users.json') as f:
     user_data = json.loads(f.read())
 

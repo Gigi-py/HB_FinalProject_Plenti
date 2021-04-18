@@ -5,7 +5,8 @@
     "fname": "Gabriella",
     "lname": "Savage",
     "avatar": "/static/img/GSav.png",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "password": "test"
     },
 
     {
@@ -13,7 +14,8 @@
     "fname": "Jennifer",
     "lname": "Lopex",
     "avatar": "/static/img/JLo.png",
-    "address": "Los Angelas"
+    "address": "Los Angelas",
+    "password": "test"
     },
 
     {
@@ -21,7 +23,8 @@
         "fname": "Prince",
         "lname": "Harry",
         "avatar": "/static/img/harry.jpeg",
-        "address": "London"
+        "address": "London",
+        "password": "test"
     },
 
     {
@@ -29,7 +32,8 @@
         "fname": "Ariana",
         "lname": "Grande",
         "avatar": "/static/img/Ariana.jpeg",
-        "address": "New York"
+        "address": "New York",
+        "password": "test"
     },
 
     {
@@ -37,7 +41,8 @@
         "fname": "Elon",
         "lname": "Musk",
         "avatar": "/static/img/elon-musk.jpeg",
-        "address": "Mars"
+        "address": "Mars",
+        "password": "test"
     }
 
 ]

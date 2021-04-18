@@ -3,6 +3,8 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_bcrypt import Bcrypt
+
 
 import json
 
@@ -16,24 +18,13 @@ class User(db.Model):
     id = db.Column(db.Integer, autoincrement=True, 
                     primary_key=True)
     username = db.Column(db.String, unique=True, nullable = False) 
-    fname = db.Column(db.String, nullable = False)
-    lname = db.Column(db.String, nullable = False)
-    email = db.Column(db.String, unique=True, nullable = False)
-    password = db.Column(db.String, nullable = False)
+    fname = db.Column(db.String)
+    lname = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
     avatar = db.Column(db.String, default = 'static/img/JLo.jpeg')
     address = db.Column(db.String)
-
-    def set_password(self, password):
-        """Create hashed password."""
-        self.password = generate_password_hash(
-            password,
-        )
-
-    def check_password(self, password):
-        """Check hashed password."""
-        return check_password_hash(self.password, password)
-
-
+    
     def __repr__(self):
         return f'<User {self.fname} {self.lname}>'
 
