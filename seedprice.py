@@ -3,20 +3,21 @@ import json
 from random import choice, randint, sample
 from datetime import datetime
 import crud, api
-from model import connect_to_db, db
-from server import app
-
+from model import connect_to_db, db, Stock, Stockprice
+from server import app, bcrypt
 
 connect_to_db(app, echo=False)
+db.session.query(Stockprice).delete()
+db.session.commit()
+db.create_all()
 
 stockprices_in_db = []
-
 price_data = api.get_stockprice()
-
 print(price_data)
 
 for price in price_data:
-    openprice, high, low, closeprice, volume, date = (
+    symbol, openprice, high, low, closeprice, volume, date = (
+        price['01. symbol'],
         float(price['02. open']),
         float(price['03. high']),
         float(price['04. low']),
@@ -25,9 +26,10 @@ for price in price_data:
         price['07. latest trading day']
         )
     
-    #stockprice = Stockprice(stock_id=stock_id, openprice = openprice, high = high, low = low, closeprice = closeprice, volume = volume, date = date)
-
-    db_stockprice = crud.create_stockprice(openprice, high, low, closeprice, volume, date)
-
+    stock_in_list =  Stock.query.filter(Stock.symbol == symbol).first()
+    print(stock_in_list)
+    stock_id = stock_in_list.id
+    print(stock_id)
+    db_stockprice = crud.create_stockprice(stock_id, openprice, high, low, closeprice, volume, date)
     stockprices_in_db.append(db_stockprice)
     print(stockprices_in_db)

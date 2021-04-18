@@ -39,28 +39,3 @@ for stock in fundamental_data:
                 asset_type, currency, employees)
     stocks_in_db.append(db_stock)
     print(stocks_in_db)
-
-#SEED USER==================
-with open('data/users.json') as f:
-    user_data = json.loads(f.read())
-
-users_in_db = []
-
-for user in user_data:
-
-    username, fname, lname, avatar, address = (
-        user['username'],
-        user['fname'],
-        user['lname'],
-        user['avatar'],
-        user['address']
-    )
-
-    email = f'{username}@gmail.com'
-    password = 'test'
-
-    db_user = crud.create_user(username, fname, lname, email, password, avatar, address)
-    users_in_db.append(db_user)
-
-db.session.commit()
-

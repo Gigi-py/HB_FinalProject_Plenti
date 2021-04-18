@@ -1,5 +1,6 @@
 
-from server import connect_to_db, bcrypt
+from server import connect_to_db
+from flask_bcrypt import Bcrypt
 from model import User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
 import datetime
 import requests

@@ -42,8 +42,6 @@ class UserFavorite(db.Model):
     def __repr__(self):
         return f'<userFavorites favorite_id={self.favorite_id} is_favorite={self.is_favorite}>'
 
-
-
 #STOCKS ===================================
 class Stock(db.Model):
     """Stocks Table"""
@@ -64,7 +62,7 @@ class Stock(db.Model):
         return f'<Stock {self.id} {self.symbol}>'
 
 
-class Stockprice():
+class Stockprice(db.Model):
 
     __tablename__ = 'stockprice'
 

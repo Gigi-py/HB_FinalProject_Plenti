@@ -21,19 +21,18 @@ def get_stockprice():
 
         response = requests.get(API_URL, data) 
         response_json = response.json().get('Global Quote')
-        print(response_json)
-        # if response_json.get('symbol') == None:
-        #     time.sleep(60)
-        #     print('sleeping')
-        #     response = requests.get(API_URL, data)
-        #     response_json = response.json()
+        if response_json == None:
+            time.sleep(60)
+            print('sleeping')
+            response = requests.get(API_URL, data)
+            response_json = response.json().get('Global Quote')
         stockprice_data.append(serialize_api_price(response_json))
         print('data_append')
         
-        return stockprice_data
+    return stockprice_data
 
 def serialize_api_price(api_price):
-    allowed_keys = [
+    allowed_keys = ["01. symbol",
       "02. open",
       "03. high",
       "04. low",
