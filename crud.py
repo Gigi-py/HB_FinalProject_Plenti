@@ -138,9 +138,37 @@ def get_stock_urls():
         company_names.append(url)
     return urls
 
-#PLANS================
-def get_plan_by_subscription_id(plan_id):
-    return Subscription.query.filter(plan_id=plan_id).first()
+#FAVORITES===============================================
+def create_favorites(user_id, stock_id, is_favorite):
+    """create and returns user favorites from stocks list """
+
+    userFavorites = UserFavorite(
+                    user_id = user_id,
+                    stock_id = stock_id,
+                    is_favorite = True)
+
+    db.session.add(userFavorites)
+    db.session.commit()
+
+    return userFavorites
+
+def delete_favorites(user_id, stock_id):
+    """delete from database when user unfavorites stock"""
+    fav_stock = db.session.query(UserFavorite).filter(UserFavorite.user_id == user_id,UserFavorite.stock_id == stock_id).first()
+    db.session.delete(fav_stock)
+    db.session.commit()
+    
+def get_user_favorites(user_id):
+    """returns all user favorites"""
+    favs_of_user = UserFavorite.query.filter(user_id=user_id).all()
+
+    return favs_of_user
+
+def get_fav_obj(user_id,stock_id):
+
+    userfav = UserFavorite.query.filter_by(user_id=user_id, stock_id=stock_id).one()
+
+    return userfav
 
 
 

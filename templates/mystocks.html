@@ -5,7 +5,7 @@
 {% block body %}
 
 Hi {{user.username.upper()}}! 
-This is your subscription details:
+There are your stocks in the portfolio
     {{subscription.user_id}}
     {{subscription.plan_id}}
     {{subscription.Subscription_start_timestamp }}
@@ -13,6 +13,5 @@ This is your subscription details:
     {{subscription.plan.name}}
     {{subscription.plan.stocks_per_month}}
     {{subscription.plan.investment_per_month}}
-
 
 {% endblock %}

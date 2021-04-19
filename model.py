@@ -38,7 +38,7 @@ class UserFavorite(db.Model):
     def __repr__(self):
         return f'<userFavorites favorite_id={self.favorite_id} is_favorite={self.is_favorite}>'
 
-#STOCKS ===================================
+#STOCKS =========================================
 class Stock(db.Model):
     """Stocks Table"""
 
@@ -75,7 +75,7 @@ class Stockprice(db.Model):
     def __repr__(self):
             return f'<Stockprice {self.closeprice}>'
 
-#SUBSCRIPTION ===================================
+#SUBSCRIPTION ======================================
 class Plan(db.Model):
     """Different monthly plans"""
 
@@ -140,9 +140,6 @@ class Event(db.Model):
     description = db.Column(db.Text)
     image_url = db.Column(db.String, default='static/img/Plenti_logo.png')
     status = db.Column(db.String(10), default='FUTURE')
-    
-    comment = db.relationship('Comment', backref='meetup', 
-                                order_by='Comment.timestamp')
 
     def __repr__(self):
         return f'<Meetup {self.name} at {self.date}>'
@@ -157,9 +154,10 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    text = db.Column(db.Text)
+    body = db.Column(db.Text)
 
-    writer = db.relationship('User') 
+    writer = db.relationship('User', backref='comment') 
+    event = db.relationship('Event', backref='comment')
 
     def __repr__(self):
             return f'<Comment on Meetup {self.meetup_id} by User {self.user_id}>'

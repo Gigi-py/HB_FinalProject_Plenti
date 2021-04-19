@@ -10,9 +10,7 @@ import json
 import os
 import math
 from jinja2 import StrictUndefined
-import stripe
 
-stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 
 #INITIALIZING APP
 app = Flask(__name__)
@@ -67,6 +65,11 @@ def user_stocks():
     subscription = Subscription.query.filter(user_id == user_id).first()
     
     return render_template('mystocks.html')
+
+@app.route('/searchstocks')
+def searchstocks():
+    
+    return render_template('/searchstocks.html')
     
 @app.route('/logout')
 def logout():
