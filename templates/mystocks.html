@@ -3,5 +3,16 @@
 {% block title %} My Stocks {% endblock %}     
 
 {% block body %}
-Hi
+
+Hi {{user.username.upper()}}! 
+This is your subscription details:
+    {{subscription.user_id}}
+    {{subscription.plan_id}}
+    {{subscription.Subscription_start_timestamp }}
+    {{subscription.Subscription_end_timestamp}}
+    {{subscription.plan.name}}
+    {{subscription.plan.stocks_per_month}}
+    {{subscription.plan.investment_per_month}}
+
+
 {% endblock %}

@@ -76,3 +76,4 @@ db_subscription = crud.create_subscription(user_id, plan_id, subscription_start_
 subscriptions_in_db.append(db_subscription)
 
 db.session.commit()
+

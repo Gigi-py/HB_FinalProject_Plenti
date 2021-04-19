@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Your Plan {% endblock %}    
+ 
+{% block body %}
+
+<p>
+    Hi {{username}}! 
+    {% if subscription %}
+     <p> Let's pick out some stocks </p>
+     <a href='/allstocks'></a>
+    {% else %}
+     <p> You do not have an active membership</p>
+     <p> Get started today</p>
+     <a href='/plans'></a>
+    {% endif %}
+    </p>
+
+{% endblock %} 

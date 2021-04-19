@@ -52,12 +52,19 @@ def user_profile():
     
 @app.route('/mysubscription')
 def user_subscription():
+    username = session['username']
+    user = crud.get_user_by_username(username)
+    user_id = user.id
+    subscription = Subscription.query.filter(user_id == user_id).first()
     
-    return render_template('mysubscription.html')
+    return render_template('mysubscription.html', subscription=subscription, user=user)
     
-
 @app.route('/mystocks')
 def user_stocks():
+    username = session['username']
+    user = crud.get_user_by_username(username)
+    user_id = user.id
+    subscription = Subscription.query.filter(user_id == user_id).first()
     
     return render_template('mystocks.html')
     
@@ -81,16 +88,18 @@ def view_all_stocks():
     
     return render_template("/allstocks.html", all_stocks=all_stocks)
 
-# @app.route('/stock/<symbol>')
-# def view_all_stocks():
-#     """view a list of all stocks to invest."""
-#     return f'Profile page for stock: {symbol}'
-
-
 @app.route('/plans')
-def view_subscriptions():
+def view_plans():
     """view a list of all subscriptions to choose from."""
     return render_template("/plans.html") 
+
+@app.route('/checkplan')
+def check_plan():
+    subscription = True
+    username = session['username']
+    user = crud.get_user_by_username(username)
+    return render_template("/checkplan.html", subscription=subscription) 
+
 
 @app.route('/checkout')
 def checkout():

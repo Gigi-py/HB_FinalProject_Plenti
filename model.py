@@ -101,7 +101,7 @@ class Subscription(db.Model):
 
 
     def __repr__(self):
-        return f'<Subscription by {self.user_id} of {self.plan_id} >'
+        return f'<Subscription by {self.user.username} of {self.plan.name} >'
 
 class Stock_in_Subscription(db.Model):
     """Add stock to a subcription box"""

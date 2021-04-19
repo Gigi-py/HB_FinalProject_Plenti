@@ -113,6 +113,7 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
+
 #STOCK==============================
 
 def get_all_stocks():
@@ -136,6 +137,11 @@ def get_stock_urls():
         url = stock.url
         company_names.append(url)
     return urls
+
+#PLANS================
+def get_plan_by_subscription_id(plan_id):
+    return Subscription.query.filter(plan_id=plan_id).first()
+
 
 
 
