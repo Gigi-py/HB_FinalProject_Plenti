@@ -1,6 +1,6 @@
 
 from server import connect_to_db
-from server import Bcrypt
+from flask_bcrypt import Bcrypt
 from model import User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
 import datetime
 import requests
@@ -10,12 +10,12 @@ import os
 
 # USER INFO ==================================
 #Create and return a new user:
-def create_user(username, fname, lname, email, password):
+def create_user(app, username, fname, lname, email, password, avatar, address):
     """Return list of user objects"""
-    
+    bcrypt = Bcrypt(app)
     hashed_password = bcrypt.generate_password_hash(password).decode('UTF-8')
     user = User(username = username, fname = fname, lname = lname,  
-                email = email, password = hashed_password)
+                email = email, password = hashed_password, avatar=avatar, address=address)
     
     db.session.add(user)
     db.session.commit()
@@ -62,15 +62,19 @@ def create_stockprice(stock_id, openprice, high, low, closeprice, volume, date):
 
 #SUBSCRIPTION INFO =============
 # Create and return a new Subscription:
-def create_subscription(created_date, updated_date, 
-                        description, monthly_investment, user_id):
+def create_subscription(user_id, plan_id, subscription_start_timestamp, subscription_end_timestamp):
 
-    subscription = Subscription(created_date = created_date, updated_date = updated_date, 
-                    description = description, monthly_investment = monthly_investment, user_id = user_id)
+    subscription = Subscription(user_id=user_id, plan_id=plan_id, Subscription_start_timestamp=subscription_start_timestamp, Subscription_end_timestamp=subscription_end_timestamp)
 
     db.session.add(subscription)
     db.session.commit()
     return subscription
+
+def create_plan(name, stocks_per_month, investment_per_month):
+    plan = Plan(name=name, stocks_per_month=stocks_per_month, investment_per_month=investment_per_month)
+    db.session.add(plan)
+    db.session.commit()
+    return plan
 
 #Create and return a new Stock_in_Subscription:
 def create_stock_in_subscription(stock_in_subscription_id, user_id, stock_id, added_time,
@@ -94,7 +98,6 @@ def get_users():
     """Return all users."""
 
     return User.query.all()
-
 
 def get_user_by_id(user_id):
     """Return a user by primary key."""
@@ -134,25 +137,5 @@ def get_stock_urls():
         company_names.append(url)
     return urls
 
-def add_stock_urls():
-    urls = [paypal.com,
-    hilton.com,
-    pinterest.com,
-    twilio.com,
-    microsoft.com,
-    ups.com,
-    bankofamerica.com,
-    adobe.com,
-    disney.com,
-    wayfair.com,
-    spotify.com,
-    facebook.com,
-    sonos.com,
-    zoom.com,
-    etsy.com,
-    tesla.com,
-    thecontainerstore.com,
-    lululemon.com,
-    ford.com,
-    walgreens.com]
+
 

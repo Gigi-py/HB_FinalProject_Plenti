@@ -3,7 +3,6 @@
 from flask import Flask, render_template, make_response, url_for, request, flash, session, jsonify, redirect
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
-from forms import UserForm, SignupForm
 from model import connect_to_db, db, User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment
 from random import sample, choice
 import crud
@@ -12,7 +11,6 @@ import os
 import math
 from jinja2 import StrictUndefined
 import stripe
-from sqlalchemy.exc import IntegrityError
 
 stripe.api_key = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
 
@@ -27,40 +25,42 @@ def show_homepage():
     """Homepage"""
     return render_template('index.html')
 
-@app.route('/signup', methods =["GET", "POST"])
-def signup():
-    form = SignupForm(request.form)
-    if request.method == "POST" and form.validate():
-        try:
-            new_user = crud.create_user(form.data['username'], form.data['fname'], form.data['lname'], form.data['email'], form.data['password'])
-        except IntegrityError as e:
-            return render_template('signup.html', form=form)
-            session['username'] = form.data['username']
-        return redirect(url_for('view_dashboard'))
-    return render_template('signup.html', form=form)
+@app.route('/login', methods=['GET']) 
+def show_login_form():
+    """Homepage"""
+    return render_template('login.html')
 
-@app.route('/login', methods = ["GET", "POST"])
+@app.route('/login', methods=['POST']) 
 def login():
-    form = UserForm(request.form)
-    if request.method == "POST" and form.validate():
-        found_user = User.query.filter_by(username = form.data['username']).first()
-        if found_user:
-            authenticated_user = bcrypt.check_password_hash(found_user.password, form.data['password'])
-            if authenticated_user:
-                session['username'] = form.data['username']
-                flash("Successfully logged in!")
-                return redirect("/dashboard",
-                            username=username)
-    else:
-        return render_template('login.html', form=form)
+    """Sign in user"""
+    #to do: check validity of the user
+    session['username'] = request.form.get('username')
+    return redirect('/dashboard')
 
 @app.route('/dashboard')
 def view_dashboard():
+    username = session['username'].upper()
 
-    if session.get('username') == User.username:
-        return render_template("dashboard.html",
-                            username=username)
+    return render_template('/dashboard.html', username=username)
 
+@app.route('/myprofile')
+def user_profile():
+    username = session['username']
+    user = crud.get_user_by_username(username)
+    print(user)
+    return render_template('myprofile.html', user=user)
+    
+@app.route('/mysubscription')
+def user_subscription():
+    
+    return render_template('mysubscription.html')
+    
+
+@app.route('/mystocks')
+def user_stocks():
+    
+    return render_template('mystocks.html')
+    
 @app.route('/logout')
 def logout():
     session.pop('user')
@@ -76,6 +76,7 @@ def show_user_profile(username):
 def view_all_stocks():
     """view a list of all stocks to invest."""
     username = session.get('username')
+    print(session)
     all_stocks = crud.get_all_stocks()
     
     return render_template("/allstocks.html", all_stocks=all_stocks)

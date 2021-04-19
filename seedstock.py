@@ -33,7 +33,7 @@ for stock in fundamental_data:
         stock['Currency'],
         stock['FullTimeEmployees'],
         )
-
+    
     db_stock = crud.create_stock(symbol, name, 
                 description, industry, 
                 asset_type, currency, employees)

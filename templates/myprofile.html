@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} My profile {% endblock %}     
+
+{% block body %}
+
+Hi {{user.username.upper()}}! 
+    {{user.fname}}
+    {{user.lname}}
+    {{user.username}}
+    {{user.email}}
+    {{user.avatar}}
+    {{user.address}}
+
+{% endblock %}
