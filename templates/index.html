@@ -2,27 +2,91 @@
 
 {% block title %}Plenti{% endblock %}
 {% block body %}
+
+
 <body class="d-flex h-100 text-center text-white bg-dark">
     
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
       <div>
         <h3 class="float-md-start mb-0">Plenti</h3>
+
+    <!--Navbar-->
         <nav class="nav nav-masthead justify-content-center float-md-end">
           <a href = "/login" class="nav-link">Login</a>
           <a href = "/signup" class="nav-link">Get Started</a>
-          <a href = "mailto:gabriella@plenti.ai" class="nav-link">Contact</a>
+          <a href = "mailto:gabriella@plenti.ai" class="nav-link">Email Us</a>
         </nav>
       </div>
     </header>
   
+    <!--Hero section-->
+
     <main class="px-3">
       <h1>Creating abundance one stock at a time</h1>
       <p class="lead">We make investing easy, consistent, fun, and social</p>
-      <p class="lead">100,000 + </p>
 
     </main>
 
+    <!--quote slide show-->
+    <div class="slideshow-container">
+
+      <div class="mySlides">
+        <q>Wealth consists not in having great possessions, but in having few wants.</q>
+        <p class="author">- Epictetus</p>
+      </div>
+      
+      <div class="mySlides">
+        <q>An investment in knowledge pays the best interest.</q>
+        <p class="author">- Benjamin Franklin</p>
+      </div>
+      
+      <div class="mySlides">
+        <q>Everyday is a bank account, and time is our currency. No one is rich, no one is poor, we've got 24 hours each.</q>
+        <p class="author">- Christopher Rice</p>
+      </div>
+      
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+      
+      </div>
+      
+      <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span> 
+        <span class="dot" onclick="currentSlide(2)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span> 
+      </div>
+      
+      <script>
+      var slideIndex = 1;
+      showSlides(slideIndex);
+      
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+      
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+      
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}    
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += " active";
+      }
+      </script>
+
     <p class="mt-5 mb-3 text-muted">&copy; Built at Hackbright with love</p>
+
 
 {% endblock %}

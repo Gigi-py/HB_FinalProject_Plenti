@@ -54,7 +54,6 @@ def user_subscription():
     user = crud.get_user_by_username(username)
     user_id = user.id
     subscription = Subscription.query.filter(user_id == user_id).first()
-    print(subscription)
     return render_template('mysubscription.html', subscription=subscription, user=user)
     
 @app.route('/mystocks')
@@ -90,6 +89,12 @@ def view_all_stocks():
     all_stocks = crud.get_all_stocks()
     
     return render_template("/allstocks.html", all_stocks=all_stocks)
+
+@app.route('/stock_details')
+def view_stock_details():
+    """view a list of all stocks to invest."""
+    
+    return render_template("/stock_details.html")
 
 @app.route('/plans')
 def view_plans():
