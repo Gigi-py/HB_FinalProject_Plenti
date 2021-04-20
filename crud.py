@@ -1,8 +1,9 @@
 
 from server import connect_to_db
 from flask_bcrypt import Bcrypt
-from model import User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
+from model import User, Stock, Stockprice, Stockdetail, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
 import datetime
+import api
 import requests
 import csv
 import json
@@ -60,6 +61,32 @@ def create_stockprice(stock_id, openprice, high, low, closeprice, volume, date):
 
     return stockprice
 
+
+#Create and return new Stockdetail:
+def create_stockdetail(stock_id, logo, cik, country, industry, marketcap, employees, phone, ceo, url,
+                    description, exchange, name, symbol, hq_address, hq_state, hq_country):
+
+    stock_detail = Stockdetail(stock_id=stock_id, logo=logo, cik=cik,
+    country=country,
+    industry=industry,
+    marketcap=marketcap,
+    employees=employees,
+    phone=phone,
+    ceo=ceo,
+    url=url,
+    description=description,
+    exchange=exchange,
+    name=name,
+    symbol=symbol,
+    hq_address=hq_address,
+    hq_state=hq_state,
+    hq_country=hq_country)
+
+    db.session.add(stock_detail)
+    db.session.commit()
+
+    return stock_detail
+
 #SUBSCRIPTION INFO =============
 # Create and return a new Subscription:
 def create_subscription(user_id, plan_id, subscription_start_timestamp, subscription_end_timestamp):
@@ -75,6 +102,8 @@ def create_plan(name, stocks_per_month, investment_per_month):
     db.session.add(plan)
     db.session.commit()
     return plan
+
+
 
 #Create and return a new Stock_in_Subscription:
 def create_stock_in_subscription(stock_in_subscription_id, user_id, stock_id, added_time,
@@ -128,6 +157,12 @@ def get_stock_names():
         company_name = stock.name
         company_names.append(company_name)
     return company_names
+
+def get_stock_by_symbol(symbol):
+    """Return all stock names."""
+    stock = Stock.query.filter(Stock.symbol == symbol).first()
+    
+    return stock
 
 def get_stock_urls():
     """Return all stock urls."""

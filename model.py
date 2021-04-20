@@ -51,7 +51,6 @@ class Stock(db.Model):
     industry = db.Column(db.String)
     asset_type = db.Column(db.String)
     currency = db.Column(db.String)
-    company_url = db.Column(db.String)
     employees = db.Column(db.Integer)
     
     def __repr__(self):
@@ -74,6 +73,33 @@ class Stockprice(db.Model):
 
     def __repr__(self):
             return f'<Stockprice {self.closeprice}>'
+
+class Stockdetail(db.Model):
+#from POLYGON
+    __tablename__ = 'stockdetail'
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'))
+    logo = db.Column(db.String)
+    cik = db.Column(db.String)
+    country = db.Column(db.String)
+    industry = db.Column(db.String)
+    marketcap = db.Column(db.BigInteger)
+    employees = db.Column(db.BigInteger)
+    phone = db.Column(db.String)
+    ceo = db.Column(db.String)
+    url = db.Column(db.String)
+    description = db.Column(db.String)
+    exchange = db.Column(db.String)
+    name = db.Column(db.String)
+    symbol = db.Column(db.String)
+    hq_address = db.Column(db.String)
+    hq_state = db.Column(db.String)
+    hq_country = db.Column(db.String)
+    stock = db.relationship("Stock", backref="stockdetail")
+
+    def __repr__(self):
+            return f'<Stockdetail {self.symbol}>'
 
 #SUBSCRIPTION ======================================
 class Plan(db.Model):

@@ -76,35 +76,45 @@ def serialize_api_obj(api_obj):
 
     return {k: v for k, v in api_obj.items() if k in allowed_keys}
 
+#POLYGON API
 POLYAPI_KEY = "ehldCsvN37bNwxkDthi_G__QfTdDF3rT"
 
 def get_stock_details(symbol):
     """Get stock info from POLYGON API to store in db """    
-    stock_detail_data = []
-    for symbol in stock_symbols:
-        response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
-        response_json = response.json()
-        if response_json == None:
-            time.sleep(60)
-            print('sleeping')
-            response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
-            response_json = response.json()
-        stock_detail_data.append(response_json)
-        print('data_append')
-        
-    return stock_detail_data
+    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
+    response_json = response.json()
+    stock_details_data = serialize_api_details(response_json)
+    
+    return stock_details_data
 
-def serialize_api_obj(api_obj):
+#Create and return new Stockdetail:
+
+
+def serialize_api_details(api_details):
     allowed_keys = [
-      "Symbol",
-      "AssetType",
-      "Name",
-      "Description", 
-      "Industry",
-      "Currency",
-      "FullTimeEmployees"  
-    ]
+      "logo",
+      "listdate",
+      "cik",
+      "country", 
+      "industry",
+      "marketcap",
+      "employees",
+      "phone",
+      "ceo",
+      "url", 
+      "description",
+      "exchange",
+      "name",
+      "symbol",
+      "hq_address",
+      "hq_state",
+      "hq_country",
+      "tags",
+      "similar"]
 
+    return {k: v for k, v in api_details.items() if k in allowed_keys}
+
+        
 def get_news_details(symbol):
     """Get stock news info from POLYGON API to store in db """    
     response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)

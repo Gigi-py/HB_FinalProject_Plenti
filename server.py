@@ -85,7 +85,6 @@ def show_user_profile(username):
 def view_all_stocks():
     """view a list of all stocks to invest."""
     username = session.get('username')
-    print(session)
     all_stocks = crud.get_all_stocks()
     
     return render_template("/allstocks.html", all_stocks=all_stocks)
@@ -93,8 +92,8 @@ def view_all_stocks():
 @app.route('/stock_details')
 def view_stock_details():
     """view a list of all stocks to invest."""
-    
-    return render_template("/stock_details.html")
+    stock = crud.get_stock_by_symbol("PYPL")
+    return render_template("/stock_details.html", stock=stock)
 
 @app.route('/plans')
 def view_plans():

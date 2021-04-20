@@ -13,7 +13,6 @@ db.create_all()
 
 stockprices_in_db = []
 price_data = api.get_stockprice()
-print(price_data)
 
 for price in price_data:
     symbol, openprice, high, low, closeprice, volume, date = (
@@ -26,10 +25,7 @@ for price in price_data:
         price['07. latest trading day']
         )
     
-    stock_in_list =  Stock.query.filter(Stock.symbol == symbol).first()
-    print(stock_in_list)
-    stock_id = stock_in_list.id
-    print(stock_id)
+    stock_select =  Stock.query.filter(Stock.symbol == symbol).first()
+    stock_id = stock_select.id
     db_stockprice = crud.create_stockprice(stock_id, openprice, high, low, closeprice, volume, date)
     stockprices_in_db.append(db_stockprice)
-    print(stockprices_in_db)
