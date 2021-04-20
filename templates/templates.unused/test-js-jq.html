@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %} PLENTI UNIVERSITY {% endblock %}    
+ 
+{% block body %}
+
+<body>
+    <section id="basic-event-handler">
+      <h1>Basic Event Handler</h1>
+
+      <button id="angry-button">😠 Don't click me</button>
+
+      <script>
+        const button = document.querySelector('#angry-button');
+
+        button.addEventListener('click', () => {
+          alert('Stop clicking me!');
+        });
+      </script>
+    </section>
+
+    <section id="broken-event-handler">
+      <h1>Broken Event Handler</h1>
+
+      <button id="broken-button">This doesn't work!</button>
+
+      <script>
+        const brokenAlert = () => {
+          alert('Uh oh...');
+        }
+
+        document.querySelector('#broken-button')
+          .addEventListener('click', brokenAlert());
+      </script>
+    </section>
+
+    <section id="event-handling-with-jquery">
+      <h1>Event Handling with jQuery</h1>
+
+      <button id="jq-button">With jQuery</button>
+
+      <script>
+        const jqButton = $('#jq-button');
+
+        jqButton.on('click', () => {
+          alert('Handled with jQuery!');
+        });
+      </script>
+    </section>
+
+    <section id="using-event-objects">
+      <h1>Using Event Objects</h1>
+
+      <button id="event-button">See event (in console)</button>
+
+      <script>
+        const evtBtn = document.querySelector('#event-button');
+
+        evtBtn.addEventListener('click', (evt) => {
+          console.log(evt);
+        });
+      </script>
+    </section>
+
+    <section id="cancelling-events">
+      <h1>Cancelling Events</h1>
+
+      <a href="/secrets">Don't go to this page</a>
+
+      <script>
+        const secretLink = document.querySelector('a');
+
+        secretLink.addEventListener('click', (evt) => {
+          evt.preventDefault();
+
+          alert('I told you not to go to that page.');
+        });
+      </script>
+
+      <h4>Suggest a word!</h4>
+      <p>Your word must be > 5 characters long</p>
+
+      <form action="/suggest-word" method="POST">
+        <input type="text" name="word">
+        <input type="submit">
+      </form>
+
+      <script>
+        const wordForm = document.querySelector('form');
+
+        wordForm.addEventListener('submit', (evt) => {
+          const wordInput = document.querySelector('input[name="word"]');
+
+          if (wordInput.value.length < 5) {
+            evt.preventDefault();
+          }
+        });
+      </script>
+    </section>
+
+    <section id="event-target">
+      <h1>Using the Event Target</h1>
+      <button class="font-changer" id="monospace">
+        Change to monospace!
+      </button>
+      <button class="font-changer" id="sans-serif">
+        Change to sans-serif!
+      </button>
+      <button class="font-changer" id="serif">
+        Change to serif!
+      </button>
+
+      <script>
+        $('button.font-changer').on('click', (evt) => {
+          const button = $(evt.target);
+
+          const buttonId = button.attr('id');
+
+          $('body').css('fontFamily', buttonId);
+        });
+      </script>
+    </section>
+  </body>
+</html>
+
+
+<!--JQuery-->
+  <!-------------- EXAMPLE 1: SIMPLE GET REQUEST ---------------->
+
+  <p class="lead">Buy Our <span id="adjective"></span> Melons</p>
+
+  <script src="/static/js/test.js"></script>
+
+
+  <!-------------- EXAMPLE 2: ORDER STATUS ---------------->
+
+  <h2>Order Status</h2>
+
+  <p>
+    Your order number is <b>123</b>.
+    Status: <b id="order-status">(not yet known)</b>
+  </p>
+
+  <button id="update-status" class="btn btn-primary">Get status</button>
+
+  <script src="/static/js/test.js"></script>
+
+  <!-------------- EXAMPLE 3: SUBMIT ORDER ---------------->
+
+
+  <h2>Order Form</h2>
+
+  <form id="order-form" method="post" action="/new-order">
+
+    <div class="form-group">
+      <label for="type-field">Melon Type</label>
+      <select name="melon_type" class="form-control" id="type-field">
+        {% for melon in melons %}
+          <option value="{{ melon }}">{{ melon }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="amount-field">Amount</label>
+      <input type="number" class="form-control" name="amount" id="amount-field">
+    </div>
+
+    <input type="submit" class="btn btn-primary">
+
+  </form>
+
+  <script src="/static/js/test.js"></script>
+
+
+  <!-------------- EXAMPLE 4: DELIVERY TIME ---------------->
+
+  <h2>Ubermelon Delivery Estimate</h2>
+
+  <form id="delivery-form" method="get" action="/delivery-info.json">
+    <div class="form-group">
+      <label for="adr-field">Address</label>
+      <input type="text"
+             class="form-control"
+             name="address"
+             id="adr-field"
+             value="123 Main Street">
+    </div>
+    <div class="form-group">
+      <label for="city-field">City</label>
+      <select id="city-field" name="city" class="form-control">
+        <option value="SF">San Francisco</option>
+        <option value="Oak">Oakland</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary">
+    </div>
+  </form>
+
+  <script src="/static/js/test.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+</div>
+</body>
+</html>
+
+{% endblock %}

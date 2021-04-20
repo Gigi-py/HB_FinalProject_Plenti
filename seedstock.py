@@ -18,10 +18,9 @@ stocks_in_db = []
 stockprices_in_db = []
 
 fundamental_data = api.get_fundamentals()
-price_data = api.get_stockprice()
-
+more_details=testapi.get_stock_details()
 print(fundamental_data)
-print(price_data)
+
 
 for stock in fundamental_data:
     symbol, name, description, industry, asset_type, currency, employees = (
@@ -33,7 +32,9 @@ for stock in fundamental_data:
         stock['Currency'],
         stock['FullTimeEmployees'],
         )
-    
+    logo=more_details[0]['logo']
+    print(logo)
+
     db_stock = crud.create_stock(symbol, name, 
                 description, industry, 
                 asset_type, currency, employees)

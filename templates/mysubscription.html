@@ -4,6 +4,26 @@
 
 {% block body %}
 
+<div class="container py-3">
+    <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <span class="fs-4">Plenti</span>
+      </a>
+  
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Dashboard</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Stocks</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Learning</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Events</a>
+        <a class="py-2 text-dark text-decoration-none" href="#">Contact Us</a>
+      </nav>
+    </header>
+  
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">{{user.username.upper()}}'s Membership</h1>
+      <p class="fs-5 text-muted">These are your membership details</p>
+    </div>
+
 Hi {{user.username.upper()}}! 
 This is your subscription details:
     {{subscription.user_id}}

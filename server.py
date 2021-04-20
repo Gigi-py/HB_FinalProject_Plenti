@@ -37,7 +37,7 @@ def login():
 
 @app.route('/dashboard')
 def view_dashboard():
-    username = session['username'].upper()
+    username = session['username'].upper()  
 
     return render_template('/dashboard.html', username=username)
 
@@ -54,7 +54,7 @@ def user_subscription():
     user = crud.get_user_by_username(username)
     user_id = user.id
     subscription = Subscription.query.filter(user_id == user_id).first()
-    
+    print(subscription)
     return render_template('mysubscription.html', subscription=subscription, user=user)
     
 @app.route('/mystocks')

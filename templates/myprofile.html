@@ -2,14 +2,40 @@
 
 {% block title %} My profile {% endblock %}     
 
-{% block body %}
+{% block body %}    
+<div class="container py-3">
+    <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <span class="fs-4">Plenti</span>
+      </a>
+  
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Dashboard</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Stocks</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Learning</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Events</a>
+        <a class="py-2 text-dark text-decoration-none" href="#">Contact Us</a>
+      </nav>
+    </header>
+  
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">{{user.username.upper()}}'s Profile</h1>
+      <p class="fs-5 text-muted">Thank you for being our customer</p>
+    </div>
 
-Hi {{user.username.upper()}}! 
-    {{user.fname}}
-    {{user.lname}}
-    {{user.username}}
-    {{user.email}}
-    {{user.avatar}}
-    {{user.address}}
+<div class="card">
+  <img src="/static/img/JLo.jpeg" alt="gabriella" style="width:100%">
+  <h1>{{user.fname}} {{user.lname}} </h1>
+  <p class="title">{{user.email}}</p>
+  <p>{{user.address}}</p>
+  <div style="margin: 24px 0;">
+    <a href="#"><i class="fa fa-dribbble"></i></a> 
+    <a href="#"><i class="fa fa-twitter"></i></a>  
+    <a href="#"><i class="fa fa-linkedin"></i></a>  
+    <a href="#"><i class="fa fa-facebook"></i></a> 
+  </div>
+  <p><a href="/dashboard">Update my information
+  </a></p>
+</div>
 
 {% endblock %}

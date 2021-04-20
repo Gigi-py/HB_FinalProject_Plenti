@@ -18,7 +18,6 @@ def get_stockprice():
             "datatype": "json", 
             "apikey": API_KEY} 
 
-
         response = requests.get(API_URL, data) 
         response_json = response.json().get('Global Quote')
         if response_json == None:
@@ -42,7 +41,6 @@ def serialize_api_price(api_price):
     ]
 
     return {k: v for k, v in api_price.items() if k in allowed_keys}
-
 
 def get_fundamentals():
     fundamental_data = []
@@ -77,3 +75,50 @@ def serialize_api_obj(api_obj):
     ]
 
     return {k: v for k, v in api_obj.items() if k in allowed_keys}
+
+POLYAPI_KEY = "ehldCsvN37bNwxkDthi_G__QfTdDF3rT"
+
+def get_stock_details(symbol):
+    """Get stock info from POLYGON API to store in db """    
+    stock_detail_data = []
+    for symbol in stock_symbols:
+        response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
+        response_json = response.json()
+        if response_json == None:
+            time.sleep(60)
+            print('sleeping')
+            response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
+            response_json = response.json()
+        stock_detail_data.append(response_json)
+        print('data_append')
+        
+    return stock_detail_data
+
+def serialize_api_obj(api_obj):
+    allowed_keys = [
+      "Symbol",
+      "AssetType",
+      "Name",
+      "Description", 
+      "Industry",
+      "Currency",
+      "FullTimeEmployees"  
+    ]
+
+def get_news_details(symbol):
+    """Get stock news info from POLYGON API to store in db """    
+    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)
+    response_json = response.json()
+    
+    return response_json[0]
+
+def serialize_api_obj(api_obj):
+    allowed_keys = [
+      "Symbol",
+      "AssetType",
+      "Name",
+      "Description", 
+      "Industry",
+      "Currency",
+      "FullTimeEmployees"  
+    ]

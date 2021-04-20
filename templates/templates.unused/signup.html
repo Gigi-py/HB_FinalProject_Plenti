@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %} Welcome to Plenti {% endblock %}     
+
+{% block body %}
+
+<!-- Creating Hero Image -->
+
+<!-- Creating Sign-Up Form -->
+
+<div class="form-wrapper">
+
+  <div class="logo">
+    <img
+      src="{{ url_for('static', filename='Plenti_logo.png') }}"
+      alt="logo"
+    />
+  </div>
+
+  <form class="form-signup" method="POST" action="{{url_for('signup')}}">
+    {{ form.csrf_token }}
+    <p>{{ form.username(placeholder="username") }}
+      <span>
+        {% if form.username.errors %}
+          {% for error in form.username.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    <p>{{ form.fname(placeholder="firstname") }}
+      <span>
+        {% if form.fname.errors %}
+          {% for error in form.fname.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    <p>{{ form.lname(placeholder="lastname") }}
+      <span>
+        {% if form.lname.errors %}
+          {% for error in form.username.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    <p>{{ form.email(placeholder="email") }}
+      <span>
+        {% if form.email.errors %}
+          {% for error in form.email.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    <p>
+      {{ form.password(placeholder="password") }}
+      <span>
+        {% if form.password.errors %}
+          {% for error in form.password.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    <button type="submit">Sign Up!</button>
+  </form>
+
+{% endblock %}
+

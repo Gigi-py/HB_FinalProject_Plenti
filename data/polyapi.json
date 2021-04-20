@@ -1,0 +1,55 @@
+
+[{
+    "logo": "https://s3.polygon.io/logos/aapl/logo.png",
+    "listdate": "1990-01-02T00:00:00.000Z",
+    "cik": 320193,
+    "bloomberg": "EQ0010169500001000",
+    "figi": null,
+    "lei": "HWUPKR0MPOU8FGXBT394",
+    "sic": 3571,
+    "country": "usa",
+    "industry": "Computer Hardware",
+    "sector": "Technology",
+    "marketcap": 908316631180,
+    "employees": 123000,
+    "phone": "+1 408 996-1010",
+    "ceo": "Timothy D. Cook",
+    "url": "http://www.apple.com",
+    "description": "Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.",
+    "exchange": "Nasdaq Global Select",
+    "name": "Apple Inc.",
+    "symbol": "AAPL",
+    "exchangeSymbol": "NGS",
+    "hq_address": "1 Infinite Loop Cupertino CA, 95014",
+    "hq_state": "CA",
+    "hq_country": "USA",
+    "type": "CS",
+    "updated": "11/16/2018",
+    "tags": [
+     "Technology",
+     "Consumer Electronics",
+     "Computer Hardware"
+    ],
+    "similar": [
+     "MSFT",
+     "NOK",
+     "IBM",
+     "HPQ",
+     "GOOGL"]}]
+
+     [
+        {
+         "symbols": [
+          "AAPL"
+         ],
+         "timestamp": "2020-03-26T23:52:51.000Z",
+         "title": "Apple (AAPL): Despite Likely iPhone 12 Delays, the Risk-Reward Remains Compelling, Says Analyst",
+         "url": "https://finance.yahoo.com/news/apple-aapl-despite-likely-iphone-235251688.html",
+         "source": "finance yahoo",
+         "summary": "When considering the fortunes of the FAANG family since the viral outbreak, it appears Apple (AAPL) has most to lose. Amazon and Netflix can count their internet driven models as particularly well set up for a hibernation period. And while Google and Facebook stand to lose significant advertising revenue",
+         "image": "https://s.yimg.com/uu/api/res/1.2/Su.8VniRbi_GL2B3BruK5w--~B/aD0zMzc7dz0xMDI0O3NtPTE7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en-US/smarteranalyst_347/6909df17d6ef3af25ac79e2e6c0078d5",
+         "keywords": [
+          "aapl"
+         ]
+        }
+       ]

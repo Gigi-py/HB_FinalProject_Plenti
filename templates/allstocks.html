@@ -4,16 +4,79 @@
  
 {% block body %}
 
-<p>
-    Hi {{username}}! Choose 5 companies that you love
+    <p>
+    Hi {{username}}! Choose companies that you love
     </p>
       <ul>
         {% for stock in all_stocks: %}
         <li>{{stock.name}}</li>
+        <button id="add-stock">Add</button>
+        <script>
+            const add_stock = $('#add-stock');
+            add_stock.on('click', () => {
+            alert('Added to portfolio!');
+            });
+          </script>
+
         {% endfor %}
       </ul>
 
-<a href="/subscriptions">Next - CHOOSE SUBSCRIPTIONS &raquo;</a>
+<a href="/plans">Next - CHOOSE SUBSCRIPTIONS &raquo;</a>
 
+<h1>Go Back to dashboard</h1>
 
+<a href="/dashboard" class='dashboard'>Back to dashboard</a>
+
+<h1>Search more stocks</h1>
+
+<script>
+  const cancellink = document.querySelector('#dashboard');
+
+  cancellink.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    alert('Go back to dashboard.');
+  });
+</script>
+
+<form action="/stock-profile" method="POST">
+    <input type="text" name="symbol">
+    <input type="submit">
+  </form>
+
+<script>
+    const wordForm = document.querySelector('form');
+
+    wordForm.addEventListener('submit', (evt) => {
+        const wordInput = document.querySelector('input[name="stock"]');
+
+        if (wordInput.value.length < 5) {
+        evt.preventDefault();
+        }
+    });
+    </script>
+
+    <section id="event-target">
+      <h1>Using the Event Target</h1>
+      <button class="font-changer" id="monospace">
+        Change to monospace!
+      </button>
+      <button class="font-changer" id="sans-serif">
+        Change to sans-serif!
+      </button>
+      <button class="font-changer" id="serif">
+        Change to serif!
+      </button>
+
+      <script>
+        $('button.font-changer').on('click', (evt) => {
+          const button = $(evt.target);
+
+          const buttonId = button.attr('id');
+
+          $('body').css('fontFamily', buttonId);
+        });
+      </script>
+    </section>
+    
 {% endblock %} 
