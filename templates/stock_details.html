@@ -17,13 +17,67 @@
         <a class="py-2 text-dark text-decoration-none" href="#">Contact Us</a>
       </nav>
     </header>
-    
 
-    <li>{{stock.name}}</li>
-    <li>{{stock.description}}</li>
-    <li>{{stock.industry}}</li>
-    <li>{{stock.asset_type}}</li>
-    <li>{{stock.currency}}</li>
-    <li>{{stock.description}}</li>
+    <h1>{{stock.name}}</h1>
+    <img source="{{stock_detail['logo']}}"><img>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Metric</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Description</th>
+      <td>{{stock.description}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Industry</th>
+      <td>{{stock.industry}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Asset Type</th>
+      <td colspan="2">{{stock.asset_type}}</td>
+    </tr>
+    <tr>
+        <th scope="row">Currency</th>
+        <td colspan="2">{{stock.currency}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Country</th>
+        <td colspan="2">{{stock_detail["country"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Market Cap</th>
+        <td colspan="2">{{stock_detail["marketcap"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Employees</th>
+        <td colspan="2">{{stock_detail["employees"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Company Website</th>
+        <td colspan="2">{{stock_detail["url"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">HQ Address</th>
+        <td colspan="2">{{stock_detail["hq_address"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">HQ State</th>
+        <td colspan="2">{{stock_detail["hq_state"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Tags</th>
+        <td colspan="2">{{stock_detail["tags"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Similar</th>
+        <td colspan="2">{{stock_detail["similar"]}}</td>
+      </tr>
+  </tbody>
+</table>
 
 {% endblock %}

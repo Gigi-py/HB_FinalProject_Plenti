@@ -83,15 +83,13 @@ POLYAPI_KEY = "ehldCsvN37bNwxkDthi_G__QfTdDF3rT"
 def get_stock_details(symbol):
     """Get stock info from POLYGON API to store in db """    
 
-    for symbol in stock_symbols:
-        response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
-        response_json = response.json()
-        stock_details_data = serialize_api_details(response_json)
+    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
+    response_json = response.json()
+    stock_details_data = serialize_api_details(response_json)
     
     return stock_details_data
 
 #Create and return new Stockdetail:
-
 
 def serialize_api_details(api_details):
     allowed_keys = [
@@ -120,12 +118,11 @@ def serialize_api_details(api_details):
         
 def get_news_details(symbol):
     """Get stock news info from POLYGON API to store in db """    
-    for symbol in stock_symbols:
-        response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)
-        response_json = response.json()
-        stock_news_data = serialize_api_news(response_json)
+    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)
+    response_json = response.json()
+    stock_news_data = serialize_api_news(response_json)
 
-        return stock_news_data
+    return stock_news_data
 
 def serialize_api_news(api_news):
     allowed_keys = [
@@ -137,4 +134,4 @@ def serialize_api_news(api_news):
       "image"
     ]
 
-    return {k: v for k, v in api_details.items() if k in allowed_keys}
+    return {k: v for k, v in api_news.items() if k in allowed_keys}

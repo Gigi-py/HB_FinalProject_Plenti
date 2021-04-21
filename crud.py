@@ -94,10 +94,39 @@ def create_stockprice(symbol, openprice, high, low, closeprice, volume, date):
 
 
 #Create and return new Stockdetail:
-def create_stockdetail(symbol, logo, cik, country, industry, marketcap, employees, phone, ceo, url,
-                    description, exchange, name, hq_address, hq_state, hq_country):
+def get_stockdetail(symbol):
+    #calling live API data from Polygon on each stock symbol
+    stock_details_data = api.get_stock_details(symbol)
+    logo, cik, country, industry, marketcap, employees, phone, ceo, url,description, exchange, name, symbol, hq_address, hq_state, hq_country, tags, similar=(
+        stock_details_data["logo"],
+        stock_details_data["cik"],
+        stock_details_data["country"], 
+        stock_details_data["industry"],
+        stock_details_data["marketcap"],
+        stock_details_data["employees"],
+        stock_details_data["phone"],
+        stock_details_data["ceo"],
+        stock_details_data["url"], 
+        stock_details_data["description"],
+        stock_details_data["exchange"],
+        stock_details_data["name"],
+        stock_details_data["symbol"],
+        stock_details_data["hq_address"],
+        stock_details_data["hq_state"],
+        stock_details_data["hq_country"],
+        stock_details_data["tags"],
+        stock_details_data["similar"])
 
-    stock_detail = Stockdetail(symbol=symbol, logo=logo, cik=cik,
+    return stock_details_data
+
+def get_stock_news(symbol):
+    #calling live API news data from Polygon on each stock symbol
+    stock_newss_data = api.get_stock_news(symbol)
+    return stock_newss_data
+
+def create_stockdetail(logo, cik, country, industry, marketcap, employees, phone, ceo, url, description, exchange, name, symbol, hq_address, hq_state, hq_country):
+    
+    stock_detail = Stockdetail(logo=logo, cik=cik,
     country=country,
     industry=industry,
     marketcap=marketcap,
@@ -108,6 +137,7 @@ def create_stockdetail(symbol, logo, cik, country, industry, marketcap, employee
     description=description,
     exchange=exchange,
     name=name,
+    symbol=symbol, 
     hq_address=hq_address,
     hq_state=hq_state,
     hq_country=hq_country)
@@ -153,26 +183,6 @@ def create_stock_in_subscription(stock_in_subscription_id, user_id, stock_id, ad
     return stock_in_subscription
 
 #Create sample blogs=========
-def create_blog():
-
-    sample_articles = [{"title": "What is a Stock", "url": "https://learn.robinhood.com/articles/6FKal8yK9kk22uk65x3Jno/what-is-a-stock/"},
-    {"title": "What is a portfolio", "url":"https://learn.robinhood.com/articles/4vaR9PkTzes8u3ibLAWrD1/what-is-a-portfolio/"},
-    {"title": "What is an Initial Public Offering", "url": "https://learn.robinhood.com/articles/6UsdUrlnUvxiDpDT4D2bup/what-is-an-initial-public-offering-ipo/"},
-    {"title": "What is Venture Capital", "url": "https://learn.robinhood.com/articles/4XRFKEfckD73crXUgLBsoK/what-is-venture-capital/"},
-    {"title": "What is an Investment Company", "url": "https://learn.robinhood.com/articles/2FxgvV1Nt0LoTq59xJzj3/what-is-an-investment-company/"},
-    {"title": "What is a Stock Option", "url": "https://learn.robinhood.com/articles/YtqceruIQSiHncrlcecPL/what-is-a-stock-option/"}
-    ]
-    
-    articles_in_db = []
-    for article in sample_articles:
-        title = article['title']
-        url = article['url']
-        article = Blog(title=title, url=url)
-        articles_in_db.append(article)
-        db.session.add(article)
-        db.session.commit()
-
-    return articles_in_db
 
 #API Routes==============================
 def get_quote():

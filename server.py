@@ -25,7 +25,7 @@ def show_homepage():
 
 @app.route('/login', methods=['GET']) 
 def show_login_form():
-    """Homepage"""
+    """Show homepage"""
     return render_template('login.html')
 
 @app.route('/login', methods=['POST']) 
@@ -40,6 +40,14 @@ def view_dashboard():
     username = session['username'].upper()  
 
     return render_template('/dashboard.html', username=username)
+
+
+
+@app.route('/user/<username>')
+def show_user_profile(username):
+    """Show the user dashboard page for that user"""
+    
+    return f'Profile page for user: {username}'
 
 @app.route('/myprofile')
 def user_profile():
@@ -74,12 +82,6 @@ def logout():
     session.pop('user')
     return redirect('/login')
 
-@app.route('/user/<username>')
-def show_user_profile(username):
-    """Show the user dashboard page for that user"""
-    
-    return f'Profile page for user: {username}'
-
 @app.route('/allstocks')
 def view_all_stocks():
     """view a list of all stocks to invest."""
@@ -100,7 +102,8 @@ def view_all_stocks():
 def view_stock_details(symbol):
     """view a list of all stocks to invest."""
     stock = crud.get_stock_by_symbol(symbol)
-    return render_template("/stock_details.html", stock=stock)
+    stock_detail = crud.get_stockdetail(symbol)
+    return render_template("/stock_details.html", stock=stock, stock_detail=stock_detail)
 
 @app.route('/plans')
 def view_plans():
@@ -110,6 +113,7 @@ def view_plans():
 @app.route('/plans', methods=["POST"])
 def add_stocks_to_plan():
     """view a list of all subscriptions to choose from."""
+
     return render_template("/plans.html") 
 
 @app.route('/checkplan')
