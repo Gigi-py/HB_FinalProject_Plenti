@@ -11,9 +11,7 @@ class User(db.Model):
 #user table
     __tablename__ ='user'
 
-    id = db.Column(db.Integer, autoincrement=True, 
-                    primary_key=True)
-    username = db.Column(db.String, unique=True, nullable = False) 
+    username = db.Column(db.String, unique=True, nullable = False, primary_key=True) 
     fname = db.Column(db.String)
     lname = db.Column(db.String)
     email = db.Column(db.String, unique=True)
@@ -29,8 +27,8 @@ class UserFavorite(db.Model):
     __tablename__ = 'userfavorite'
     favorite_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     is_favorite = db.Column(db.Boolean, default = True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'))
+    username = db.Column(db.String, db.ForeignKey('user.username'))
+    stock_symbol = db.Column(db.String, db.ForeignKey('stock.symbol'))
    
     stock = db.relationship('Stock', backref = 'userFavorites')
     user = db.relationship('User', backref = 'userFavorites')
@@ -44,42 +42,40 @@ class Stock(db.Model):
 
     __tablename__ = 'stock'
 
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    symbol = db.Column(db.String)
+    symbol = db.Column(db.String, primary_key=True)
     name = db.Column(db.String)
     description = db.Column(db.String)
     industry = db.Column(db.String)
     asset_type = db.Column(db.String)
     currency = db.Column(db.String)
+    ipodate = db.Column(db.String)
     employees = db.Column(db.Integer)
     
     def __repr__(self):
-        return f'<Stock {self.id} {self.symbol}>'
+        return f'<Stock {self.symbol}>'
 
 
 class Stockprice(db.Model):
 
     __tablename__ = 'stockprice'
 
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'))
+    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'), primary_key=True)
     openprice = db.Column(db.Float)
     high = db.Column(db.Float)
     low = db.Column(db.Float)
     closeprice = db.Column(db.Float)
     volume = db.Column(db.Integer)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.String)
     stock = db.relationship("Stock", backref="stockprice")
 
     def __repr__(self):
-            return f'<Stockprice {self.closeprice}>'
+            return f'<Stockprice {self.symbol}>'
 
 class Stockdetail(db.Model):
 #from POLYGON
     __tablename__ = 'stockdetail'
 
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'))
+    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'), primary_key=True)
     logo = db.Column(db.String)
     cik = db.Column(db.String)
     country = db.Column(db.String)
@@ -92,7 +88,6 @@ class Stockdetail(db.Model):
     description = db.Column(db.String)
     exchange = db.Column(db.String)
     name = db.Column(db.String)
-    symbol = db.Column(db.String)
     hq_address = db.Column(db.String)
     hq_state = db.Column(db.String)
     hq_country = db.Column(db.String)
@@ -117,7 +112,7 @@ class Plan(db.Model):
 
 class Subscription(db.Model):
     id = db.Column(db.Integer, autoincrement= True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_name = db.Column(db.String, db.ForeignKey('user.username'))
     plan_id = db.Column(db.Integer, db.ForeignKey('plan.id'))
     Subscription_start_timestamp = db.Column(db.DateTime)
     Subscription_end_timestamp = db.Column(db.DateTime)
@@ -127,7 +122,7 @@ class Subscription(db.Model):
 
 
     def __repr__(self):
-        return f'<Subscription by {self.user.username} of {self.plan.name} >'
+        return f'<Subscription by {self.user_name} of {self.plan.name} >'
 
 class Stock_in_Subscription(db.Model):
     """Add stock to a subcription box"""
@@ -135,12 +130,12 @@ class Stock_in_Subscription(db.Model):
     __tablename__ = 'stock_in_subscription'
 
     id = db.Column(db.Integer, autoincrement= True, primary_key=True)
-    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'), nullable=False)
+    stock_symbol = db.Column(db.String, db.ForeignKey('stock.symbol'), nullable=False)
     subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), nullable=False) 
     subscription = db.relationship("Subscription",
                              backref="stock_in_subscription")
     def __repr__(self):
-        return f'<stock_in_subscription {self.subscription_id} of {self.stock_id}>'
+        return f'<stock_in_subscription {self.subscription_id} of {self.stock_symbol}>'
 
 #BLOG=================
 class Blog(db.Model):
@@ -177,7 +172,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, 
                     primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_name = db.Column(db.String, db.ForeignKey('user.username'))
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     body = db.Column(db.Text)
@@ -186,7 +181,7 @@ class Comment(db.Model):
     event = db.relationship('Event', backref='comment')
 
     def __repr__(self):
-            return f'<Comment on Meetup {self.meetup_id} by User {self.user_id}>'
+            return f'<Comment on Meetup {self.meetup_id} by User {self.user_name}>'
 
 def connect_to_db(flask_app, db_uri='postgresql:///stocks', echo=False):
     

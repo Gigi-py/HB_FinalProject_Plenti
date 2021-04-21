@@ -144,13 +144,11 @@ def create_checkout_session():
 
 @app.route('/blog')
 def all_blogs():
-    """show all blogs"""
-    return render_template("blog.html")
+    """render blogs from database"""
+    blogs = crud.get_all_blogs()
 
-@app.route('/blog/<int:id>')
-def show_blog(id):
-    
-    return render_template("blog.html")
+    return render_template("blog.html", blogs=blogs)
+
 
 
 if __name__ == '__main__':
