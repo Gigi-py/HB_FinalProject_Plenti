@@ -52,8 +52,7 @@ def user_profile():
 def user_subscription():
     username = session['username']
     user = crud.get_user_by_username(username)
-    user_id = user.id
-    subscription = Subscription.query.filter(user_id == user_id).first()
+    subscription = Subscription.query.filter(username == username).first()
     return render_template('mysubscription.html', subscription=subscription, user=user)
     
 @app.route('/mystocks')
