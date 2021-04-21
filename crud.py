@@ -49,19 +49,23 @@ def get_all_stock_symbols():
     
     return all_stocks
 
-def save_stocks():
-    sample_stocks = ['PYPL','HLT', 'PINS', 'TWLO', 'W']
-
+def save_stocks(all_stocks):
     """save all stocks (names, symbol etc.. ) in the database from AA API  """
-    all_stocks = get_all_stock_symbols()
+    sample_stocks = ['PYPL','HLT', 'PINS', 'TWLO', 'W', 'MSFT', 'UPS', 'BAC', 'ADBE', 'SPOT', 'DIS', 'FB', 'SONO', 'ZM', 'ETSY', 'TSLA', 'TCS', 'LULU', 'F', 'WBA']
+    count = 0
     for stock in all_stocks:
-        if stock[0] not in sample_stocks:
-            stockInfo = Stock(symbol = stock[0], name=stock[1], asset_type=stock[3], ipodate=stock[4])
+        print(stock)
+        if count != 0:
+            if stock[0] in sample_stocks:
+                stockInfo = Stock(symbol = stock[0], stock_name=stock[1], exchange=stock[2],asset_type=stock[3],ipo_date=stock[4], sample = True)
+            else:
+                stockInfo = Stock(symbol = stock[0], stock_name=stock[1], exchange=stock[2],asset_type=stock[3],ipo_date=stock[4])
+       
             db.session.add(stockInfo)
             db.session.commit()
+        count += 1
 
-    return "saved all stock symbols to database"
-
+    return "Finished adding all stock symbols"
 
 #Create and add a new stock to the database:
 def create_stock(symbol, name, 

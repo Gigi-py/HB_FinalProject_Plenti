@@ -46,10 +46,12 @@ class Stock(db.Model):
     name = db.Column(db.String)
     description = db.Column(db.String)
     industry = db.Column(db.String)
+    exchange = db.Column(db.String)
     asset_type = db.Column(db.String)
     currency = db.Column(db.String)
     ipodate = db.Column(db.String)
     employees = db.Column(db.Integer)
+    sample = db.Column(db.Boolean)
     
     def __repr__(self):
         return f'<Stock {self.symbol}>'
