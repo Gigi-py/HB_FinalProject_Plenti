@@ -96,14 +96,19 @@ def view_all_stocks():
     
     return render_template("/allstocks.html", all_stocks=all_stocks)
 
-@app.route('/stock_details')
-def view_stock_details():
+@app.route('/stockdetails/<symbol>')
+def view_stock_details(symbol):
     """view a list of all stocks to invest."""
-    stock = crud.get_stock_by_symbol("PYPL")
+    stock = crud.get_stock_by_symbol(symbol)
     return render_template("/stock_details.html", stock=stock)
 
 @app.route('/plans')
 def view_plans():
+    """view a list of all subscriptions to choose from."""
+    return render_template("/plans.html") 
+
+@app.route('/plans', methods=["POST"])
+def add_stocks_to_plan():
     """view a list of all subscriptions to choose from."""
     return render_template("/plans.html") 
 

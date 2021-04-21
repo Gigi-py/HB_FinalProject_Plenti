@@ -8,13 +8,13 @@
     Hi {{username}}! Choose companies that you love
     </p>
     
-    <h1>Search more stocks</h1>
+    <!-- <h1>Search more stocks</h1>
 
     <form action="/stock-profile" method="POST">
       <input type="text" name="symbol">
       <input type="submit">
     </form>
-    
+
     <script>
       const wordForm = document.querySelector('form');
   
@@ -35,14 +35,31 @@
 
         alert('Go back to dashboard.');
       });
-    </script>
+    </script> -->
 
+      <form action="/plans", method="POST">
         {% for stock in all_stocks: %}
-        <li>{{stock.name}}</li>
+        <div>
+          <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
+          <label for="{{stock.symbol}}">{{stock.name}}</label>
+          <a href='/stockdetails/{{stock.symbol}}'>See more details</a>
+        </div>
         {% endfor %}
-      </ul>
 
-<a href="/plans">Next - CHOOSE SUBSCRIPTIONS &raquo;</a>
+        <a href="/plans">See more details on subscription plans &raquo;</a>
+
+        <label for="plan-select">CHOOSE SUBSCRIPTIONS:</label>
+        <select name="plans" id="plan-select">
+            <option value="">--Please choose an option--</option>
+            <option value="starter">Starter</option>
+            <option value="pro">Pro</option>
+            <option value="premium">Premium</option>
+        </select>
+        <input type="submit">
+      </form>
+        
+
+
 
 <h1>Go Back to dashboard</h1>
 
