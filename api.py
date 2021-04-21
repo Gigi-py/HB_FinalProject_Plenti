@@ -5,9 +5,9 @@ API_KEY = "J18XE5872X9Y79OQ"
 # https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo
 # https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo
 
-stock_symbols = ['PYPL','HLT', 'PINS', 'TWLO', 'W']
-#  'MSFT', 'UPS', 'BAC', 'ADBE', 'SPOT', 'DIS', 'FB', 'SONO',
-#         'ZM', 'ETSY', 'TSLA', 'TCS', 'LULU', 'F', 'WBA'] #TO DO: call live once feature is set up properly
+stock_symbols = ['PYPL','HLT', 'PINS', 'TWLO', 'W',
+ 'MSFT', 'UPS', 'BAC', 'ADBE', 'SPOT', 'DIS', 'FB', 'SONO',
+        'ZM', 'ETSY', 'TSLA', 'TCS', 'LULU', 'F', 'WBA'] #TO DO: call live once feature is set up properly
 
 def get_stockprice():
     """Get stock name info from AA API to store in db """    
@@ -83,7 +83,7 @@ POLYAPI_KEY = "ehldCsvN37bNwxkDthi_G__QfTdDF3rT"
 def get_stock_details(symbol):
     """Get stock info from POLYGON API to store in db """    
 
-    for stock in stock_symbols:
+    for symbol in stock_symbols:
         response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
         response_json = response.json()
         stock_details_data = serialize_api_details(response_json)
@@ -120,11 +120,12 @@ def serialize_api_details(api_details):
         
 def get_news_details(symbol):
     """Get stock news info from POLYGON API to store in db """    
-    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)
-    response_json = response.json()
-    stock_news_data = serialize_api_news(response_json)
+    for symbol in stock_symbols:
+        response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)
+        response_json = response.json()
+        stock_news_data = serialize_api_news(response_json)
 
-    return stock_news_data
+        return stock_news_data
 
 def serialize_api_news(api_news):
     allowed_keys = [

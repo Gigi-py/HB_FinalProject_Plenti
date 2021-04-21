@@ -84,8 +84,16 @@ def show_user_profile(username):
 @app.route('/allstocks')
 def view_all_stocks():
     """view a list of all stocks to invest."""
+    stock_symbols = ['PYPL','HLT', 'PINS', 'TWLO', 'W',
+    'MSFT', 'UPS', 'BAC', 'ADBE', 'SPOT', 'DIS', 'FB', 'SONO',
+    'ZM', 'ETSY', 'TSLA', 'TCS', 'LULU', 'F', 'WBA']
+    
+    all_stocks = []
+    for symbol in stock_symbols:
+       stock = crud.get_stock_by_symbol(symbol) 
+       all_stocks.append(stock)
+    
     username = session.get('username')
-    all_stocks = crud.get_all_stocks()
     
     return render_template("/allstocks.html", all_stocks=all_stocks)
 
@@ -148,7 +156,6 @@ def all_blogs():
     blogs = crud.get_all_blogs()
 
     return render_template("blog.html", blogs=blogs)
-
 
 
 if __name__ == '__main__':

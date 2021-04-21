@@ -1,4 +1,3 @@
-
 import os
 import json
 from random import choice, randint, sample
@@ -13,39 +12,6 @@ os.system('createdb stocks')
 connect_to_db(app, echo=False)
 db.create_all()
 
-#SAVING ALL STOCK SYMBOLS==========
-all_stock_symbols = crud.get_all_stock_symbols()
-for stock in all_stock_symbols:
-    stockInfo = Stock(symbol = stock[0], name=stock[1], asset_type=stock[3], ipodate=stock[4])
-    db.session.add(stockInfo)
-    db.session.commit()
-print(all_stock_symbols)
-
-# #STOCK TABLE==============
-# stocks_in_db = []
-# stockprices_in_db = []
-
-# fundamental_data = api.get_fundamentals()
-# print(fundamental_data)
-
-# for stock in fundamental_data:
-#     symbol, name, description, industry, asset_type, currency, employees = (
-#         stock['Symbol'],
-#         stock['Name'],
-#         stock['Description'],
-#         stock['Industry'],
-#         stock['AssetType'],
-#         stock['Currency'],
-#         stock['FullTimeEmployees'],
-#         )
-    
-#     db_stock = crud.create_stock(symbol, name, 
-#                 description, industry, 
-#                 asset_type, currency, employees)
-#     stocks_in_db.append(db_stock)
-#     print(stocks_in_db)
-
-#STOCK PRICE TABLE================
 stockprices_in_db = []
 price_data = api.get_stockprice()
 
@@ -170,4 +136,3 @@ db_subscription = crud.create_subscription(user_name, plan_id, subscription_star
 subscriptions_in_db.append(db_subscription)
 
 db.session.commit()
-

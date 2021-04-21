@@ -113,6 +113,13 @@ def create_stockdetail(symbol, logo, cik, country, industry, marketcap, employee
 
     return stock_detail
 
+def create_stocknews(symbol, timestamp, title, url, source, summary, image):
+    stocknews = Stocknews(symbol, timestamp, title, url, source, summary, image)
+    db.session.add(stocknews)
+    db.session.commit()
+
+    return stocknews
+
 #SUBSCRIPTION INFO =============
 # Create and return a new Subscription:
 def create_subscription(user_name, plan_id, subscription_start_timestamp, subscription_end_timestamp):
@@ -254,6 +261,6 @@ def get_fav_obj(user_id,stock_id):
 #BLOGS============
 def get_all_blogs():
     return Blog.query.all()
-    
+
 
 

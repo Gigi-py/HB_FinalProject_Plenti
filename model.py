@@ -59,7 +59,8 @@ class Stockprice(db.Model):
 
     __tablename__ = 'stockprice'
 
-    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'), primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'))
     openprice = db.Column(db.Float)
     high = db.Column(db.Float)
     low = db.Column(db.Float)
@@ -75,7 +76,8 @@ class Stockdetail(db.Model):
 #from POLYGON
     __tablename__ = 'stockdetail'
 
-    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'), primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'))
     logo = db.Column(db.String)
     cik = db.Column(db.String)
     country = db.Column(db.String)
@@ -95,6 +97,19 @@ class Stockdetail(db.Model):
 
     def __repr__(self):
             return f'<Stockdetail {self.symbol}>'
+
+class Stocknews(db.Model):
+
+    __tablename__ = 'stocknews'
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'))
+    title = db.Column(db.String)
+    url = db.Column(db.String)
+    source = db.Column(db.String)
+    summary = db.Column(db.String)
+    summary = db.Column(db.String)
+    stock = db.relationship("Stock", backref="stocknews")
 
 #SUBSCRIPTION ======================================
 class Plan(db.Model):
