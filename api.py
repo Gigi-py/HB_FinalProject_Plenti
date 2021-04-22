@@ -1,6 +1,9 @@
 import requests, json, csv, time
+import os
 API_URL = "https://www.alphavantage.co/query"
-API_KEY = "J18XE5872X9Y79OQ"
+
+AA_API_KEY = os.environ['AA_API_KEY']
+POLY_API_KEY = os.environ['POLY_API_KEY']
 
 # https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo
 # https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo
@@ -17,7 +20,7 @@ def get_stockprice():
             "symbol": symbol,
             "outputsize" : "full",
             "datatype": "json", 
-            "apikey": API_KEY} 
+            "apikey": AA_API_KEY} 
 
         response = requests.get(API_URL, data) 
         response_json = response.json().get('Global Quote')
@@ -50,7 +53,7 @@ def get_fundamentals():
             "symbol": symbol,
             "outputsize" : "full",
             "datatype": "json", 
-            "apikey": API_KEY} 
+            "apikey": AA_API_KEY} 
 
         response = requests.get(API_URL, data) 
         response_json = response.json() 
@@ -78,12 +81,11 @@ def serialize_api_obj(api_obj):
     return {k: v for k, v in api_obj.items() if k in allowed_keys}
 
 #POLYGON API=================
-POLYAPI_KEY = "ehldCsvN37bNwxkDthi_G__QfTdDF3rT"
 
 def get_stock_details(symbol):
     """Get stock info from POLYGON API to store in db """    
 
-    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
+    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLY_API_KEY)
     response_json = response.json()
     
     return response_json
@@ -117,7 +119,7 @@ def get_stock_details(symbol):
         
 def get_news_details(symbol):
     """Get stock news info from POLYGON API to store in db """    
-    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)
+    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLY_API_KEY)
     response_json = response.json()
     
     allowed_keys = [

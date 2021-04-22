@@ -272,9 +272,11 @@ def get_user_favorites(username):
     
 def delete_favorites(username, symbol):
     """delete from database when user unfavorites stock"""
-    fav_stock = UserFavorite.query.filter(UserFavorite.username == username, UserFavorite.stock_symbol == symbol).first()
+    fav_stock = UserFavorite.query.filter(username == username, symbol == symbol).first()
     db.session.delete(fav_stock)
     db.session.commit()
+    
+    return fav_stock
     
 def get_fav_obj(username, symbol):
 

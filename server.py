@@ -109,13 +109,12 @@ def view_stock_details(symbol):
     stock_detail = crud.get_stockdetails(symbol)
     stock_news_data = crud.get_stock_news(symbol)
     userFav = crud.get_fav_obj(username, symbol)
-    print(userFav)
+    print(userFav) #this is not updating for stock symbol
     if userFav:
         fav_status = True
     else: 
         fav_status = False
-    print(fav_status)
-    
+    print(stock.symbol)
     return render_template("/stock_details.html", username=username, stock=stock, stock_detail=stock_detail, stock_news_data=stock_news_data, fav_status=fav_status)
 
 #handle favorites - get details from the form, call crud function, then redirect back to the stock_details page.
@@ -127,9 +126,9 @@ def add_fav_stock(symbol):
     print(fav_status)
     if fav_status == 'add':
         new_userFav = crud.create_favorites(username, symbol)
+        print (new_userFav)
     if fav_status == 'remove':
-        crud.delete_favorites(username, symbol)
-    print(fav_status)
+        deleted_stock = crud.delete_favorites(username, symbol)
     return "Fav added"
 
 @app.route('/favorites/<username>')

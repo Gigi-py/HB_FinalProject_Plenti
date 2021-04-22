@@ -29,8 +29,8 @@ class UserFavorite(db.Model):
     username = db.Column(db.String, db.ForeignKey('user.username'))
     symbol = db.Column(db.String, db.ForeignKey('stock.symbol'))
    
-    stock = db.relationship('Stock', backref = 'userFavorite')
-    user = db.relationship('User', backref = 'userFavorite')
+    stock = db.relationship('Stock', backref = 'userfavorite')
+    user = db.relationship('User', backref = 'userfavorite')
 
     def __repr__(self):
         return f'<userFavorites favorite_id={self.username} is_favorite={self.symbol}>'
