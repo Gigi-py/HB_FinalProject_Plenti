@@ -19,6 +19,13 @@
     </header>
 
     <h1>{{stock.name}}</h1>
+
+  <form action="/favorites/{{username}}", method='POST'>
+    <button class="favorite styled"
+    type="submit">Add to favorites</button> 
+  </form>
+
+        
     <img source="{{stock_detail['logo']}}"><img>
 
 <table class="table">

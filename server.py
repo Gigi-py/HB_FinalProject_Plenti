@@ -54,7 +54,18 @@ def show_user_profile(username):
     """Show the user profile page for that user"""
     username = session['username']
     user = crud.get_user_by_username(username)
-    return render_template('user-profile.html', user=user)
+    favorite = request.form.get("save")
+    print(favorite)
+    return render_template('user-profile.html', user=user, username=username)
+
+@app.route('/favorites/<username>')
+def user_favorites(username):
+    username = session['username']
+    user = crud.get_user_by_username(username)
+    favorite = request.form.get("save")
+    print(favorite)
+    print(user)
+    return redirect('/user/<username>')
 
 @app.route('/subscription/<username>')
 def subscription(username):
