@@ -101,7 +101,8 @@ def view_stock_details(symbol):
     """view a list of all stocks to invest."""
     stock = crud.get_stock_by_symbol(symbol)
     stock_detail = crud.get_stockdetail(symbol)
-    return render_template("/stock_details.html", stock=stock, stock_detail=stock_detail)
+    stock_news_data = crud.get_stock_news(symbol)
+    return render_template("/stock_details.html", stock=stock, stock_detail=stock_detail, stock_news_data=stock_news_data)
 
 @app.route('/addsubscription', methods=['POST'])
 def add_subscription():

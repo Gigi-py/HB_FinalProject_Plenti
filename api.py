@@ -120,11 +120,7 @@ def get_news_details(symbol):
     """Get stock news info from POLYGON API to store in db """    
     response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLYAPI_KEY)
     response_json = response.json()
-    stock_news_data = serialize_api_news(response_json)
-
-    return stock_news_data
-
-def serialize_api_news(api_news):
+    
     allowed_keys = [
       "timestamp",
       "title",
@@ -134,4 +130,4 @@ def serialize_api_news(api_news):
       "image"
     ]
 
-    return {k: v for k, v in api_news.items() if k in allowed_keys}
+    return response_json

@@ -121,8 +121,17 @@ def get_stockdetail(symbol):
 
 def get_stock_news(symbol):
     #calling live API news data from Polygon on each stock symbol
-    stock_newss_data = api.get_stock_news(symbol)
-    return stock_newss_data
+    stock_news_data = api.get_news_details(symbol)
+    for news in stock_news_data:
+        symbol, timestamp, title, url, source, summary = (
+        news["symbols"],
+        news["timestamp"],
+        news["title"],
+        news["url"],
+        news["source"], 
+        news["summary"])
+
+    return stock_news_data
 
 def create_stockdetail(logo, cik, country, industry, marketcap, employees, phone, ceo, url, description, exchange, name, symbol, hq_address, hq_state, hq_country):
     

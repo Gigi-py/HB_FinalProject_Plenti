@@ -77,6 +77,16 @@
         <th scope="row">Similar</th>
         <td colspan="2">{{stock_detail["similar"]}}</td>
       </tr>
+      
+      {% for news in stock_news_data: %}
+      <tr>
+        <th scope="row">Latest News</th>
+        <td colspan="2">{{news["title"]}}</td>
+        <td colspan="2">{{news["url"]}}</td>
+        <td colspan="2">{{news["summary"]}}</td>
+      </tr>
+      {% endfor %}
+
   </tbody>
 </table>
 
