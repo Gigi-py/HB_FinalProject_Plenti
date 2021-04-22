@@ -171,12 +171,9 @@ def create_plan(name, stocks_per_month, investment_per_month):
     return plan
 
 #Create and return a new Stock_in_Subscription:
-def create_stock_in_subscription(stock_in_subscription_id, user_id, stock_id, added_time,
-                        stock_price):
+def create_stock_in_subscription(stock_symbol, subscription_id):
 
-    stock_in_subscription = Stock_in_Subscription(user_id = user_id, stock_id = stock_id,
-                added_time = added_time, stock_price = stock_price
-    )
+    stock_in_subscription = Stock_in_Subscription(stock_symbol=stock_symbol, subscription_id=subscription_id)
 
     db.session.add(stock_in_subscription)
     db.session.commit()
@@ -240,6 +237,9 @@ def get_stock_urls():
         company_names.append(url)
     return urls
 
+def get_stock_in_subscription(subscription_id):
+    return Stock_in_Subscription.query.filter(subscription_id==subscription_id).all()
+
 #FAVORITES===============================================
 def create_favorites(user_id, stock_id, is_favorite):
     """create and returns user favorites from stocks list """
@@ -280,6 +280,13 @@ def get_all_blogs():
 def get_plan_by_name(name):
     plan = Plan.query.filter(name==name).first()
     return plan
+
+def get_plan_by_id(id):
+    plan = Plan.query.filter(id==id).first()
+    return plan
+
+
+
 
 
 

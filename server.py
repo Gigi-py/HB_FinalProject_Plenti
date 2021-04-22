@@ -61,7 +61,9 @@ def subscription(username):
     username = session['username']
     user = crud.get_user_by_username(username)
     subscription = Subscription.query.filter(username == username).first()
-    return render_template('mysubscription.html', subscription=subscription, user=user)
+    plan = crud.get_plan_by_id(subscription.plan_id)
+    stock_in_Subscription = crud.get_stock_in_subscription(subscription.id)
+    return render_template('subscription.html', subscription=subscription, user=user, plan=plan, stock_in_Subscription=stock_in_Subscription)
     
 @app.route('/stocks/<username>')
 def user_stocks():
@@ -103,18 +105,19 @@ def view_stock_details(symbol):
 
 @app.route('/addsubscription', methods=['POST'])
 def add_subscription():
-    stocks_selected = request.form.get("stocknames")
+    """getting the value selections of stocks and plans and adding it to the database"""
+    stocks_selected = request.form.getlist("stocknames")
     plan_selected = request.form.get("plans")
 
     plan = crud.get_plan_by_name(plan_selected)
     plan_id = plan.id
-    print(plan)
 
     user_name = session.get('username')
-    subscription_start_timestamp=datetime.now()
-    subscription_end_timestamp=datetime.now()
     new_subscription = crud.create_subscription(user_name, plan_id)
-    print(new_subscription)
+    subscription_id = new_subscription.id
+    for stock in stocks_selected:
+        new_stock_in_subscription = crud.create_stock_in_subscription(stock, subscription_id)
+    print(Stock_in_Subscription.query.all())
     return redirect('/subscription/<username>')
 
 @app.route('/plans')
