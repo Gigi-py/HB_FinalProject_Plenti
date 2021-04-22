@@ -46,8 +46,10 @@ def logout():
 @app.route('/dashboard')
 def view_dashboard():
     username = session['username'].upper()  
+    all_stocks = Stock.query.all()
+    print(all_stocks[0])
 
-    return render_template('/dashboard.html', username=username)
+    return render_template('/dashboard.html', username=username, all_stocks=all_stocks)
 
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -57,15 +59,6 @@ def show_user_profile(username):
     favorite = request.form.get("save")
     print(favorite)
     return render_template('user-profile.html', user=user, username=username)
-
-@app.route('/favorites/<username>')
-def user_favorites(username):
-    username = session['username']
-    user = crud.get_user_by_username(username)
-    favorite = request.form.get("save")
-    print(favorite)
-    print(user)
-    return redirect('/user/<username>')
 
 @app.route('/subscription/<username>')
 def subscription(username):
@@ -110,10 +103,41 @@ def view_all_stocks():
 @app.route('/stockdetails/<symbol>')
 def view_stock_details(symbol):
     """view a list of all stocks to invest."""
+    username = session.get('username')
+    print(username)
     stock = crud.get_stock_by_symbol(symbol)
-    stock_detail = crud.get_stockdetail(symbol)
+    stock_detail = crud.get_stockdetails(symbol)
     stock_news_data = crud.get_stock_news(symbol)
-    return render_template("/stock_details.html", stock=stock, stock_detail=stock_detail, stock_news_data=stock_news_data)
+    userFav = crud.get_fav_obj(username, symbol)
+    print(userFav)
+    if userFav:
+        fav_status = True
+    else: 
+        fav_status = False
+    print(fav_status)
+    
+    return render_template("/stock_details.html", username=username, stock=stock, stock_detail=stock_detail, stock_news_data=stock_news_data, fav_status=fav_status)
+
+#handle favorites - get details from the form, call crud function, then redirect back to the stock_details page.
+#make a form where a form is submitting to the route
+@app.route('/favorites/<symbol>', methods=['GET','POST'])
+def add_fav_stock(symbol):
+    username = session['username']
+    fav_status = request.form.get("fav-action")
+    print(fav_status)
+    if fav_status == 'add':
+        new_userFav = crud.create_favorites(username, symbol)
+    if fav_status == 'remove':
+        crud.delete_favorites(username, symbol)
+    print(fav_status)
+    return "Fav added"
+
+@app.route('/favorites/<username>')
+def user_favorites(username):
+    username = session['username']
+  
+    return render_template('mystocks.html')
+
 
 @app.route('/addsubscription', methods=['POST'])
 def add_subscription():

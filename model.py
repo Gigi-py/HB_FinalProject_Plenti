@@ -26,15 +26,14 @@ class User(db.Model):
 class UserFavorite(db.Model):
     __tablename__ = 'userfavorite'
     favorite_id = db.Column(db.Integer, autoincrement= True, primary_key=True)
-    is_favorite = db.Column(db.Boolean, default = True)
     username = db.Column(db.String, db.ForeignKey('user.username'))
-    stock_symbol = db.Column(db.String, db.ForeignKey('stock.symbol'))
+    symbol = db.Column(db.String, db.ForeignKey('stock.symbol'))
    
-    stock = db.relationship('Stock', backref = 'userFavorites')
-    user = db.relationship('User', backref = 'userFavorites')
+    stock = db.relationship('Stock', backref = 'userFavorite')
+    user = db.relationship('User', backref = 'userFavorite')
 
     def __repr__(self):
-        return f'<userFavorites favorite_id={self.favorite_id} is_favorite={self.is_favorite}>'
+        return f'<userFavorites favorite_id={self.username} is_favorite={self.symbol}>'
 
 #STOCKS =========================================
 class Stock(db.Model):

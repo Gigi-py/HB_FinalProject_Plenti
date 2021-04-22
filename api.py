@@ -85,35 +85,34 @@ def get_stock_details(symbol):
 
     response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLYAPI_KEY)
     response_json = response.json()
-    stock_details_data = serialize_api_details(response_json)
     
-    return stock_details_data
+    return response_json
 
 #Create and return new Stockdetail:
 
-def serialize_api_details(api_details):
-    allowed_keys = [
-      "logo",
-      "listdate",
-      "cik",
-      "country", 
-      "industry",
-      "marketcap",
-      "employees",
-      "phone",
-      "ceo",
-      "url", 
-      "description",
-      "exchange",
-      "name",
-      "symbol",
-      "hq_address",
-      "hq_state",
-      "hq_country",
-      "tags",
-      "similar"]
+# def serialize_api_details(api_details):
+#     allowed_keys = [
+#       "logo",
+#       "listdate",
+#       "cik",
+#       "country", 
+#       "industry",
+#       "marketcap",
+#       "employees",
+#       "phone",
+#       "ceo",
+#       "url", 
+#       "description",
+#       "exchange",
+#       "name",
+#       "symbol",
+#       "hq_address",
+#       "hq_state",
+#       "hq_country",
+#       "tags",
+#       "similar"]
 
-    return {k: v for k, v in api_details.items() if k in allowed_keys}
+#     return {k: v for k, v in api_details.items() if k in allowed_keys}
 
         
 def get_news_details(symbol):

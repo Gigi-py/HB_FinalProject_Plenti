@@ -69,7 +69,7 @@ user_name = users_in_db[0].username
 plan_id = plans_in_db[0].id
 subscription_start_timestamp = datetime.utcnow()
 subscription_end_timestamp = datetime.utcnow()
-db_subscription = crud.create_subscription(user_name, plan_id, subscription_start_timestamp, subscription_end_timestamp)
+db_subscription = crud.create_subscription(user_name, plan_id)
 subscriptions_in_db.append(db_subscription)
 
 db.session.commit()

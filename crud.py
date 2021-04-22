@@ -94,9 +94,11 @@ def create_stockprice(symbol, openprice, high, low, closeprice, volume, date):
 
 
 #Create and return new Stockdetail:
-def get_stockdetail(symbol):
+def get_stockdetails(symbol):
     #calling live API data from Polygon on each stock symbol
     stock_details_data = api.get_stock_details(symbol)
+    print(stock_details_data)
+    
     logo, cik, country, industry, marketcap, employees, phone, ceo, url,description, exchange, name, symbol, hq_address, hq_state, hq_country, tags, similar=(
         stock_details_data["logo"],
         stock_details_data["cik"],
@@ -250,34 +252,33 @@ def get_stock_in_subscription(subscription_id):
     return Stock_in_Subscription.query.filter(subscription_id==subscription_id).all()
 
 #FAVORITES===============================================
-def create_favorites(user_id, stock_id, is_favorite):
-    """create and returns user favorites from stocks list """
+def create_favorites(username, symbol):
+    """create and returns user favorite stock"""
 
-    userFavorites = UserFavorite(
-                    user_id = user_id,
-                    stock_id = stock_id,
-                    is_favorite = True)
+    user_fav = UserFavorite(
+                    username = username,
+                    symbol = symbol)
 
-    db.session.add(userFavorites)
+    db.session.add(user_fav)
     db.session.commit()
 
-    return userFavorites
+    return user_fav
 
-def delete_favorites(user_id, stock_id):
+def get_user_favorites(username):
+    """returns all user favorites"""
+    favs_of_user = UserFavorite.query.filter(username==username).all()
+
+    return favs_of_user
+    
+def delete_favorites(username, symbol):
     """delete from database when user unfavorites stock"""
-    fav_stock = db.session.query(UserFavorite).filter(UserFavorite.user_id == user_id,UserFavorite.stock_id == stock_id).first()
+    fav_stock = UserFavorite.query.filter(UserFavorite.username == username, UserFavorite.stock_symbol == symbol).first()
     db.session.delete(fav_stock)
     db.session.commit()
     
-def get_user_favorites(user_id):
-    """returns all user favorites"""
-    favs_of_user = UserFavorite.query.filter(user_id=user_id).all()
+def get_fav_obj(username, symbol):
 
-    return favs_of_user
-
-def get_fav_obj(user_id,stock_id):
-
-    userfav = UserFavorite.query.filter_by(user_id=user_id, stock_id=stock_id).one()
+    userfav = UserFavorite.query.filter(username==username, symbol==symbol).first()
 
     return userfav
 

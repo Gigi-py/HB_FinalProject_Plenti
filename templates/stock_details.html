@@ -3,6 +3,8 @@
 {% block title %} Stock Details {% endblock %}     
 
 {% block body %} 
+
+Hi {{username}}
 <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
@@ -20,13 +22,23 @@
 
     <h1>{{stock.name}}</h1>
 
-  <form action="/favorites/{{username}}", method='POST'>
-    <button class="favorite styled"
-    type="submit">Add to favorites</button> 
-  </form>
 
-        
-    <img source="{{stock_detail['logo']}}"><img>
+
+    {% if fav_status == False: %}
+      <form action="/favorites/{{stock.symbol}}", method='POST'>
+        <input type="hidden" name="fav-action" value="add">
+        <button class="favorite styled"
+          type="submit">Add to favorites</button>         
+      </form>
+    {% endif %}
+
+    {% if fav_status == True: %}
+      <form action="/favorites/{{stock.symbol}}", method='POST'>
+        <input type="hidden" name="fav-action" value="remove">
+        <button class="favorite styled"
+        type="submit">Remove from favorites</button> 
+    </form>
+    {% endif %}
 
 <table class="table">
   <thead>
