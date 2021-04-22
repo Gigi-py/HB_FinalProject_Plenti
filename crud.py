@@ -156,9 +156,9 @@ def create_stocknews(symbol, timestamp, title, url, source, summary, image):
 
 #SUBSCRIPTION INFO =============
 # Create and return a new Subscription:
-def create_subscription(user_name, plan_id, subscription_start_timestamp, subscription_end_timestamp):
+def create_subscription(user_name, plan_id):
 
-    subscription = Subscription(user_name=user_name, plan_id=plan_id, Subscription_start_timestamp=subscription_start_timestamp, Subscription_end_timestamp=subscription_end_timestamp)
+    subscription = Subscription(user_name=user_name, plan_id=plan_id)
 
     db.session.add(subscription)
     db.session.commit()
@@ -275,6 +275,11 @@ def get_fav_obj(user_id,stock_id):
 #BLOGS============
 def get_all_blogs():
     return Blog.query.all()
+
+#PLANS=======
+def get_plan_by_name(name):
+    plan = Plan.query.filter(name==name).first()
+    return plan
 
 
 

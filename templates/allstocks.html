@@ -7,37 +7,8 @@
     <p>
     Hi {{username}}! Choose companies that you love
     </p>
-    
-    <!-- <h1>Search more stocks</h1>
 
-    <form action="/stock-profile" method="POST">
-      <input type="text" name="symbol">
-      <input type="submit">
-    </form>
-
-    <script>
-      const wordForm = document.querySelector('form');
-  
-      wordForm.addEventListener('submit', (evt) => {
-          const wordInput = document.querySelector('input[name="stock"]');
-  
-          if (wordInput.value.length < 5) {
-          evt.preventDefault();
-          }
-      });
-      </script>  
-
-    <script>
-      const cancellink = document.querySelector('#dashboard');
-
-      cancellink.addEventListener('click', (evt) => {
-        evt.preventDefault();
-
-        alert('Go back to dashboard.');
-      });
-    </script> -->
-
-      <form action="/plans", method="POST">
+      <form action="{{ url_for('add_subscription') }}" method="POST"> 
         {% for stock in all_stocks: %}
         <div>
           <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
@@ -58,13 +29,16 @@
         <input type="submit">
       </form>
         
-
-
-
 <h1>Go Back to dashboard</h1>
 
 <a href="/dashboard" class='dashboard'>Back to dashboard</a>
 
-
+<!-- <script>
+function saveForm() {
+  var stocks = document.forms["stocknames"].value;
+    print(stocks);
+    return stocks
+  }
+</script>  -->
 
 {% endblock %} 

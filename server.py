@@ -10,14 +10,16 @@ import json
 import os
 import math
 from jinja2 import StrictUndefined
+from datetime import datetime
 
 
-#INITIALIZING APP
+#INITIALIZING APP=========
 app = Flask(__name__)
 app.secret_key = 'dev'
 connect_to_db(app)
 bcrypt = Bcrypt(app)
 
+#LOGIN FLOW===================
 @app.route('/') 
 def show_homepage():
     """Homepage"""
@@ -35,35 +37,33 @@ def login():
     session['username'] = request.form.get('username')
     return redirect('/dashboard')
 
+@app.route('/logout')
+def logout():
+    session.pop('user')
+    return redirect('/login')
+
+#USER DASHBOARD============
 @app.route('/dashboard')
 def view_dashboard():
     username = session['username'].upper()  
 
     return render_template('/dashboard.html', username=username)
 
-
-
 @app.route('/user/<username>')
 def show_user_profile(username):
-    """Show the user dashboard page for that user"""
-    
-    return f'Profile page for user: {username}'
-
-@app.route('/myprofile')
-def user_profile():
+    """Show the user profile page for that user"""
     username = session['username']
     user = crud.get_user_by_username(username)
-    print(user)
-    return render_template('myprofile.html', user=user)
-    
-@app.route('/mysubscription')
-def user_subscription():
+    return render_template('user-profile.html', user=user)
+
+@app.route('/subscription/<username>')
+def subscription(username):
     username = session['username']
     user = crud.get_user_by_username(username)
     subscription = Subscription.query.filter(username == username).first()
     return render_template('mysubscription.html', subscription=subscription, user=user)
     
-@app.route('/mystocks')
+@app.route('/stocks/<username>')
 def user_stocks():
     username = session['username']
     user = crud.get_user_by_username(username)
@@ -72,15 +72,11 @@ def user_stocks():
     
     return render_template('mystocks.html')
 
+#STOCKS===================
 @app.route('/searchstocks')
 def searchstocks():
     
     return render_template('/searchstocks.html')
-    
-@app.route('/logout')
-def logout():
-    session.pop('user')
-    return redirect('/login')
 
 @app.route('/allstocks')
 def view_all_stocks():
@@ -105,6 +101,22 @@ def view_stock_details(symbol):
     stock_detail = crud.get_stockdetail(symbol)
     return render_template("/stock_details.html", stock=stock, stock_detail=stock_detail)
 
+@app.route('/addsubscription', methods=['POST'])
+def add_subscription():
+    stocks_selected = request.form.get("stocknames")
+    plan_selected = request.form.get("plans")
+
+    plan = crud.get_plan_by_name(plan_selected)
+    plan_id = plan.id
+    print(plan)
+
+    user_name = session.get('username')
+    subscription_start_timestamp=datetime.now()
+    subscription_end_timestamp=datetime.now()
+    new_subscription = crud.create_subscription(user_name, plan_id)
+    print(new_subscription)
+    return redirect('/subscription/<username>')
+
 @app.route('/plans')
 def view_plans():
     """view a list of all subscriptions to choose from."""
@@ -128,35 +140,6 @@ def check_plan():
 def checkout():
     """view a list of all subscriptions to choose from."""
     return render_template("/checkout.html") 
-
-@app.route('/create-checkout-session', methods=['POST']) 
-def create_checkout_session():
-    """checkout subscription payments"""
-    # This is a sample test API key. Sign in to see examples pre-filled with your key.
-    YOUR_DOMAIN = 'http://localhost:5000'
-    try:
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[
-                {
-                    'price_data': {
-                        'currency': 'usd',
-                        'unit_amount': 2000,
-                        'product_data': {
-                            'name': 'Bronze Membership',
-                            'images': ['static/img/Plenti_logo.png'],
-                        },
-                    },
-                    'quantity': 1,
-                },
-            ],
-            mode='payment',
-            success_url=YOUR_DOMAIN + '/success.html',
-            cancel_url=YOUR_DOMAIN + '/cancel.html',
-        )
-        return jsonify({'id': checkout_session.id})
-    except Exception as e:
-        return jsonify(error=str(e)), 403
 
 @app.route('/blog')
 def all_blogs():
