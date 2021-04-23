@@ -7,8 +7,7 @@ import crud, api
 from model import connect_to_db, db, User, Stock, Stockprice, Stockdetail, Stocknews, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment
 from server import app
 
-os.system('dropdb stocks')
-os.system('createdb stocks')
+db.session.query(Stock).delete()
 
 connect_to_db(app, echo=False)
 db.create_all()

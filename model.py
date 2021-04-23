@@ -36,6 +36,8 @@ class UserFavorite(db.Model):
         return f'<userFavorites favorite_id={self.username} is_favorite={self.symbol}>'
 
 #STOCKS =========================================
+
+
 class Stock(db.Model):
     """Stocks Table"""
 
@@ -54,6 +56,16 @@ class Stock(db.Model):
     
     def __repr__(self):
         return f'<Stock {self.symbol}>'
+
+class Symbol(db.Model):
+    """all stock symbols from AA API"""
+    __tablename__ = 'symbol'
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    symbol = db.Column(db.String)
+
+    def __repr__(self):
+        return f'<Symbol {self.symbol}>'
 
 
 class Stockprice(db.Model):

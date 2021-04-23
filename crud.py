@@ -38,35 +38,6 @@ def check_password(email, password):
 
 # STOCK INFO ================================
 
-def get_all_stock_symbols():
-    """Get stock name info from AA API to store in db """
-    url = 'https://www.alphavantage.co/query?function=LISTING_STATUS&apikey='+ API_KEY
-    res = requests.get(url) # double check this line, might be a duplicate to line 65
-    decoded = res.content.decode('utf-8')
-
-    csv_read = csv.reader(decoded.splitlines(), delimiter=',')
-    all_stocks = list(csv_read)
-    
-    return all_stocks
-
-# def save_stocks(all_stocks):
-#     """save all stocks (names, symbol etc.. ) in the database from AA API  """
-#     sample_stocks = ['PYPL','HLT', 'PINS', 'TWLO', 'W', 'MSFT', 'UPS', 'BAC', 'ADBE', 'SPOT', 'DIS', 'FB', 'SONO', 'ZM', 'ETSY', 'TSLA', 'TCS', 'LULU', 'F', 'WBA']
-#     count = 0
-#     for stock in all_stocks:
-#         print(stock)
-#         if count != 0:
-#             if stock[0] in sample_stocks:
-#                 stockInfo = Stock(symbol = stock[0], stock_name=stock[1], exchange=stock[2],asset_type=stock[3],ipo_date=stock[4], sample = True)
-#             else:
-#                 stockInfo = Stock(symbol = stock[0], stock_name=stock[1], exchange=stock[2],asset_type=stock[3],ipo_date=stock[4])
-       
-#             db.session.add(stockInfo)
-#             db.session.commit()
-#         count += 1
-
-#     return "Finished adding all stock symbols"
-
 #Create and add a new stock to the database:
 def create_stock(symbol, name, 
                 description, industry, 
