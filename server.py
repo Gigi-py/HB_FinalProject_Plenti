@@ -186,6 +186,9 @@ def all_blogs():
 
     return render_template("blog.html", blogs=blogs)
 
+@app.route('/price-chart')
+def show_price_chart():
+    return render_template('chart.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

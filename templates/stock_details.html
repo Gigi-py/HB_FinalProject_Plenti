@@ -22,8 +22,6 @@ Hi {{username}}
 
     <h1>{{stock.name}}</h1>
 
-
-
     {% if fav_status == False: %}
       <form action="/favorites/{{stock.symbol}}", method='POST'>
         <input type="hidden" name="fav-action" value="add">
