@@ -47,7 +47,6 @@ def logout():
 def view_dashboard():
     username = session['username'].upper()  
     all_stocks = Stock.query.all()
-    print(all_stocks[0])
 
     return render_template('/dashboard.html', username=username, all_stocks=all_stocks)
 
@@ -57,7 +56,6 @@ def show_user_profile(username):
     username = session['username']
     user = crud.get_user_by_username(username)
     favorite = request.form.get("save")
-    print(favorite)
     return render_template('user-profile.html', user=user, username=username)
 
 @app.route('/subscription/<username>')
@@ -104,29 +102,22 @@ def view_all_stocks():
 def view_stock_details(symbol):
     """view a list of all stocks to invest."""
     username = session.get('username')
-    print(username)
     stock = crud.get_stock_by_symbol(symbol)
     stock_detail = crud.get_stockdetails(symbol)
     stock_news_data = crud.get_stock_news(symbol)
     userFav = crud.get_fav_obj(username, symbol)
-    print(userFav) #this is not updating for stock symbol
     if userFav:
         fav_status = True
     else: 
         fav_status = False
-    print(stock.symbol)
     return render_template("/stock_details.html", username=username, stock=stock, stock_detail=stock_detail, stock_news_data=stock_news_data, fav_status=fav_status)
 
-#handle favorites - get details from the form, call crud function, then redirect back to the stock_details page.
-#make a form where a form is submitting to the route
 @app.route('/favorites/<symbol>', methods=['GET','POST'])
 def add_fav_stock(symbol):
     username = session['username']
     fav_status = request.form.get("fav-action")
-    print(fav_status)
     if fav_status == 'add':
         new_userFav = crud.create_favorites(username, symbol)
-        print (new_userFav)
     if fav_status == 'remove':
         deleted_stock = crud.delete_favorites(username, symbol)
     return "Fav added"
@@ -152,7 +143,6 @@ def add_subscription():
     subscription_id = new_subscription.id
     for stock in stocks_selected:
         new_stock_in_subscription = crud.create_stock_in_subscription(stock, subscription_id)
-    print(Stock_in_Subscription.query.all())
     return redirect('/subscription/<username>')
 
 @app.route('/plans')
@@ -188,7 +178,31 @@ def all_blogs():
 
 @app.route('/price-chart')
 def show_price_chart():
-    return render_template('chart.html')
+    """Get price chart"""
+    symbol = request.args.get('symbol')
+    dates=['2021-04-23',
+  '2021-04-22',
+  '2021-04-21',
+  '2021-04-20',
+  '2021-04-19']
+    price_data = []
+    for date in dates:
+        data = crud.get_price_data(symbol, date)
+        price_data.append(data)
+
+    return render_template('chart.html', price_data=price_data)
+
+@app.route('/searchstock', methods=["GET", "POST"])
+def search_stock():
+    """Search stock symbol""" 
+    
+    return render_template('search.html')
+
+@app.route('/chart')
+def test_chart():
+    price_data = crud.get_price_data('AAPL', '2021-04-23')
+    return render_template('chart.html', price_data=price_data)
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

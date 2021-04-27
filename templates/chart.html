@@ -6,31 +6,25 @@
 
 <div>
   <canvas id="myChart"></canvas>
+  
 </div>
 
 <script>
-
-// // AJAX:
-// // $.get(url, options:dictionary(format of the data), callback(success function)) =>
-//     $.get(url, options, (res) => {
-//       res = Result I get back from API
-//       res.numbers (accessing a particular value within the json response)
-//     })
-
-
+const priceData = {{ price_data | tojson }}
+console.log(priceData)
+// priceDataList[0].close
 
 const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
+  '2021-04-23',
+  '2021-04-22',
+  '2021-04-21',
+  '2021-04-20',
+  '2021-04-19',
 ];
 const data = {
   labels: labels,
   datasets: [{
-    label: 'My First dataset',
+    label: 'Price chart',
     backgroundColor: 'rgb(255, 99, 132)',
     borderColor: 'rgb(255, 99, 132)',
     data: [0, 10, 5, 2, 20, 30, 45],

@@ -21,6 +21,7 @@ Hi {{username}}
     </header>
 
     <h1>{{stock.name}}</h1>
+    <a href='/price-chart/{{stock.symbol}}'>Price Chart</a>
 
     {% if fav_status == False: %}
       <form action="/favorites/{{stock.symbol}}", method='POST'>

@@ -1,6 +1,6 @@
 
 from server import connect_to_db, Bcrypt
-from model import User, Stock, Stockprice, Stockdetail, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
+from model import Symbol, User, Stock, Stockprice, Stockdetail, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment, connect_to_db, db
 import datetime
 import api
 import requests
@@ -268,8 +268,11 @@ def get_plan_by_id(id):
     plan = Plan.query.filter(id==id).first()
     return plan
 
+#CHART JS
+def get_price_data(symbol, date):    
+    stock_price_data = api.get_price_data(symbol, date)
+    return stock_price_data
 
-
-
-
-
+#SYMBOLS===
+def get_all_symbols():
+    return Symbol.query.all()

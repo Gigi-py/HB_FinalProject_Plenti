@@ -8,7 +8,6 @@ from model import connect_to_db, db, User, Stock, Stockprice, Stockdetail, Stock
 from server import app
 
 db.session.query(Stock).delete()
-
 connect_to_db(app, echo=False)
 db.create_all()
 
