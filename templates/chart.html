@@ -3,16 +3,21 @@
 {% block title %} Chart.js Example {% endblock %}    
  
 {% block body %}
+
 <div>
   <canvas id="myChart"></canvas>
 </div>
 
 <script>
-  const config = {
-  type: 'line',
-  data,
-  options: {}
-};
+
+// // AJAX:
+// // $.get(url, options:dictionary(format of the data), callback(success function)) =>
+//     $.get(url, options, (res) => {
+//       res = Result I get back from API
+//       res.numbers (accessing a particular value within the json response)
+//     })
+
+
 
 const labels = [
   'January',
@@ -30,6 +35,12 @@ const data = {
     borderColor: 'rgb(255, 99, 132)',
     data: [0, 10, 5, 2, 20, 30, 45],
   }]
+};
+
+const config = {
+  type: 'line',
+  data,
+  options: {}
 };
 
 var myChart = new Chart(
