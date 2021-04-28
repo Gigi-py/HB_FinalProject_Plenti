@@ -1,13 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %} Chart.js Example {% endblock %}    
+{% block title %} Search stock{% endblock %}    
  
 {% block body %}
 
 
 <!--Make sure the form has the autocomplete function switched off:-->
-
-<section class="bgimage">
+<div class="container py-5">
+    <!-- For demo purpose -->
+    <div class="row text-center text-white mb-5 py-4">
+        <div class="col-lg-9 mx-auto">
+            <h1 class="display-4">Search Stocks</h1>
+            </div>
+    </div><!-- End -->
+    
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <!-- Search form -->
+            <form action="/searchstock" method="POST">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="search"> 
+                        <input id="symbol" name="symbol" type="text" class="search-input" placeholder="search stock symbol..." >  
+                        <input type="submit" class="btn btn-primary btn-lg"></input>    
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+<!-- <section class="bgimage">
     <div class="container-fluid">
         <form action="/searchstock" method="POST">
             <div class="d-flex justify-content-center h-100">
@@ -18,17 +39,10 @@
         </form>
       </div>
     </div>
-  </section>
+  </section> -->
 
 
 <style>
-    body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    /* background: #423255 !important */
-}
 
 .search {
     margin-bottom: auto;
@@ -92,6 +106,24 @@ a:link {
 .bgimage h5 {
   color:white;
   text-shadow:2px 2px #333;
+}
+
+body {
+    background: #e8cbc0;
+    background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+    background: linear-gradient(to right, #e8cbc0, #636fa4);
+    min-height: 100vh;
+}
+
+.bootstrap-select .bs-ok-default::after {
+    width: 0.3em;
+    height: 0.6em;
+    border-width: 0 0.1em 0.1em 0;
+    transform: rotate(45deg) translateY(0.5rem);
+}
+
+.btn.dropdown-toggle:focus {
+    outline: none !important;
 }
 
 </style>

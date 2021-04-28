@@ -211,10 +211,9 @@ def view_search_result():
         fav_status = False
     return render_template("/stock_details.html", username=username, stock=stock, stock_detail=stock_detail, stock_news_data=stock_news_data, fav_status=fav_status)
 
-# @app.route('/')
-# def test_chart():
-#     price_data = crud.get_price_data('AAPL', '2021-04-23')
-#     return render_template('chart.html', price_data=price_data)
+@app.route('/test')
+def test():
+    return render_template('test.html')
     
 
 if __name__ == '__main__':
