@@ -3,23 +3,88 @@
 {% block title %} PICK YOUR FAVORITE STOCKS {% endblock %}    
  
 {% block body %}
+<div class="container py-3">
+<header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+  <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+    <img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0" width=100 height=100>
+  </a>
 
-    <p>
-    Hi {{username}}! Choose companies that you love
-    </p>
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    <a class="me-3 py-2 text-dark text-decoration-none" href="/dashboard">Dashboard</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" href="/searchstock">Stocks</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" href="/blog">Learning</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" href="/event">Events</a>
+    <a class="py-2 text-dark text-decoration-none" href="#">Contact Us</a>
+  </nav>
+</header>
 
-      <form action="{{ url_for('add_subscription') }}" method="POST"> 
-        {% for stock in all_stocks: %}
-        <div>
-          <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
-          <label for="{{stock.symbol}}">{{stock.name}}</label>
-          <a href='/stockdetails/{{stock.symbol}}'>See more details</a>
+    <h1 class="display-4 fw-normal">Hi {{username}}! Choose companies</h1>
+
+    <form action="{{ url_for('add_subscription') }}" method="POST"> 
+      {% for stock in all_stocks: %}
+      <div>
+        <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
+        <a href="/stockdetails/{{stock.symbol}}">{{stock.name}}</a>
+      </div>
+      {% endfor %}
+
+      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+          <h1 class="display-4 fw-normal">Plan Details</h1>
+      </div>
+      
+      <!--Subscription Options-->
+          
+      <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Beginner</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$20<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Choose 5 stocks</li>
+                  <li>Access content library</li>
+                  <li>Email support</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Pro</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$50<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>All of Beginner coverage</li>
+                  <li>Swap stock during the month</li>
+                  <li>Priority email support</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+              <div class="card-header py-3 text-white bg-primary border-primary">
+                <h4 class="my-0 fw-normal">Premium</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">$100<small class="text-muted fw-light">/mo</small></h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>All of Pro coverage</li>
+                  <li>Exclusive events</li>
+                  <li>Phone and email support</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        {% endfor %}
-
-        <a href="/plans">See more details on subscription plans &raquo;</a>
-
-        <label for="plan-select">CHOOSE SUBSCRIPTIONS:</label>
+        
+              <!--CHOOSE SUBSCRIPTION-->
+        <label for="plan-select">Choose plans:</label>
         <select name="plans" id="plan-select">
             <option value="">--Please choose an option--</option>
             <option value="starter">Starter</option>
@@ -29,16 +94,7 @@
         <input type="submit">
       </form>
         
-<h1>Go Back to dashboard</h1>
 
-<a href="/dashboard" class='dashboard'>Back to dashboard</a>
-
-<!-- <script>
-function saveForm() {
-  var stocks = document.forms["stocknames"].value;
-    print(stocks);
-    return stocks
-  }
-</script>  -->
+<h1><a href="/searchstock" class='search'>Search more stocks</a></h1>
 
 {% endblock %} 

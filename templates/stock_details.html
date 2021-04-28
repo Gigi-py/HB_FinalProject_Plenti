@@ -20,7 +20,9 @@ Hi {{username}}
       </nav>
     </header>
 
-    <h1>{{stock.name}}</h1>
+    <h1>{{stock.name or stock_detail["name"]}}</h1>
+    <img src="{{stock_detail['logo']}}"/>
+
     <a href='/price-chart/{{stock.symbol}}'>Price Chart</a>
 
     {% if fav_status == False: %}
@@ -49,19 +51,15 @@ Hi {{username}}
   <tbody>
     <tr>
       <th scope="row">Description</th>
-      <td>{{stock.description}}</td>
+      <td>{{stock.description or stock_detail["description"]}}</td>
     </tr>
     <tr>
       <th scope="row">Industry</th>
-      <td>{{stock.industry}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Asset Type</th>
-      <td colspan="2">{{stock.asset_type}}</td>
+      <td>{{stock.industry or stock_detail["industry"]}}</td>
     </tr>
     <tr>
         <th scope="row">Currency</th>
-        <td colspan="2">{{stock.currency}}</td>
+        <td colspan="2">{{stock_detail["exchange"]}}</td>
       </tr>
       <tr>
         <th scope="row">Country</th>
@@ -98,7 +96,7 @@ Hi {{username}}
       
       {% for news in stock_news_data: %}
       <tr>
-        <th scope="row">Latest News</th>
+        <th scope="row"><img src="{{news.get('image')}}" width=100 height=100/></th>
         <td colspan="2">{{news["title"]}}</td>
         <td colspan="2">{{news["url"]}}</td>
         <td colspan="2">{{news["summary"]}}</td>

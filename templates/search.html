@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Chart.js Example {% endblock %}    
+ 
+{% block body %}
+
+<h1>Search Stock</h1>
+
+<!--Make sure the form has the autocomplete function switched off:-->
+<form action="/searchstock" method="POST">
+  <div>
+    <input id="symbol" type="text" name="symbol" placeholder="Input stock symbol">
+  </div>
+  <input type="submit">
+</form>
+
+{% endblock %}

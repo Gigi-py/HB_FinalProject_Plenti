@@ -85,15 +85,14 @@ def searchstocks():
 @app.route('/allstocks')
 def view_all_stocks():
     """view a list of all stocks to invest."""
-    stock_symbols = ['PYPL','HLT', 'PINS', 'TWLO', 'W',
-    'MSFT', 'UPS', 'BAC', 'ADBE', 'SPOT', 'DIS', 'FB', 'SONO',
-    'ZM', 'ETSY', 'TSLA', 'TCS', 'LULU', 'F', 'WBA']
+    stock_symbols = ['HLT', 'TWLO', 'UPS', 'BAC', 'ADBE', 'DIS', 'FB',
+    'ZM', 'TSLA', 'LULU', 'F', 'WBA']
     
     all_stocks = []
     for symbol in stock_symbols:
        stock = crud.get_stock_by_symbol(symbol) 
        all_stocks.append(stock)
-    
+       
     username = session.get('username')
     
     return render_template("/allstocks.html", all_stocks=all_stocks)
@@ -192,16 +191,30 @@ def show_price_chart():
 
     return render_template('chart.html', price_data=price_data)
 
-@app.route('/searchstock', methods=["GET", "POST"])
+@app.route('/searchstock', methods=["GET"])
 def search_stock():
-    """Search stock symbol""" 
-    
+    """Show search bar for stock symbols""" 
     return render_template('search.html')
 
-@app.route('/chart')
-def test_chart():
-    price_data = crud.get_price_data('AAPL', '2021-04-23')
-    return render_template('chart.html', price_data=price_data)
+@app.route('/searchstock', methods=["POST"])
+def view_search_result():
+    """Show stock details for searched symbol""" 
+    username = session.get('username')
+    symbol = request.form.get('symbol')
+    stock = crud.get_stock_by_symbol(symbol)
+    stock_detail = crud.get_stockdetails(symbol)
+    stock_news_data = crud.get_stock_news(symbol)
+    userFav = crud.get_fav_obj(username, symbol)
+    if userFav:
+        fav_status = True
+    else: 
+        fav_status = False
+    return render_template("/stock_details.html", username=username, stock=stock, stock_detail=stock_detail, stock_news_data=stock_news_data, fav_status=fav_status)
+
+# @app.route('/')
+# def test_chart():
+#     price_data = crud.get_price_data('AAPL', '2021-04-23')
+#     return render_template('chart.html', price_data=price_data)
     
 
 if __name__ == '__main__':

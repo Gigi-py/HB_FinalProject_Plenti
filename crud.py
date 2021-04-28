@@ -68,12 +68,11 @@ def create_stockprice(symbol, openprice, high, low, closeprice, volume, date):
 def get_stockdetails(symbol):
     #calling live API data from Polygon on each stock symbol
     stock_details_data = api.get_stock_details(symbol)
-    print(stock_details_data)
     
     logo, cik, country, industry, marketcap, employees, phone, ceo, url,description, exchange, name, symbol, hq_address, hq_state, hq_country, tags, similar=(
-        stock_details_data["logo"],
-        stock_details_data["cik"],
-        stock_details_data["country"], 
+        stock_details_data.get("logo"),
+        stock_details_data.get("cik"),
+        stock_details_data.get("country"), 
         stock_details_data["industry"],
         stock_details_data["marketcap"],
         stock_details_data["employees"],
@@ -96,13 +95,15 @@ def get_stock_news(symbol):
     #calling live API news data from Polygon on each stock symbol
     stock_news_data = api.get_news_details(symbol)
     for news in stock_news_data:
-        symbol, timestamp, title, url, source, summary = (
+        symbol, timestamp, title, url, source, summary, img = (
         news["symbols"],
         news["timestamp"],
         news["title"],
         news["url"],
         news["source"], 
-        news["summary"])
+        news["summary"],
+        news["image"]
+        )
 
     return stock_news_data
 
