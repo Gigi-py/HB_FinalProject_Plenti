@@ -4,7 +4,7 @@
 
 {% block body %} 
 
-Hi {{username}}
+<!-- Hi {{username}} -->
 <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
@@ -12,10 +12,10 @@ Hi {{username}}
       </a>
   
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Dashboard</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Stocks</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Learning</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Events</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/dashboard">Dashboard</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/allstocks">Stocks</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/blog">Learning</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/event">Events</a>
         <a class="py-2 text-dark text-decoration-none" href="#">Contact Us</a>
       </nav>
     </header>
@@ -44,8 +44,8 @@ Hi {{username}}
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Metric</th>
-      <th scope="col">Details</th>
+      <th scope="col" >Metric</th>
+      <th scope="col" width=1000>Details</th>
     </tr>
   </thead>
   <tbody>

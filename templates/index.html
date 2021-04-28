@@ -4,35 +4,70 @@
 {% block body %}
 
 
-<body class="d-flex h-100 text-center text-white bg-dark">
-    
+  <!--Hero section-->
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
-      <div>
-        <img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0">
-
-    <!--Navbar-->
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a href = "/login" class="nav-link" >Login</a>
-          <a href = "/signup" class="nav-link">Get Started</a>
-          <a href = "mailto:gabriella@plenti.ai" class="nav-link">Email Us</a>
+        <nav class="nav nav-masthead justify-content-center float-md-end" color=white>
+          <a href = "/login" class="nav-link" class="text-white">Login</a>
+          <a href = "/signup" class="nav-link" class="text-white">Get Started</a>
+          <a href = "mailto:gabriella@plenti.ai" class="nav-link" class="text-white">Email Us</a>
         </nav>
-      </div>
     </header>
-  
-    <!--Hero section-->
-    <main class="px-3">
-      <h1>Creating abundance one stock at a time</h1>
-      <p class="lead">We make investing easy, consistent, and social</p>
+    <h1 class="text-white">Creating abundance one stock at a time</h1>
+    <p class="text-white">We make investing easy, consistent, and social</p>
+  </div>
 
-    </main>
+  <main class="px-3" color=white>
+    <div id="particles-js"></div>
+    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
+    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
+  </main>
+
+  <!--Navbar-->
+  
+
+  <script>
+    $(document).ready(function(){
+
+var count_particles, stats, update;
+stats = new Stats;
+stats.setMode(0);
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+count_particles = document.querySelector('.js-count-particles');
+update = function() {
+stats.begin();
+stats.end();
+if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+}
+requestAnimationFrame(update);
+};
+requestAnimationFrame(update);
+
+
+});
+  </script>
+<!--     
+   -->
+  
+    
+
 
 <style>
-  
 #logo {
   width: 150px;
   height: 120px
 }
+
+body {
+    width: 100%;
+    height: 100%;
+    background: #423255
+
+  }
 
 </style>
 

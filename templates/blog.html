@@ -26,69 +26,34 @@
 
     
   <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
-  </head>
-  <body>
-    
+  <link href="dashboard.css" rel="stylesheet">
+ 
+
   <!-- Navbar -->
+  <div class="container py-3">
 
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Plenti</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
-    </li>
-  </ul>
-</header>
-
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <span data-feather="home"></span>
-              Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file"></span>
-              My Profile
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              My Subscription
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users"></span>
-              My Stocks
-            </a>
-          </li>
-        </ul>
-          </li>
-        </ul>
-      </div>
+  <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0" width=100 height=100>
+    </a>
+  
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/dashboard">Dashboard</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/searchstock">Stocks</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/blog">Learning</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/event">Events</a>
+      <a class="py-2 text-dark text-decoration-none" href="mailto:gabriella@plenti.ai">Contact Us</a>
     </nav>
+  </header>
+
 
 <!--BLOGS-->
-<body>
-    
 <main>
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Investing 101</h1>
-        <p class="lead text-muted">Investing can seem daunting to many.  Let us help you get started with these bite size tips</p>
+        <p class="lead text-muted">Let us help you get started with these bite size tips</p>
         <p>
           <a href="/allstocks" class="btn btn-primary my-2">Start investing today </a>
         </p>
