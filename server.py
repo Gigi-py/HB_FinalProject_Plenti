@@ -214,8 +214,19 @@ def view_search_result():
 @app.route('/test')
 def test():
     return render_template('test.html')
-    
 
+@app.route('/signup', methods=['GET']) 
+def show_signup_form():
+    """Show homepage"""
+    return render_template('signup.html')
+
+@app.route('/signup', methods=['POST']) 
+def register_user():
+    """Register user"""
+    #to do: add user to database
+    session['username'] = request.form.get('username')
+    return redirect('/dashboard')
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
     DebugToolbarExtension(app)
