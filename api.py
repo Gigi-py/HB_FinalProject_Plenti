@@ -134,7 +134,11 @@ def get_news_details(symbol):
     return response_json
 
 def get_price_data(symbol, date):
+    print("\t", "*"*20, "IN api.py GET PRICE DATA fn \nsymbol = ", symbol)
+    
+    print("\tmaking get request to external api...")
     response = requests.get("https://api.polygon.io/v1/open-close/" + symbol + "/" + date + "?unadjusted=true&apiKey=" + POLY_API_KEY)
     response_json = response.json()
+    # print(f"response_json: \n{response_json}")
     
     return response_json

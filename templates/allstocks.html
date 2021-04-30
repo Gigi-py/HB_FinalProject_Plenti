@@ -1,9 +1,42 @@
 {% extends 'base.html' %}
 
-{% block title %} PICK YOUR FAVORITE STOCKS {% endblock %}    
- 
+{% block title %} My Subscription {% endblock %}     
+
 {% block body %}
-<div class="container py-3">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.82.0">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
+
+  
+    <!-- Bootstrap core CSS -->
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
+  </head>
+
 <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
   <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
     <img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0" width=100 height=100>
@@ -18,83 +51,163 @@
   </nav>
 </header>
 
-    <h1 class="display-4 fw-normal">Hi {{username}}! Choose companies</h1>
+  <!-- Marketing messaging and featurettes
+  ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <form action="{{ url_for('add_subscription') }}" method="POST"> 
+  <h1 class="display-4 fw-normal">Hi {{username}}! Choose companies</h1>
+
+    <!-- <form action="{{ url_for('add_subscription') }}" method="POST"> 
       {% for stock in all_stocks: %}
       <div>
         <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
         <a href="/stockdetails/{{stock.symbol}}">{{stock.name}}</a>
       </div>
-      {% endfor %}
+      {% endfor %} -->
+      <div class="container marketing">
 
-      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-          <h1 class="display-4 fw-normal">Plan Details</h1>
-      </div>
-      
-      <!--Subscription Options-->
-          
-      <main>
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-          <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Beginner</h4>
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title">$20<small class="text-muted fw-light">/mo</small></h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>Choose 5 stocks</li>
-                  <li>Access content library</li>
-                  <li>Email support</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3">
-                <h4 class="my-0 fw-normal">Pro</h4>
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title">$50<small class="text-muted fw-light">/mo</small></h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>All of Beginner coverage</li>
-                  <li>Swap stock during the month</li>
-                  <li>Priority email support</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm border-primary">
-              <div class="card-header py-3 text-white bg-primary border-primary">
-                <h4 class="my-0 fw-normal">Premium</h4>
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title">$100<small class="text-muted fw-light">/mo</small></h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>All of Pro coverage</li>
-                  <li>Exclusive events</li>
-                  <li>Phone and email support</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+          <div class="col-lg-4">
+            {% for stock in all_stocks: %}
+              <form action="{{ url_for('add_subscription') }}" method="POST"></form>
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+
+                <h2>{{stock.name}}</h2>
+                <!-- <p>{{stock.description}}</p> -->
+                <p><a class="btn btn-secondary" href="/stockdetails/{{stock.symbol}}">View details &raquo;</a></p>
+                <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
+                {% endfor %}
+
+          </div><!-- /.col-lg-4 -->
+              
+  
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">Plan Details</h1>
         </div>
-        
-              <!--CHOOSE SUBSCRIPTION-->
-        <label for="plan-select">Choose plans:</label>
-        <select name="plans" id="plan-select">
-            <option value="">--Please choose an option--</option>
-            <option value="starter">Starter</option>
-            <option value="pro">Pro</option>
-            <option value="premium">Premium</option>
-        </select>
-        <input type="submit">
-      </form>
-        
+        <div class="container marketing">
 
-<h1><a href="/searchstock" class='search'>Search more stocks</a></h1>
+          <main>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+              <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Beginner</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$20<small class="text-muted fw-light">/mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>Choose 5 stocks</li>
+                      <li>Access content library</li>
+                      <li>Email support</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Pro</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$50<small class="text-muted fw-light">/mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>All of Beginner coverage</li>
+                      <li>Swap stock during the month</li>
+                      <li>Priority email support</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                  <div class="card-header py-3 text-white bg-primary border-primary">
+                    <h4 class="my-0 fw-normal">Premium</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$100<small class="text-muted fw-light">/mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>All of Pro coverage</li>
+                      <li>Exclusive events</li>
+                      <li>Phone and email support</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+                  <!--CHOOSE SUBSCRIPTION-->
+            <label for="plan-select">Choose plans:</label>
+            <select name="plans" id="plan-select">
+                <option value="">--Please choose an option--</option>
+                <option value="starter">Starter</option>
+                <option value="pro">Pro</option>
+                <option value="premium">Premium</option>
+            </select>
+            <input type="submit">
+          </form>
 
-{% endblock %} 
+          <h1><a href="/searchstock" class='search'>Search more stocks</a></h1>
+      
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
+        <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+        <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+        <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <!-- /END THE FEATURETTES -->
+
+  </div><!-- /.container -->
+
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </footer>
+</main>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      
+  </body>
+</html>
+{% endblock %}

@@ -175,10 +175,10 @@ def all_blogs():
 
     return render_template("blog.html", blogs=blogs)
 
-@app.route('/price-chart')
-def show_price_chart():
+@app.route('/price-chart/<symbol>')
+def show_price_chart(symbol):
     """Get price chart"""
-    symbol = request.args.get('symbol')
+    # symbol = request.args.get('symbol')
     dates=['2021-04-23',
   '2021-04-22',
   '2021-04-21',
@@ -186,8 +186,14 @@ def show_price_chart():
   '2021-04-19']
     price_data = []
     for date in dates:
+        print("="*50, f"in server, symbol = {symbol}")
         data = crud.get_price_data(symbol, date)
-        price_data.append(data)
+        # print(date)
+        # print(data) # {'status': 'OK', 'from': '2021-04-19', 'symbol': 'TWLO', 'open': 377.86, 'high': 385.99, 'low': 362.5, 'close': 367.46, 'volume': 1973285, 'afterHours': 368, 'preMarket': 382.365}
+        # print(data.get('close'))
+        price_data.append(data.get('close'))
+        # import pdb; pdb.set_trace()
+
 
     return render_template('chart.html', price_data=price_data)
 
@@ -226,6 +232,10 @@ def register_user():
     #to do: add user to database
     session['username'] = request.form.get('username')
     return redirect('/dashboard')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

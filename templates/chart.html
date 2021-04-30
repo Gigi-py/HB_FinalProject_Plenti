@@ -12,6 +12,7 @@
 <script>
 const priceData = {{ price_data | tojson }}
 console.log(priceData)
+
 // priceDataList[0].close
 
 const labels = [
@@ -27,7 +28,7 @@ const data = {
     label: 'Price chart',
     backgroundColor: 'rgb(255, 99, 132)',
     borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
+    data: priceData, // from const priceData = {{ price_data | tojson }}
   }]
 };
 

@@ -1,30 +1,130 @@
+
+
 {% extends 'base.html' %}
 
-{% block title %}Plenti{% endblock %}
+{% block title %} Homepage {% endblock %}    
+ 
 {% block body %}
 
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.82.0">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="cover.css" rel="stylesheet">
+  </head>
 
   <!--Hero section-->
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-        <nav class="nav nav-masthead justify-content-center float-md-end" color=white>
-          <a href = "/login" class="nav-link" class="text-white">Login</a>
-          <a href = "/signup" class="nav-link" class="text-white">Get Started</a>
-          <a href = "mailto:gabriella@plenti.ai" class="nav-link" class="text-white">Email Us</a>
-        </nav>
-    </header>
-    <h1 class="text-white">Creating abundance one stock at a time</h1>
-    <p class="text-white">We make investing easy, consistent, and social</p>
-  </div>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <nav class="nav nav-masthead justify-content-center float-md-end" color=white>
+            <a class="nav-link active" aria-current="page" href = "/login" >Login</a>
+            <a href = "/signup" class="nav-link" >Get Started</a>
+            <a href = "mailto:gabriella@plenti.ai" class="nav-link" >Email Us</a>
+          </nav>
+        </div>
+      </header>
 
-  <main class="px-3" color=white>
-    <div id="particles-js"></div>
-    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
-    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
+  <main class="px-3">
+    <h1>Creating abundance one stock at a time</h1>
+    <p class="lead">We make investing easy, consistent, and social</p>
+    <p class="lead">
+      <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
+    </p>
+    <div id="particles-js" width=500 >
+      <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
+      <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
+    </div>
   </main>
 
-  <!--Navbar-->
+  <footer class="mt-auto text-white-50">
+    <p>Built at <a href="https://hackbrightacademy.com/" class="text-white">Hackbright</a>, by <a href="https://twitter.com/mdo" class="text-white">Gabriella Savage</a>.</p>
+  </footer>
+</div>
+
   
+   
+
+  </main>
+
+    <!-- Bootstrap core CSS -->
+
+  <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+          color: rgb(0, 87, 128)
+        }
+
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+        /*
+  * Globals
+  */
+
+
+  /* Custom default button */
+  .btn-secondary,
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    color: #333;
+    text-shadow: none; /* Prevent inheritance from `body` */
+  }
+
+
+  /*
+  * Base structure
+  */
+
+  body {
+    text-shadow: 0 .05rem .1rem rgb(255, 0, 98);
+    box-shadow: inset 0 0 5rem rgba(89, 0, 255, 0.788);
+  }
+
+  .cover-container {
+    max-width: 42em;
+  }
+
+
+  /*
+  * Header
+  */
+
+  .nav-masthead .nav-link {
+    padding: .25rem 0;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .5);
+    background-color: transparent;
+    border-bottom: .25rem solid transparent;
+  }
+
+  .nav-masthead .nav-link:hover,
+  .nav-masthead .nav-link:focus {
+    border-bottom-color: rgba(255, 255, 255, .25);
+  }
+
+  .nav-masthead .nav-link + .nav-link {
+    margin-left: 1rem;
+  }
+
+  .nav-masthead .active {
+    color: #fff;
+    border-bottom-color: #fff;
+  }
+
+
+</style>
 
   <script>
     $(document).ready(function(){
@@ -60,7 +160,7 @@ requestAnimationFrame(update);
 body {
     width: 100%;
     height: 100%;
-    background: #324555
+    background: #b4005a
 
   }
 

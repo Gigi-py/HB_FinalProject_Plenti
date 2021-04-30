@@ -270,8 +270,11 @@ def get_plan_by_id(id):
     return plan
 
 #CHART JS
-def get_price_data(symbol, date):    
+def get_price_data(symbol, date): 
+    print("*"*40, "IN crud.py GET PRICE DATA fn", symbol)
+    print(f"calling api.get_price_data({symbol}, {date})")
     stock_price_data = api.get_price_data(symbol, date)
+   
     return stock_price_data
 
 #SYMBOLS===

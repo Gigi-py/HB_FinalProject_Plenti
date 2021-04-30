@@ -8,7 +8,7 @@
 <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <span class="fs-4">Plenti</span>
+        <img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0" width=100 height=100>
       </a>
   
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
@@ -98,6 +98,7 @@
       <tr>
         <th scope="row"><img src="{{news.get('image')}}" width=100 height=100/></th>
         <td colspan="2">{{news["title"]}}</td>
+          <a src="{{news['url']}}"></a>
         <td colspan="2">{{news["url"]}}</td>
         <td colspan="2">{{news["summary"]}}</td>
       </tr>
