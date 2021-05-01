@@ -92,10 +92,10 @@ def view_all_stocks():
     for symbol in stock_symbols:
        stock = crud.get_stock_by_symbol(symbol) 
        all_stocks.append(stock)
-       
+    logos = ['/static/img/HLT.png']
     username = session.get('username')
     
-    return render_template("/allstocks.html", all_stocks=all_stocks)
+    return render_template("/allstocks.html", all_stocks=all_stocks, logos=logos)
 
 @app.route('/stockdetails/<symbol>')
 def view_stock_details(symbol):
@@ -126,7 +126,6 @@ def user_favorites(username):
     username = session['username']
   
     return render_template('mystocks.html')
-
 
 @app.route('/addsubscription', methods=['POST'])
 def add_subscription():

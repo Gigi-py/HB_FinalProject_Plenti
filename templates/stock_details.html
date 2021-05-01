@@ -93,18 +93,29 @@
         <th scope="row">Similar</th>
         <td colspan="2">{{stock_detail["similar"]}}</td>
       </tr>
+    </tbody>
+  </table>
       
-      {% for news in stock_news_data: %}
+  <table>
+    <tbody>
+      {% for news in stock_news_data[:10]: %}
       <tr>
-        <th scope="row"><img src="{{news.get('image')}}" width=100 height=100/></th>
-        <td colspan="2">{{news["title"]}}</td>
-          <a src="{{news['url']}}"></a>
-        <td colspan="2">{{news["url"]}}</td>
+        <td colspan="2">
+          <div class="plenti-stock-news-cell">
+            <img src="{{news.get('image')}}" width=100 height=100/>
+          </div>
+        </td>
+        <td colspan="2">
+          <div class="plenti-stock-news-cell">
+            <a href="{{news['url']}}">{{news["title"]}}</a>
+          </div>
+        </td>
         <td colspan="2">{{news["summary"]}}</td>
       </tr>
       {% endfor %}
-
-  </tbody>
+    </tbody>
 </table>
+
+
 
 {% endblock %}

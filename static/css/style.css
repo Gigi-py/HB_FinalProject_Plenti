@@ -1,6 +1,7 @@
 
 /*
 COLOR SCHEME:
+
 black:000202
 White: FEFDFD
 Red:F50945
@@ -17,28 +18,50 @@ Muted pink: D5A9B2
 Muted purple: B370A6
 Lilac: A8A3F3
 
+/* CSS HEX
+--mardi-gras: #861388ff;
+--magenta-crayola: #e15a97ff;
+--nadeshiko-pink: #eeabc4ff;
+--tuscany: #c799a6ff;
+--dark-byzantium: #4b2840ff;
+/* 
+/* CSS HEX */
+/* --amber: #ffbf00ff;
+--paradise-pink: #e83f6fff;
+--star-command-blue: #2274a5ff;
+--illuminating-emerald: #32936fff;
+--white: #ffffffff; */ 
+
+/* CSS HEX */
+/* --persian-indigo: #340068ff;
+--ultra-red: #ff6978ff;
+--baby-powder: #fffcf9ff;
+--celeste: #b1ede8ff;
+--eggplant: #6d435aff; */
+
+/* CSS HEX
+--yellow-crayola: #fff07cff;
+--screamin-green: #80ff72ff;
+--sky-blue-crayola: #7ee8faff;
+--baby-pink: #eec0c6ff;
+--new-york-pink: #e58c8aff; */
+
+
+/*FONTS
+font-family: 'Merriweather', serif;
+font-family: 'Varela Round', sans-serif;
+
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
-  color: #333;
+  color: rgb(21, 0, 37);
   text-shadow: none; /* Prevent inheritance from `body` */
 }
 
-
-/*
- * Base structure
- */
-
-body {
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-}
-
 .cover-container {
-  max-width: 42em;
+  max-width: 100em;
 }
-
 
 /*
  * Header
@@ -66,33 +89,41 @@ body {
   border-bottom-color: #fff;
 }
 
-/*bootstrap album example style*/
-
-.bd-placeholder-img {
-font-size: 1.125rem;
-text-anchor: middle;
--webkit-user-select: none;
--moz-user-select: none;
-user-select: none;
+.plenti-stocks {
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
-@media (min-width: 768px) {
-.bd-placeholder-img-lg {
-    font-size: 3.5rem;
+.plenti-stock {
+  border: 0px;
 }
+.plenti-stock-news-cell {
+  padding: 5px;
 }
 
 /*bootstrap pricing example style*/
 body {
-    background-image: linear-gradient(180deg, #eee, #fff 100px, #fff);
+  font-family: 'Merriweather', serif;
+  font-size: 5;
+  font-weight: 100;
+  padding: 50px;
+    /* background-image: linear-gradient(180deg, #eee, #fff 100px, #fff); */
   }
   
-  .container {
-    max-width: 960px;
-  }
-  
-  .pricing-header {
-    max-width: 700px;
-  }
+.container {
+  max-width: 960px;
+}
 
-  
+.pricing-header {
+  max-width: 700px;
+}
+
+.plenti-h1{
+  font-family: 'Merriweather', serif;
+  font-size: 5
+}
+
+.plenti-background{
+  background-image: url("/static/img/pink-sand2.jpg");
+  max-width: 1500px;
+}

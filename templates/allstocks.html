@@ -3,40 +3,7 @@
 {% block title %} My Subscription {% endblock %}     
 
 {% block body %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.82.0">
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
-
-  
-    <!-- Bootstrap core CSS -->
-  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="carousel.css" rel="stylesheet">
-  </head>
-
+ 
 <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
   <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
     <img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0" width=100 height=100>
@@ -55,7 +22,8 @@
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
 
-  <h1 class="display-4 fw-normal">Hi {{username}}! Choose companies</h1>
+  <h1 class="display-4 fw-normal plenti-h1">Hi {{username}}! Choose companies</h1>
+
 
     <!-- <form action="{{ url_for('add_subscription') }}" method="POST"> 
       {% for stock in all_stocks: %}
@@ -65,21 +33,30 @@
       </div>
       {% endfor %} -->
       <div class="container marketing">
-
+        
         <!-- Three columns of text below the carousel -->
-        <div class="row">
-          <div class="col-lg-4">
+        <form action="{{ url_for('add_subscription') }}" method="POST"></form>
+        <div class="plenti-stocks">
+
+        
+          <div class="row row-cols-3 row-cols-md-3 g-4">
+            
+              
             {% for stock in all_stocks: %}
-              <form action="{{ url_for('add_subscription') }}" method="POST"></form>
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+              <div class="col">
+                <div class="card plenti-stock">
+                  <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns={{logos}} role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
-                <h2>{{stock.name}}</h2>
-                <!-- <p>{{stock.description}}</p> -->
-                <p><a class="btn btn-secondary" href="/stockdetails/{{stock.symbol}}">View details &raquo;</a></p>
-                <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
-                {% endfor %}
-
-          </div><!-- /.col-lg-4 -->
+                  <span>{{stock.name}}</span>
+                  <!-- <p>{{stock.description}}</p> -->
+                  <p><a class="btn btn-secondary" href="/stockdetails/{{stock.symbol}}">View details &raquo;</a></p>
+                  <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
+                </div>
+              </div>
+            {% endfor %}
+                
+            </div>
+          </div>
               
   
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
@@ -145,7 +122,8 @@
                 <option value="premium">Premium</option>
             </select>
             <input type="submit">
-          </form>
+              </form>
+
 
           <h1><a href="/searchstock" class='search'>Search more stocks</a></h1>
       
@@ -204,10 +182,6 @@
   </footer>
 </main>
 
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-      
   </body>
 </html>
 {% endblock %}
