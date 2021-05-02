@@ -260,6 +260,28 @@ def get_fav_obj(username, symbol):
 def get_all_blogs():
     return Blog.query.all()
 
+def create_all_blogs():
+    db.session.query(Blog).delete()
+
+    sample_articles = [{"title": "What is a Stock", "url": "https://learn.robinhood.com/articles/6FKal8yK9kk22uk65x3Jno/what-is-a-stock/", "img": "/static/img/stock-robin.svg"},
+    {"title": "What is a portfolio", "url":"https://learn.robinhood.com/articles/4vaR9PkTzes8u3ibLAWrD1/what-is-a-portfolio/", "img": "/static/img/portfolio-robin.svg"},
+    {"title": "What is an Initial Public Offering", "url": "https://learn.robinhood.com/articles/6UsdUrlnUvxiDpDT4D2bup/what-is-an-initial-public-offering-ipo/", "img": "/static/img/ipo-robin.svg"},
+    {"title": "What is Venture Capital", "url": "https://learn.robinhood.com/articles/4XRFKEfckD73crXUgLBsoK/what-is-venture-capital/", "img": "/static/img/vc-robin.svg"},
+    {"title": "What is an Investment Company", "url": "https://learn.robinhood.com/articles/2FxgvV1Nt0LoTq59xJzj3/what-is-an-investment-company/", "img": "/static/img/ic-robin.svg"},
+    {"title": "What is a Stock Option", "url": "https://learn.robinhood.com/articles/YtqceruIQSiHncrlcecPL/what-is-a-stock-option/", "img": "/static/img/option-robin.svg"}
+    ]
+
+    articles_in_db = []
+    for article in sample_articles:
+        title = article['title']
+        url = article['url']
+        img = article['img']
+
+        article = Blog(title=title, url=url, img=img)
+        articles_in_db.append(article)
+        db.session.add(article)
+        db.session.commit()
+
 #PLANS=======
 def get_plan_by_name(name):
     plan = Plan.query.filter(name==name).first()
@@ -280,3 +302,5 @@ def get_price_data(symbol, date):
 #SYMBOLS===
 def get_all_symbols():
     return Symbol.query.all()
+
+

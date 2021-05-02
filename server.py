@@ -10,7 +10,7 @@ import json
 import os
 import math
 from jinja2 import StrictUndefined
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 #INITIALIZING APP=========
@@ -47,8 +47,41 @@ def logout():
 def view_dashboard():
     username = session['username'].upper()  
     all_stocks = Stock.query.all()
+    favorites=UserFavorite.query.filter(username==username)
+    
+    return render_template('/dashboard.html', username=username, all_stocks=all_stocks, favorites=favorites)
 
-    return render_template('/dashboard.html', username=username, all_stocks=all_stocks)
+@app.route('/chartupdate')
+def chart_update():
+    today = datetime.today() 
+    symbol = request.args.get('symbol')
+    date_range = request.args.get('date_range')
+    if date_range == 'week':
+        td = timedelta(7)
+    elif date_range == 'month':
+        td = timedelta(30)
+    elif date_range == 'quarter':
+        td = timedelta(120)
+    else:
+        td = timedelta(5)
+
+    edate = today - timedelta(2)  
+    sdate = edate - td 
+    date=sdate 
+    list_of_dates=[]
+    while date<edate:
+        date+=timedelta(days=1) 
+        list_of_dates.append(date.strftime('%Y-%m-%d'))
+
+    price_data = []
+    for d in list_of_dates:
+        print("="*50, f"in server, symbol = {symbol}")
+        data = crud.get_price_data(symbol, d)
+        price_data.append((d, data.get('close')))
+        price_data_json=json.dumps(price_data)
+        # import pdb; pdb.set_trace()
+
+    return price_data_json
 
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -62,10 +95,16 @@ def show_user_profile(username):
 def subscription(username):
     username = session['username']
     user = crud.get_user_by_username(username)
+    symbols_in_subscription = []
     subscription = Subscription.query.filter(username == username).first()
     plan = crud.get_plan_by_id(subscription.plan_id)
-    stock_in_Subscription = crud.get_stock_in_subscription(subscription.id)
-    return render_template('subscription.html', subscription=subscription, user=user, plan=plan, stock_in_Subscription=stock_in_Subscription)
+    stock_in_subscription = crud.get_stock_in_subscription(subscription.id)
+    for stock in stock_in_subscription:
+        symbols_in_subscription.append(stock.stock_symbol)
+    
+    favorites=UserFavorite.query.filter(username==username)
+
+    return render_template('subscription.html', subscription=subscription, user=user, plan=plan, stock_in_subscription=stock_in_subscription, symbols_in_subscription=symbols_in_subscription, favorites=favorites)
     
 @app.route('/stocks/<username>')
 def user_stocks():
@@ -85,17 +124,18 @@ def searchstocks():
 @app.route('/allstocks')
 def view_all_stocks():
     """view a list of all stocks to invest."""
-    stock_symbols = ['HLT', 'TWLO', 'UPS', 'BAC', 'ADBE', 'DIS', 'FB',
-    'ZM', 'TSLA', 'LULU', 'F', 'WBA']
+    stock_symbols = ['HLT', 'TWLO', 'UPS', 'AMZN', 'ADBE', 'DIS', 'FB',
+    'NFLX', 'TSLA', 'LULU', 'F', 'WBA']
     
     all_stocks = []
+    all_stock_details = []
     for symbol in stock_symbols:
-       stock = crud.get_stock_by_symbol(symbol) 
-       all_stocks.append(stock)
-    logos = ['/static/img/HLT.png']
+       stock = crud.get_stock_by_symbol(symbol)
+       stock_detail = crud.get_stockdetails(symbol) 
+       all_stocks.append((stock, stock_detail))
     username = session.get('username')
     
-    return render_template("/allstocks.html", all_stocks=all_stocks, logos=logos)
+    return render_template("/allstocks.html", all_stocks=all_stocks)
 
 @app.route('/stockdetails/<symbol>')
 def view_stock_details(symbol):
@@ -119,13 +159,7 @@ def add_fav_stock(symbol):
         new_userFav = crud.create_favorites(username, symbol)
     if fav_status == 'remove':
         deleted_stock = crud.delete_favorites(username, symbol)
-    return "Fav added"
-
-@app.route('/favorites/<username>')
-def user_favorites(username):
-    username = session['username']
-  
-    return render_template('mystocks.html')
+    return redirect('/subscription/'+ username)
 
 @app.route('/addsubscription', methods=['POST'])
 def add_subscription():
@@ -141,7 +175,7 @@ def add_subscription():
     subscription_id = new_subscription.id
     for stock in stocks_selected:
         new_stock_in_subscription = crud.create_stock_in_subscription(stock, subscription_id)
-    return redirect('/subscription/<username>')
+    return redirect('/subscription/'+ user_name)
 
 @app.route('/plans')
 def view_plans():
@@ -158,7 +192,6 @@ def add_stocks_to_plan():
 def check_plan():
     subscription = True
     username = session['username']
-    user = crud.get_user_by_username(username)
     return render_template("/checkplan.html", subscription=subscription) 
 
 
@@ -177,22 +210,22 @@ def all_blogs():
 @app.route('/price-chart/<symbol>')
 def show_price_chart(symbol):
     """Get price chart"""
-    # symbol = request.args.get('symbol')
-    dates=['2021-04-23',
-  '2021-04-22',
-  '2021-04-21',
-  '2021-04-20',
-  '2021-04-19']
-    price_data = []
-    for date in dates:
-        print("="*50, f"in server, symbol = {symbol}")
-        data = crud.get_price_data(symbol, date)
-        # print(date)
-        # print(data) # {'status': 'OK', 'from': '2021-04-19', 'symbol': 'TWLO', 'open': 377.86, 'high': 385.99, 'low': 362.5, 'close': 367.46, 'volume': 1973285, 'afterHours': 368, 'preMarket': 382.365}
-        # print(data.get('close'))
-        price_data.append(data.get('close'))
-        # import pdb; pdb.set_trace()
+    today = datetime.today() 
+    td = timedelta(30)
+    edate = today - timedelta(2)  
+    sdate = today - td 
+    date=sdate 
+    list_of_dates=[]
+    while date<edate:
+        date+=timedelta(days=1) 
+        list_of_dates.append(date.strftime('%Y-%m-%d'))
 
+    price_data = []
+    for d in list_of_dates:
+        print("="*50, f"in server, symbol = {symbol}")
+        data = crud.get_price_data(symbol, d)
+        price_data.append((d, data.get('close')))
+        # import pdb; pdb.set_trace()
 
     return render_template('chart.html', price_data=price_data)
 

@@ -162,6 +162,7 @@ class Stock_in_Subscription(db.Model):
     subscription_id = db.Column(db.Integer, db.ForeignKey('subscription.id'), nullable=False) 
     subscription = db.relationship("Subscription",
                              backref="stock_in_subscription")
+    
     def __repr__(self):
         return f'<stock_in_subscription {self.subscription_id} of {self.stock_symbol}>'
 
@@ -172,6 +173,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, autoincrement= True, primary_key=True)
     title = db.Column(db.String)
     url = db.Column(db.String)
+    img = db.Column(db.String)
 
     def __repr__(self):
         return f'<blog {self.title}'

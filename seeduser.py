@@ -76,12 +76,12 @@ db.session.commit()
 
 #BLOGS===========
 
-sample_articles = [{"title": "What is a Stock", "url": "https://learn.robinhood.com/articles/6FKal8yK9kk22uk65x3Jno/what-is-a-stock/"},
-{"title": "What is a portfolio", "url":"https://learn.robinhood.com/articles/4vaR9PkTzes8u3ibLAWrD1/what-is-a-portfolio/"},
-{"title": "What is an Initial Public Offering", "url": "https://learn.robinhood.com/articles/6UsdUrlnUvxiDpDT4D2bup/what-is-an-initial-public-offering-ipo/"},
-{"title": "What is Venture Capital", "url": "https://learn.robinhood.com/articles/4XRFKEfckD73crXUgLBsoK/what-is-venture-capital/"},
-{"title": "What is an Investment Company", "url": "https://learn.robinhood.com/articles/2FxgvV1Nt0LoTq59xJzj3/what-is-an-investment-company/"},
-{"title": "What is a Stock Option", "url": "https://learn.robinhood.com/articles/YtqceruIQSiHncrlcecPL/what-is-a-stock-option/"}
+sample_articles = [{"title": "What is a Stock", "url": "https://learn.robinhood.com/articles/6FKal8yK9kk22uk65x3Jno/what-is-a-stock/", "img": "/static/img/stock-robin.svg"},
+{"title": "What is a portfolio", "url":"https://learn.robinhood.com/articles/4vaR9PkTzes8u3ibLAWrD1/what-is-a-portfolio/", "img": "/static/img/portfolio-robin.svg"},
+{"title": "What is an Initial Public Offering", "url": "https://learn.robinhood.com/articles/6UsdUrlnUvxiDpDT4D2bup/what-is-an-initial-public-offering-ipo/", "img": "/static/img/ipo-robin.svg"},
+{"title": "What is Venture Capital", "url": "https://learn.robinhood.com/articles/4XRFKEfckD73crXUgLBsoK/what-is-venture-capital/", "img": "/static/img/vc-robin.svg"},
+{"title": "What is an Investment Company", "url": "https://learn.robinhood.com/articles/2FxgvV1Nt0LoTq59xJzj3/what-is-an-investment-company/", "img": "/static/img/ic-robin.svg"},
+{"title": "What is a Stock Option", "url": "https://learn.robinhood.com/articles/YtqceruIQSiHncrlcecPL/what-is-a-stock-option/", "img": "/static/img/option-robin.svg"}
 ]
 
 articles_in_db = []

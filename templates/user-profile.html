@@ -6,60 +6,36 @@
 <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <span class="fs-4">Plenti</span>
+        <image src="/static/img/logo-color.png" width=100 height=100></image>
       </a>
   
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Dashboard</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Stocks</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Learning</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="#">Events</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/dashboard">Dashboard</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/allstocks">Stocks</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/blog">Learning</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="/event">Events</a>
         <a class="py-2 text-dark text-decoration-none" href="#">Contact Us</a>
       </nav>
     </header>
   
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">{{user.username.upper()}}'s Profile</h1>
+      <h1 class="display-4 fw-normal">{{user.username}}'s Profile</h1>
       <p class="fs-5 text-muted">Thank you for being our customer</p>
     </div>
 
 <div class="card">
-  <img src="/static/img/JLo.jpeg" alt="gabriella" style="width:100%">
+  <img src="/static/img/users/GSav.png" alt="gabriella" class="bd-placeholder-img rounded-circle" width="200" height="200" >
   <h1>{{user.fname}} {{user.lname}} </h1>
   <p class="title">{{user.email}}</p>
   <p>{{user.address}}</p>
   <div style="margin: 24px 0;">
-    <a href="#"><i class="fa fa-dribbble"></i></a> 
-    <a href="#"><i class="fa fa-twitter"></i></a>  
-    <a href="#"><i class="fa fa-linkedin"></i></a>  
-    <a href="#"><i class="fa fa-facebook"></i></a> 
+    <a href="https://www.instagram.com/codeitbabe/"><i class="fa fa-instagram"></i></a> 
+    <a href="https://twitter.com/gabriella_codes"><i class="fa fa-twitter"></i></a>  
+    <a href="https://www.linkedin.com/in/gabriellahsavage/"><i class="fa fa-linkedin"></i></a>  
   </div>
   <p><a href="/dashboard">Update my information
   </a></p>
 </div>
 
-<!--chat feature-->
-    <button class="open-button" onclick="openForm()">Chat</button>
 
-    <div class="chat-popup" id="myForm">
-    <form action="/dashboard, method=['POST']" class="form-container">
-        <h1>Chat</h1>
-
-        <label for="msg"><b>Message</b></label>
-        <textarea placeholder="Type message.." name="msg" required></textarea>
-
-        <button type="submit" class="btn">Send</button>
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-    </form>
-    </div>
-
-    <script>
-        function openForm() {
-        document.getElementById("myForm").style.display = "block";
-        }
-
-        function closeForm() {
-        document.getElementById("myForm").style.display = "none";
-        }
-    </script>
 {% endblock %}

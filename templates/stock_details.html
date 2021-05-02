@@ -75,7 +75,7 @@
       </tr>
       <tr>
         <th scope="row">Company Website</th>
-        <td colspan="2">{{stock_detail["url"]}}</td>
+        <td colspan="2"><a href='{{stock_detail["url"]}}'>Website</a></td>
       </tr>
       <tr>
         <th scope="row">HQ Address</th>
@@ -87,11 +87,23 @@
       </tr>
       <tr>
         <th scope="row">Tags</th>
-        <td colspan="2">{{stock_detail["tags"]}}</td>
+        <td colspan="2">
+          {% for tag in stock_detail["tags"]: %}
+            {% if tag == stock_detail["tags"][-1] %}
+              {{tag}} 
+            {% else %}
+              {{tag + "|  "}} 
+            {% endif %}
+          {% endfor %}
+        </td>
       </tr>
       <tr>
         <th scope="row">Similar</th>
-        <td colspan="2">{{stock_detail["similar"]}}</td>
+        <td colspan="2">
+          {% for similar in stock_detail["similar"]: %}
+            <a href="/stockdetails/{{similar}}">{{similar}}</a>
+          {% endfor %}
+        </td>
       </tr>
     </tbody>
   </table>

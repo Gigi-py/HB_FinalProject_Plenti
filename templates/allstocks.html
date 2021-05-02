@@ -35,29 +35,25 @@
       <div class="container marketing">
         
         <!-- Three columns of text below the carousel -->
-        <form action="{{ url_for('add_subscription') }}" method="POST"></form>
+      <form action="/addsubscription" method="POST">
         <div class="plenti-stocks">
-
-        
           <div class="row row-cols-3 row-cols-md-3 g-4">
             
-              
-            {% for stock in all_stocks: %}
-              <div class="col">
+            {% for stock, stock_detail in all_stocks: %}
+              <div class="col"> 
                 <div class="card plenti-stock">
-                  <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns={{logos}} role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                  <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{{stock_detail.logo}}" />
 
-                  <span>{{stock.name}}</span>
+                  <span>{{stock_detail.name}}</span>
                   <!-- <p>{{stock.description}}</p> -->
                   <p><a class="btn btn-secondary" href="/stockdetails/{{stock.symbol}}">View details &raquo;</a></p>
-                  <input type="checkbox" id="{{stock.symbol}}" name="stocknames" value="{{stock.symbol}}">
+                  <input type="checkbox" id="{{stock_detail.symbol}}" name="stocknames" value="{{stock_detail.symbol}}">
                 </div>
               </div>
             {% endfor %}
                 
             </div>
-          </div>
-              
+        </div>              
   
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal">Plan Details</h1>
@@ -122,8 +118,7 @@
                 <option value="premium">Premium</option>
             </select>
             <input type="submit">
-              </form>
-
+          </form>
 
           <h1><a href="/searchstock" class='search'>Search more stocks</a></h1>
       

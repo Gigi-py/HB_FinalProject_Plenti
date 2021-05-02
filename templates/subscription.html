@@ -20,7 +20,7 @@
     </header>
   
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">{{user.username.upper()}}'s Membership</h1>
+      <h1 class="display-4 fw-normal">{{user.username}}'s Membership</h1>
     </div>
 
 <table class="table">
@@ -45,8 +45,21 @@
     </tr>
     <tr>
       <th scope="row">Stocks in Subscription</th>
-      <td>{{stock_in_Subscription}}</td>
+      <td>
+        {% for symbol in symbols_in_subscription: %}
+            <a href="/stockdetails/{{symbol}}">{{symbol}}</a>
+          {% endfor %}
+      </td>
     </tr>
+    <tr>
+      <th scope="row">Favorites</th>
+      <td>
+        {% for favorite in favorites: %}
+            <a href="/stockdetails/{{favorite.symbol}}">{{favorite.symbol}}</a>
+          {% endfor %}
+      </td>
+    </tr>
+    
   </tbody>
 </table>
 
