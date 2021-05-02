@@ -90,33 +90,7 @@ def get_stock_details(symbol):
     
     return response_json
 
-#Create and return new Stockdetail:
-
-# def serialize_api_details(api_details):
-#     allowed_keys = [
-#       "logo",
-#       "listdate",
-#       "cik",
-#       "country", 
-#       "industry",
-#       "marketcap",
-#       "employees",
-#       "phone",
-#       "ceo",
-#       "url", 
-#       "description",
-#       "exchange",
-#       "name",
-#       "symbol",
-#       "hq_address",
-#       "hq_state",
-#       "hq_country",
-#       "tags",
-#       "similar"]
-
-#     return {k: v for k, v in api_details.items() if k in allowed_keys}
-
-        
+     
 def get_news_details(symbol):
     """Get stock news info from POLYGON API to store in db """    
     response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/news?perpage=50&page=1&apiKey=" + POLY_API_KEY)
@@ -142,3 +116,20 @@ def get_price_data(symbol, date):
     # print(f"response_json: \n{response_json}")
     
     return response_json
+
+def get_geocode(symbol):
+    print("\t", "*"*20, "IN api.py GET GEOLOCATION DATA fn \nsymbol = ", symbol)
+    
+    response = requests.get("https://api.polygon.io/v1/meta/symbols/" + symbol + "/company?&apiKey=" + POLY_API_KEY)
+    response_json = response.json()
+    hq_address = response_json["hq_address"]
+
+    geo_request = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + hq_address + "&key=AIzaSyCGBE_HYW8qt3BnNFW3gKoYb2GWHDThAt8")
+    geo_request_json = geo_request.json()
+    
+    #getting the LatLng of the location
+    latlng = geo_request_json['results'][0]['geometry']['location']
+
+    return latlng
+    # response_json = response.json()
+

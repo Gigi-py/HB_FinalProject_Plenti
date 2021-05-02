@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from model import connect_to_db, db, User, Stock, Stockprice, UserFavorite, Plan, Blog, Subscription, Stock_in_Subscription, Event, Comment
 from random import sample, choice
-import crud
+import crud, api
 import json
 import os
 import math
@@ -265,9 +265,16 @@ def register_user():
     session['username'] = request.form.get('username')
     return redirect('/dashboard')
 
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
+@app.route('/mapupdate')
+def show_map():
+    print(request.args)
+    print(request.form)
+    symbol = request.args.get('symbol')
+    name = crud.get_stockdetails(symbol)['name']
+    latlng = api.get_geocode(symbol)
+
+    return latlng
+
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
