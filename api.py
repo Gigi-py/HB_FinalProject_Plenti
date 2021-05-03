@@ -4,6 +4,7 @@ API_URL = "https://www.alphavantage.co/query"
 
 AA_API_KEY = os.environ['AA_API_KEY']
 POLY_API_KEY = os.environ['POLY_API_KEY']
+GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
 # https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo
 # https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo
