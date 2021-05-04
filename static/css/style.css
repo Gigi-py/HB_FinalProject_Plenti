@@ -61,6 +61,7 @@ font-family: 'Varela Round', sans-serif;
 
 .cover-container {
   max-width: 100em;
+  
 }
 
 /*
@@ -124,8 +125,10 @@ body {
 }
 
 .plenti-background{
-  background-image: url("/static/img/cover-background3.jpg");
-  max-width: 100%
+  background-image: url("/static/img/cover-background3.jpg")  no-repeat center center;
+  background-size: cover;
+  max-width: 100%;
+  filter: blur(20px) grayscale(20%);
   }
 
 .plenti-nav{
@@ -136,4 +139,41 @@ body {
 
 .plenti-footer{
   padding-bottom: 200px;
+}
+
+.plenti-blog-container{
+  background-color: rgb(254, 249, 255)
+
+}
+
+.plenti-login-background{
+  background-image: url("/static/img/cover-background5.jpg") no-repeat center center;
+  /* background-size: cover;
+  max-width: 100%;
+  filter: blur(20px) grayscale(20%); */
+}
+/* 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', serif;
+} */
+
+body { font-family: "Raleway", sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Ubuntu", serif;
+  font-weight:  700;
+}
+
+#plenti-search-container{
+  background-image: url("/static/img/cover-background5.jpg") !important; 
+  background-size: cover;
+  max-width: 100%;
+
+}
+
+#plenti-allstock-container{
+  background-color: rgb(242, 243, 255);
+  padding-left: 100px;
+  padding-right: 100px;
+  
 }
