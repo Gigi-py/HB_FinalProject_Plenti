@@ -63,10 +63,9 @@ a:link {
 }
 
 body {
-    background: #e8cbc0;
-    background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
-    background: linear-gradient(to right, #e8cbc0, #636fa4);
-    min-height: 100vh;
+    background-image: url("/static/img/cover-background2.jpg") !important; 
+    background-size: auto;
+    max-width: 100%;
 }
 
 .bootstrap-select .bs-ok-default::after {
@@ -79,3 +78,5 @@ body {
 .btn.dropdown-toggle:focus {
     outline: none !important;
 }
+
+/*custom CSS*/

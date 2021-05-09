@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %} Search stock{% endblock %}    
- 
+
+{% block head %}<link href="/static/css/search.css" rel="stylesheet">{% endblock %}
+
 {% block body %}
 
-<link href="/static/css/search.css" rel="stylesheet">
-
 <!--Make sure the form has the autocomplete function switched off:-->
-<html id="plenti-search-container">
+<div id="plenti-search-container">
     <div class="container py-5">
         <!-- For demo purpose -->
         <div class="row text-center text-white mb-5 py-4">
@@ -30,6 +30,6 @@
             </div>
         </div>
     </div>
-</html>
+</div>
 
 {% endblock %}
