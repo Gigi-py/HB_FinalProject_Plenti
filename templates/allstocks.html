@@ -48,7 +48,9 @@
                 
             </div>
         </div>              
-  
+        
+        <h1 class="plenti-h1"><a href="/searchstock">Search more stocks</a></h1>
+
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal" id="plenti-allstock-h2">Plan Details</h1>
         </div>
@@ -58,12 +60,12 @@
             <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
               <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
-                  <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal plenti-h4">Beginner</h4>
+                  <div class="card-header py-3 plenti-card-background">
+                    <h4 class="my-0 fw-normal">Beginner</h4>
                   </div>
                   <div class="card-body">
                     <h1 class="card-title pricing-card-title">$20<small class="text-muted fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
+                    <ul class="list-unstyled mt-3 mb-4 plenti-ul">
                       <li>Choose 5 stocks</li>
                       <li>Access content library</li>
                       <li>Email support</li>
@@ -73,12 +75,12 @@
               </div>
               <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
-                  <div class="card-header py-3">
+                  <div class="card-header py-3 plenti-card-background">
                     <h4 class="my-0 fw-normal">Pro</h4>
                   </div>
                   <div class="card-body">
                     <h1 class="card-title pricing-card-title">$50<small class="text-muted fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
+                    <ul class="list-unstyled mt-3 mb-4 plenti-ul">
                       <li>All of Beginner coverage</li>
                       <li>Swap stock during the month</li>
                       <li>Priority email support</li>
@@ -87,13 +89,13 @@
                 </div>
               </div>
               <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                  <div class="card-header py-3 text-white bg-primary border-primary">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3 plenti-card-background">
                     <h4 class="my-0 fw-normal">Premium</h4>
                   </div>
                   <div class="card-body">
                     <h1 class="card-title pricing-card-title">$100<small class="text-muted fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
+                    <ul class="list-unstyled mt-3 mb-4 plenti-ul">
                       <li>All of Pro coverage</li>
                       <li>Exclusive events</li>
                       <li>Phone and email support</li>
@@ -103,24 +105,25 @@
               </div>
             </div>
             
-                  <!--CHOOSE SUBSCRIPTION-->
-            <label for="plan-select">Choose plans:</label>
-            <select name="plans" id="plan-select">
-                <option value="">--Please choose an option--</option>
-                <option value="starter">Starter</option>
-                <option value="pro">Pro</option>
-                <option value="premium">Premium</option>
-            </select>
-            <input type="submit">
-          </form>
-
-          <h1><a href="/searchstock" class='search'>Search more stocks</a></h1>
       
+                  <!--CHOOSE SUBSCRIPTION-->
+            <div class="plenti-h5"><label for="plan-select" class="plenti-label">Choose plans:</label>
+              <select name="plans" id="plan-select">
+                  <option value="">--Please choose an option--</option>
+                  <option value="starter">Starter</option>
+                  <option value="pro">Pro</option>
+                  <option value="premium">Premium</option>
+              </select>
+              <input type="submit">
+            </form>
+        </div>
+
+          
     <!-- START THE FEATURETTES -->
 
-    <hr class="featurette-divider">
+    <hr class="plenti-featurette-divider">
 
-    <div class="row featurette">
+    <div class="row featurette plenti-feature-h1">
       <div class="col-md-7">
         <h2 class="featurette-heading">Invest in what you love <span class="text-muted">it's easier than you think</span></h2>
         <p class="lead">Tell us companies that you believe in and we will do the rest.</p>
@@ -132,23 +135,23 @@
       </div>
     </div>
 
-    <hr class="featurette-divider">
+    <hr class="plenti-featurette-divider">
 
-    <div class="row featurette">
+    <div class="row featurette plenti-feature-h1">
       <div class="col-md-7 order-md-2">
         <h2 class="featurette-heading">Build consistent investment habits <span class="text-muted">Invest each month</span></h2>
         <p class="lead">We help you build momentum by automatically allocating your investment across your favorite stocks </p>
       </div>
       <div class="col-md-5 order-md-1">
         <a href="/dashboard" class="d-flex align-items-center text-dark text-decoration-none">
-          <img id="growth" src="static/img/growth2.jpg" class="float-md-start mb-0" width=350>
+          <img id="growth" src="static/img/growth1.jpg" class="float-md-start mb-0" width=350>
         </a>
       </div>
     </div>
 
-    <hr class="featurette-divider">
+    <hr class="plenti-featurette-divider">
 
-    <div class="row featurette">
+    <div class="row featurette plenti-feature-h1">
       <div class="col-md-7">
         <h2 class="featurette-heading">Learn as you invest<span class="text-muted"> Explore knowledge base </span></h2>
         <p class="lead">We want to make you the expert by sharing the knowledge you need and latest market update</p>
@@ -160,7 +163,7 @@
       </div>
     </div>
 
-    <hr class="featurette-divider">
+    <hr class="plenti-featurette-divider">
 
     <!-- /END THE FEATURETTES -->
 
@@ -170,7 +173,7 @@
   <!-- FOOTER -->
   <footer class="container">
     <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2021 Plenti, Inc. &middot; </p>
+    <p>&copy; 2017–2021 Plenti, Inc.</p>
   </footer>
 </main>
 

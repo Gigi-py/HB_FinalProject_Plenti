@@ -52,12 +52,7 @@ font-family: 'Merriweather', serif;
 font-family: 'Varela Round', sans-serif;
 
 /* Custom default button */
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: rgb(21, 0, 37);
-  text-shadow: none; /* Prevent inheritance from `body` */
-}
+
 
 .cover-container {
   max-width: 100em;
@@ -123,10 +118,7 @@ font-family: 'Varela Round', sans-serif;
   padding-bottom: 200px;
 }
 
-.plenti-blog-container{
-  background-color: rgb(254, 249, 255)
 
-}
 
 .plenti-login-background{
   background-image: url("/static/img/cover-background5.jpg") no-repeat center center;
