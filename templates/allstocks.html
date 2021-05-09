@@ -24,7 +24,7 @@
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
 
-  <h1 class="display-4 fw-normal plenti-allstock-h1">Choose companies</h1>
+  <h1 class="display-4 fw-normal text-center plenti-allstock-h1">Feature Stocks</h1>
 
       <div class="container marketing">
         
@@ -34,14 +34,14 @@
           <div class="row row-cols-3 row-cols-md-3 g-4">
             
             {% for stock, stock_detail in all_stocks: %}
-              <div class="col"> 
-                <div class="card plenti-stock">
+              <div class="col" > 
+                <div class="card plenti-stock align-items-center">
                   <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{{stock_detail.logo}}" />
 
-                  <span>{{stock_detail.name}}</span>
+                  <div class="plenti-logo-name"><span >{{stock_detail.name}}</span></div>
                   <!-- <p>{{stock.description}}</p> -->
-                  <p><a class="btn btn-secondary" href="/stockdetails/{{stock.symbol}}">View details &raquo;</a></p>
-                  <input type="checkbox" id="{{stock_detail.symbol}}" name="stocknames" value="{{stock_detail.symbol}}">
+                  <p><a class="btn btn-secondary" id="plenti-allstock-button" href="/stockdetails/{{stock.symbol}}">View details &raquo;</a></p>
+                  <input class="plenti-checkbox" type="checkbox" id="{{stock_detail.symbol}}" name="stocknames" value="{{stock_detail.symbol}}">
                 </div>
               </div>
             {% endfor %}
@@ -50,7 +50,7 @@
         </div>              
   
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal">Plan Details</h1>
+            <h1 class="display-4 fw-normal" id="plenti-allstock-h2">Plan Details</h1>
         </div>
         <div class="container marketing">
 
@@ -59,7 +59,7 @@
               <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
                   <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Beginner</h4>
+                    <h4 class="my-0 fw-normal plenti-h4">Beginner</h4>
                   </div>
                   <div class="card-body">
                     <h1 class="card-title pricing-card-title">$20<small class="text-muted fw-light">/mo</small></h1>
