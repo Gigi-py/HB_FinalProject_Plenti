@@ -8,9 +8,8 @@
 {% block body %}
 
   <!--Hero section-->
-  <body class="d-flex h-100 text-center text-white bg-white">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column plenti-background">
-      <header class="mb-auto plenti-nav">
+      <!-- <header class="mb-auto plenti-nav">
         <div>
           <nav class="nav nav-masthead justify-content-center float-md-end" color=white>
             <a class="nav-link active" aria-current="page" href = "/login" >Login</a>
@@ -18,49 +17,18 @@
             <a href = "mailto:gabriella@plenti.ai" class="nav-link" >Email Us</a>
           </nav>
         </div>
-      </header>
+      </header> -->
 
-  <main class="px-3">
     <h1>Creating abundance one stock at a time</h1>
     <p class="lead">We make investing easy, consistent, and social</p>
     <p class="lead">
       <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
     </p>
-    <div id="particles-js" width=500>
-      <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
-      <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>
-    </div>
-  </main>
-
-  <footer class="mt-auto text-white-50 plenti-footer">
+    
+  <!-- <footer class="mt-auto text-white-50 plenti-footer">
     <p>Built at <a href="https://hackbrightacademy.com/" class="text-white">Hackbright</a>, by <a href="https://www.linkedin.com/in/gabriellahsavage/" class="text-white">Gabriella Savage</a>.</p>
-  </footer>
+  </footer> -->
 </div>
 </body>
-
-  <script>
-    $(main).ready(function(){
-
-var count_particles, stats, update;
-stats = new Stats;
-stats.setMode(0);
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.left = '0px';
-stats.domElement.style.top = '0px';
-document.body.appendChild(stats.domElement);
-count_particles = document.querySelector('.js-count-particles');
-update = function() {
-stats.begin();
-stats.end();
-if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-}
-requestAnimationFrame(update);
-};
-requestAnimationFrame(update);
-
-
-});
-  </script>
 
 {% endblock %}

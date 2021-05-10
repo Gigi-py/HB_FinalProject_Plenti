@@ -10,12 +10,12 @@
   <!-- Navbar -->
   <div class="container py-3 plenti-blog-container">
 
-  <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+  <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4">
     <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
       <img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0" width=100 height=100>
     </a>
   
-    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto plenti-nav-font">
       <a class="me-3 py-2 text-dark text-decoration-none" href="/dashboard">Dashboard</a>
       <a class="me-3 py-2 text-dark text-decoration-none" href="/searchstock">Stocks</a>
       <a class="me-3 py-2 text-dark text-decoration-none" href="/blog">Learning</a>
@@ -30,22 +30,20 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Investing 101</h1>
-        <p class="lead text-muted">Let us help you get started with these bite size tips</p>
-        <p>
-          <a href="/allstocks" class="btn btn-primary my-2">Start investing today </a>
-        </p>
+        <h1 class="fw-light plenti-h1">Investing 101</h1>
+        <p class="lead plenti-feature-h1">Let us help you get started with these bite size tips</p>
+          <a href="/allstocks" class="btn btn-secondary plenti-btn-color">Start investing today </a>
       </div>
     </div>
   </section>
 
-  <div class="album py-5 bg-light">
+  <div class="album py-5 plenti-album">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for blog in blogs %}
         <div class="col">
           <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{blog.img}}"/>
+            <img class="bd-placeholder-img card-img-top" width="300" height="250" src="{{blog.img}}"/>
             <div class="card-body">
               <p class="card-text">{{blog.title}}</p>
               <div class="d-flex justify-content-between align-items-center">
@@ -67,9 +65,9 @@
 </main>
       
 <!--Sticky footer-->
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="footer mt-auto py-3 plenti-album">
   <div class="container">
-    <p>@Built at <a href="https://hackbrightacademy.com/" class="text-muted">Hackbright</a>, by <a href="https://www.linkedin.com/in/gabriellahsavage/" class="text-muted">Gabriella Savage</a>.</p>
+    <p>@Built at <a href="https://hackbrightacademy.com/" class="footer">Hackbright</a>, by <a href="https://www.linkedin.com/in/gabriellahsavage/" class="footer">Gabriella Savage</a>.</p>
   </div>
 </footer>
 </div>

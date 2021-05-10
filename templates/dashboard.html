@@ -6,9 +6,9 @@
 
 {% block body %}
 
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/"><img src="static/img/logo-color.png" width=40 height=40></a>
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    <header class="navbar sticky-top flex-md-nowrap p-0 shadow plenti-nav">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/"><img id="logo" src="static/img/logo-color.png" class="float-md-start mb-0" width=80 height=80></a>
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto plenti-nav-2">
         <a class="me-3 py-2 text-white text-decoration-none" href="#">Dashboard</a>
         <a class="me-3 py-2 text-white text-decoration-none" href="/allstocks">Stocks</a>
         <a class="me-3 py-2 text-white text-decoration-none" href="/blog">Learning</a>
@@ -17,47 +17,9 @@
       </nav>
     </header>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-          <div class="position-sticky pt-3">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
-                  <span data-feather="home"></span>
-                  Dashboard
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file"></span>
-                  Stocks
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="shopping-cart"></span>
-                  Learning
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Events
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Contact Us
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-  <div class="container-fluid">
+  <div class="container-fluid plenti-container">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse plenti-sidebar">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             
@@ -75,13 +37,13 @@
             </li>
             <li class="nav-item">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{url_for ('view_all_stocks')}}">
+              <a class="nav-link" aria-current="page" href="{{url_for ('view_all_stocks')}}">
                 <span data-feather="home"></span>
                 Select Stocks
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/searchstock">
+              <a class="nav-link" aria-current="page" href="/searchstock">
                 <span data-feather="home"></span>
                 Search stocks
               </a>
@@ -112,17 +74,17 @@
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2 plenti-dashboard-h1">{{username}}'s Dashboard</h1>
+          <h1 class="plenti-dashboard-h1">{{username}}'s Dashboard</h1>
           <form id='price-chart' name='price-chart' action="/chartupdate">
-            <label for="symbol">Stock Symbol:</label><br>
+            <label for="symbol" class="plenti-dashboard-h3">Stock Symbol:</label><br>
             <input type="text" id="symbol" name="symbol"><br> 
-            <label for="range">Choose a date range:</label>
-            <select id="date_range" name="date_range">
+            <label for="range" class="plenti-dashboard-h3">Choose a date range:</label>
+            <select id="date_range" name="date_range" class="plenti-dashboard-h3">
               <option value="week">Previous Week</option>
               <option value="month">Previous Month</option>
               <option value="quarter">Previous Quarter</option>
             </select>
-            <input type="submit" value="submit">
+            <input type="submit" value="submit" class="btn btn-secondary">
           </form>
         </div>
            
@@ -130,16 +92,24 @@
         <div id='newChartDiv'><canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas></div>
         <!--MAP-->
 
-        <h2 class="plenti-dashboard-h2">Company Headquarter Map</h2>
+        <h2 class="plenti-dashboard-h1 border-bottom">Company Headquarter Map</h2>
         
         <!--The div element for the map -->
           <div id="map" style="height: 480px;"></div>
          
          <!-- <div id="map"></div> -->
-        
+      
+         <footer class="footer mt-auto py-3 text-muted">
+          <div class="container">
+            <p>@Built at <a href="https://hackbrightacademy.com/" class="footer">Hackbright</a>, by <a href="https://www.linkedin.com/in/gabriellahsavage/" class="footer">Gabriella Savage</a>.</p>
+          </div>
+        </footer>
+
       </main>
+
+     
     </div>
-  </div>
+  
 
 <script>
   $('#price-chart').on('submit', (evt) => {
@@ -219,5 +189,7 @@ function initialize(marker=false) {
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGBE_HYW8qt3BnNFW3gKoYb2GWHDThAt8&callback=initialize&libraries=&v=weekly"
   async
 ></script>
+
+
 
 {% endblock %}
