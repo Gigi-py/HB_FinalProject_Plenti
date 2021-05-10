@@ -5,7 +5,8 @@ body {
     overflow-x: hidden;
     height: 100%;
     background-image: linear-gradient(to right, #e83f6fff, #2274a5ff);
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
+    font-family: 'Merriweather', serif;
 }
 
 input,

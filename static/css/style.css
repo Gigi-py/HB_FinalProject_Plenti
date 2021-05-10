@@ -50,18 +50,7 @@ Lilac: A8A3F3
 /*FONTS
 font-family: 'Merriweather', serif;
 font-family: 'Varela Round', sans-serif;
-
-/* Custom default button */
-
-
-.cover-container {
-  max-width: 100em;
-  
-}
-
-/*
- * Header
- */
+*/
 
 .nav-masthead .nav-link {
   padding: .25rem 0;
@@ -100,25 +89,6 @@ font-family: 'Varela Round', sans-serif;
 .pricing-header {
   max-width: 700px;
 }
-
-.plenti-background{
-  background-image: url("/static/img/cover-background3.jpg")  no-repeat center center;
-  background-size: cover;
-  max-width: 100%;
-  filter: blur(20px) grayscale(20%);
-  }
-
-.plenti-nav{
-  padding-top: 50px;
-  padding-bottom: 200px;
-  margin-top: 50px;
-}
-
-.plenti-footer{
-  padding-bottom: 200px;
-}
-
-
 
 .plenti-login-background{
   background-image: url("/static/img/cover-background5.jpg") no-repeat center center;

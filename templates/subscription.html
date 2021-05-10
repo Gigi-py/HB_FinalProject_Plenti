@@ -2,17 +2,17 @@
 
 {% block title %} My Subscription {% endblock %}     
 
-{% block head %}<link href="/static/css/subscription.css" rel="stylesheet">{% endblock %}
+{% block head %}<link href="/static/css/user.css" rel="stylesheet">{% endblock %}
 
 {% block body %}
 
 <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <span class="fs-4">Plenti</span>
+        <img id="logo" src="/static/img/logo-color.png" class="float-md-start mb-0" width=100 height=100>
       </a>
   
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto plenti-nav-font">
         <a class="me-3 py-2 text-dark text-decoration-none" href="#">Dashboard</a>
         <a class="me-3 py-2 text-dark text-decoration-none" href="#">Stocks</a>
         <a class="me-3 py-2 text-dark text-decoration-none" href="#">Learning</a>
@@ -22,10 +22,10 @@
     </header>
   
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">{{user.username}}'s Membership</h1>
+      <h1 class="display-4 fw-normal plenti-h1">{{user.username}}'s Membership</h1>
     </div>
 
-<table class="table">
+<table class="table plenti-h3">
   <thead>
     <tr>
       <th scope="col">Metric</th>

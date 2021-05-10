@@ -30,7 +30,7 @@
     {% if fav_status == False: %}
       <form action="/favorites/{{stock.symbol}}", method='POST'>
         <input type="hidden" name="fav-action" value="add">
-        <button class="favorite styled "
+        <button class="btn btn-secondary plenti-btn-color"
           type="submit">Add to favorites</button>         
       </form>
     {% endif %}

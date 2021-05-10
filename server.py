@@ -35,7 +35,7 @@ def login():
     """Sign in user"""
     #to do: check validity of the user
     session['username'] = request.form.get('username')
-    return redirect('/dashboard')
+    return redirect('/allstocks')
 
 @app.route('/logout')
 def logout():
