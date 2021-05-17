@@ -23,7 +23,7 @@ bcrypt = Bcrypt(app)
 @app.route('/') 
 def show_homepage():
     """Homepage"""
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/login', methods=['GET']) 
 def show_login_form():
